@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"romanticqq.top","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="AlexNetAlexNet——验证了深度卷积神经网络的高效性  主体贡献 提出了一种卷积层加全连接层的卷积神经网络结构；  首次使用ReLU函数做为神经网络的激活函数；  首次提出Dropout正则化来控制过拟合 ； 使用加入动量的小批量梯度下降算法加速了训练过程的收敛； 使用数据增强策略极大地抑制了训练过程的过拟合；  利用了GPU的并行计算能力，加速了网络的训练与推断；  结构 NORM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="经典网络分析">
+<meta property="og:url" content="https://romanticqq.top/posts/13634/index.html">
+<meta property="og:site_name" content="RomanticQq">
+<meta property="og:description" content="AlexNetAlexNet——验证了深度卷积神经网络的高效性  主体贡献 提出了一种卷积层加全连接层的卷积神经网络结构；  首次使用ReLU函数做为神经网络的激活函数；  首次提出Dropout正则化来控制过拟合 ； 使用加入动量的小批量梯度下降算法加速了训练过程的收敛； 使用数据增强策略极大地抑制了训练过程的过拟合；  利用了GPU的并行计算能力，加速了网络的训练与推断；  结构 NORM">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003152950.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153020.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153124.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153205.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003152829.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003205744.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003210036.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003213738.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003210609.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003211407.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003212318.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003211538.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004161701.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004162104.jpg">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004192544.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004162758.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004193002.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004193250.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010193207.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010193618.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010194206.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010194303.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010195045.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010195641.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010205947.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010211858.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010212138.png">
+<meta property="article:published_time" content="2021-10-03T06:38:52.000Z">
+<meta property="article:modified_time" content="2022-08-27T11:47:39.000Z">
+<meta property="article:author" content="RomanticQq">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="计算机视觉">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003152950.png">
+
+
+<link rel="canonical" href="https://romanticqq.top/posts/13634/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>经典网络分析 | RomanticQq</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+    <script type="text/javascript" src="/love.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">RomanticQq</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">保持对生活的热爱，唯有生活不可被辜负</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AlexNet"><span class="nav-text">AlexNet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E4%BD%93%E8%B4%A1%E7%8C%AE"><span class="nav-text">主体贡献</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-text">结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E5%B1%82"><span class="nav-text">卷积层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%A0%E5%8C%96%E5%B1%82"><span class="nav-text">池化层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E7%9B%B8%E5%BA%94%E5%BD%92%E4%B8%80%E5%8C%96%E5%B1%82"><span class="nav-text">局部相应归一化层</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-text">作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82"><span class="nav-text">全连接层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E"><span class="nav-text">重要说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%8A%80%E5%B7%A7"><span class="nav-text">重要技巧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AlexNet%E5%8D%B7%E7%A7%AF%E5%B1%82%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88"><span class="nav-text">AlexNet卷积层在做什么</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZFNet"><span class="nav-text">ZFNet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-text">主体结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%94%B9%E8%BF%9B"><span class="nav-text">主要改进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AlexNet%E4%B8%8EZFNet%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-text">AlexNet与ZFNet的对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VGG"><span class="nav-text">VGG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84-1"><span class="nav-text">结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VGG%E7%9A%84%E8%BE%93%E5%85%A5"><span class="nav-text">VGG的输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VGG16-VS-VGG19"><span class="nav-text">VGG16 VS VGG19</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%80%83"><span class="nav-text">思考</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%981%EF%BC%9A%E5%B0%8F%E5%8D%B7%E7%A7%AF%E6%A0%B8%E6%9C%89%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8A%BF%EF%BC%9F"><span class="nav-text">问题1：小卷积核有哪些优势？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%982%EF%BC%9A%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88VGG%E7%BD%91%E7%BB%9C%E5%89%8D%E5%9B%9B%E6%AE%B5%E9%87%8C%EF%BC%8C%E6%AF%8F%E7%BB%8F%E8%BF%87%E4%B8%80%E6%AC%A1%E6%B1%A0%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%8D%B7%E7%A7%AF%E6%A0%B8%E4%B8%AA%E6%95%B0%E5%B0%B1%E5%A2%9E%E5%8A%A0%E4%B8%80%E5%80%8D%EF%BC%9F"><span class="nav-text">问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%983%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%B7%E7%A7%AF%E6%A0%B8%E4%B8%AA%E6%95%B0%E5%A2%9E%E5%8A%A0%E5%88%B0512%E5%90%8E%E5%B0%B1%E4%B8%8D%E5%86%8D%E5%A2%9E%E5%8A%A0%E4%BA%86%EF%BC%9F"><span class="nav-text">问题3：为什么卷积核个数增加到512后就不再增加了？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GoogleNet"><span class="nav-text">GoogleNet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GoogleNet%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-text">GoogleNet的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GoogleNet%E7%9A%84%E5%88%9B%E6%96%B0%E7%82%B9"><span class="nav-text">GoogleNet的创新点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E8%81%94%E7%BB%93%E6%9E%84%EF%BC%88%E5%A6%82VGG%EF%BC%89%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">串联结构（如VGG）存在的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Inception%E6%A8%A1%E5%9D%97%E5%92%8CInception-V1%E6%A8%A1%E5%9D%97"><span class="nav-text">Inception模块和Inception V1模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Inception%E6%A8%A1%E5%9D%97-VS-Inception-V1%E6%A8%A1%E5%9D%97"><span class="nav-text">Inception模块 VS Inception V1模块</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GoogleNet%E7%9A%84%E6%80%BB%E7%BB%93"><span class="nav-text">GoogleNet的总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5"><span class="nav-text">输入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E5%9D%87%E6%B1%A0%E5%8C%96"><span class="nav-text">平均池化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E5%88%86%E7%B1%BB%E5%99%A8%E6%8D%9F%E5%A4%B1"><span class="nav-text">辅助分类器损失</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E5%9D%87%E6%B1%A0%E5%8C%96%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E7%9B%B4%E6%8E%A5%E5%B1%95%E5%BC%80%E5%90%91%E9%87%8F%E5%8C%96%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-text">平均池化向量化与直接展开向量化有什么区别？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A9%E7%94%A81x1%E5%8D%B7%E7%A7%AF%E8%BF%9B%E8%A1%8C%E5%8E%8B%E7%BC%A9%E4%BC%9A%E6%8D%9F%E5%A4%B1%E4%BF%A1%E6%81%AF%E5%90%97%EF%BC%9F"><span class="nav-text">利用1x1卷积进行压缩会损失信息吗？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ResNet"><span class="nav-text">ResNet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ResNet%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-text">ResNet的贡献</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ResNet%E6%AE%8B%E5%B7%AE%E6%A8%A1%E5%9D%97"><span class="nav-text">ResNet残差模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ResNet%E7%BB%93%E6%9E%84"><span class="nav-text">ResNet结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E9%82%A3%E4%B9%88%E5%A5%BD%EF%BC%9F"><span class="nav-text">为什么残差网络性能那么好？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="RomanticQq"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">RomanticQq</p>
+  <div class="site-description" itemprop="description">种一棵树最好的时间是十年前,其次是现在!</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Romanticqq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Romanticqq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:3236997288@qq.com" title="E-Mail → mailto:3236997288@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/romanticqq" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;romanticqq" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/romanticqq" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/13634/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          经典网络分析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-03 14:38:52" itemprop="dateCreated datePublished" datetime="2021-10-03T14:38:52+08:00">2021-10-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/13634/" class="post-meta-item leancloud_visitors" data-flag-title="经典网络分析" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/13634/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/13634/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003152950.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153020.png" alt></p>
+<h3 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h3><p><em>AlexNet——验证了深度卷积神经网络的高效性</em></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153124.png" alt></p>
+<h4 id="主体贡献"><a href="#主体贡献" class="headerlink" title="主体贡献"></a>主体贡献</h4><ol>
+<li>提出了一种卷积层加全连接层的卷积神经网络结构； </li>
+<li>首次使用ReLU函数做为神经网络的激活函数； </li>
+<li>首次提出Dropout正则化来控制过拟合 ；</li>
+<li>使用加入动量的小批量梯度下降算法加速了训练过程的收敛；</li>
+<li>使用数据增强策略极大地抑制了训练过程的过拟合； </li>
+<li>利用了GPU的并行计算能力，加速了网络的训练与推断；</li>
+</ol>
+<h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153205.png" alt></p>
+<p>NORM：批量相应归一化层；(现在基本不用了，因为它的性能在更深的网络里不太明显，计算量又有点大)</p>
+<p>Max POOL：池化层；</p>
+<p>AlexNet是8层神经网络结构，池化层和归一化层在计算神经网络的层数时不参与计算；</p>
+<h4 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h4><p>第一个卷积层的输入是经过去均值操作 后的数据，即原始向量—均值向量，再输入到神经网络里面；</p>
+<p>去均值的作用？</p>
+<p>我们在分类任务中，均值向量是没有实际意义的，在向量比较时，绝对值是没有意义的，比较的相对值。去均值是为了保留自己的相对值，这样也会更加有利于计算。</p>
+<h4 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h4><p>3个池化层的卷积核大小3 * 3，步长为2；</p>
+<p>这里是重叠池化，重叠有利于对抗过拟合，但是一般还是采用2*2的卷积核，步长为2；</p>
+<p>池化层的作用：降低特征图尺寸，对抗轻微的目标偏移带来的影响；</p>
+<p>轻微的目标偏移：比如在一个卷积核中最大值为8，最大池化后是8；但当这个8跑到这个卷积核中别的位置时，池化后的结果还是为8；因此能够对抗轻微的目标偏移带来的影响。</p>
+<h4 id="局部相应归一化层"><a href="#局部相应归一化层" class="headerlink" title="局部相应归一化层"></a>局部相应归一化层</h4><p>目前基本不用了；</p>
+<p>后来的研究表明： 更深的网络中该层 对分类性能的提升 效果并不明显，且 会增加计算量与存 储空间。</p>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
+<li>对局部神经元的活动创建竞争机制； 、</li>
+<li>响应比较大的值变得相对更大； </li>
+<li>抑制其他反馈较小的神经元；</li>
+<li>增强模型的泛化能力；</li>
+</ul>
+<h4 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h4><p>MAX POOL3的输出：特征响应图组，大小为6 <em> 6 </em> 256；</p>
+<p>把MAX POOL3的输出打平成9216（6 <em> 6 </em> 256）维的向量，交给全连接层；</p>
+<h4 id="重要说明"><a href="#重要说明" class="headerlink" title="重要说明"></a>重要说明</h4><ul>
+<li>用于提取图像特征的卷积层以及用于分类的全连接层是同时学习的； </li>
+<li>卷积层与全连接层在学习过程中会相互影响、相互促进；</li>
+</ul>
+<p>卷积层和全连接层是一起训练的，被训练的梯度是可以回传的；</p>
+<h4 id="重要技巧"><a href="#重要技巧" class="headerlink" title="重要技巧"></a>重要技巧</h4><ul>
+<li>Dropout策略防止过拟合； </li>
+<li>使用加入动量的随机梯度下降算法，加速收敛； </li>
+<li>验证集损失不下降时，手动降低10倍的学习率； </li>
+<li>采用样本增强策略增加训练样本数量，防止过拟合； </li>
+<li>集成多个模型，进一步提高精度(同时训练多个模型)；</li>
+</ul>
+<h4 id="AlexNet卷积层在做什么"><a href="#AlexNet卷积层在做什么" class="headerlink" title="AlexNet卷积层在做什么"></a>AlexNet卷积层在做什么</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003152829.png" alt></p>
+<p>把AlexNet卷积层看作是一个卷积层，输入227 <em> 227 </em> 3，输出6 <em> 6 </em> 256，相当于有256个卷积核，获得256个特征响应图，把256个特征响应图拉成向量；</p>
+<p>特征响应图某点处较亮，说明该亮处含有该卷积核的特征；</p>
+<h3 id="ZFNet"><a href="#ZFNet" class="headerlink" title="ZFNet"></a>ZFNet</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003205744.png" alt></p>
+<h4 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003210036.png" alt></p>
+<h4 id="主要改进"><a href="#主要改进" class="headerlink" title="主要改进"></a>主要改进</h4><ul>
+<li>将第一个卷积层的卷积核大小改为了7×7；(不要一次卷积就丢掉细颗粒度的东西)</li>
+<li>将第一、第二个卷积层的卷积步长都设置为2；(缓慢给图像降维)</li>
+<li>增加了第三、第四个卷积层的卷积核个数；(第三层、第四层有语义信息了，增加了神经元即增加模板信息，仅仅靠现有的模板数不足以存储信息)</li>
+</ul>
+<h4 id="AlexNet与ZFNet的对比"><a href="#AlexNet与ZFNet的对比" class="headerlink" title="AlexNet与ZFNet的对比"></a>AlexNet与ZFNet的对比</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003213738.png" alt></p>
+<h3 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003210609.png" alt></p>
+<h4 id="结构-1"><a href="#结构-1" class="headerlink" title="结构"></a>结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003211407.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003212318.png" alt></p>
+<h4 id="VGG的输入"><a href="#VGG的输入" class="headerlink" title="VGG的输入"></a>VGG的输入</h4><p>VGG的输入与AlexNet和ZFNet是不同的，它是先把所有的R、G、B的均值求出来，然后再进行去均值的操作。</p>
+<h4 id="VGG16-VS-VGG19"><a href="#VGG16-VS-VGG19" class="headerlink" title="VGG16 VS VGG19"></a>VGG16 VS VGG19</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003211538.png" alt></p>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><h5 id="问题1：小卷积核有哪些优势？"><a href="#问题1：小卷积核有哪些优势？" class="headerlink" title="问题1：小卷积核有哪些优势？"></a>问题1：小卷积核有哪些优势？</h5><p>多个小尺寸卷积核串联可以得到与大尺寸卷积核相同的感受野； </p>
+<p>使用小卷积核串联构建的网络深度更深、非线性更强、参数也更少。</p>
+<p>注：2个3 <em> 3卷积核的感受野相当于1个5 </em> 5卷积核的感受野；这两方式虽然感受野相同，但是最后获取的结果可能是不同的。</p>
+<h5 id="问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？"><a href="#问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？" class="headerlink" title="问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？"></a>问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？</h5><ol>
+<li><p>池化操作可以减小特征图尺寸，降低显存占用；</p>
+</li>
+<li><p>增加卷积核个数有助于学习更多的结构特征，但会增加网络参数数量以及内存消耗；</p>
+</li>
+<li><p>一减一增的设计平衡了识别精度与存储、计算开销；</p>
+<p><em>最终还是提升了性能</em></p>
+</li>
+</ol>
+<h5 id="问题3：为什么卷积核个数增加到512后就不再增加了？"><a href="#问题3：为什么卷积核个数增加到512后就不再增加了？" class="headerlink" title="问题3：为什么卷积核个数增加到512后就不再增加了？"></a>问题3：为什么卷积核个数增加到512后就不再增加了？</h5><ol>
+<li>第一个全连接层含102M参数，占总参数个数的74%；</li>
+<li>这一层的参数个数是特征图的尺寸与个数的乘积； </li>
+<li>参数过多容易过拟合，且不易被训练；</li>
+</ol>
+<p>注：第一层全连接层的输入为7 <em> 7 </em> 512维的向量，则这一层需要的参数为102M(7 <em> 7 </em> 512 * 4096)参数;</p>
+<p>若继续增加卷积核个数，那么第一层全连接层参数会更多，如为1024个卷积核，那么第一层全连接层参数将为200M，那样模型将会很难被训练；因此不是不想增加，而是增加不了。</p>
+<h3 id="GoogleNet"><a href="#GoogleNet" class="headerlink" title="GoogleNet"></a>GoogleNet</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004161701.png" alt></p>
+<h4 id="GoogleNet的结构"><a href="#GoogleNet的结构" class="headerlink" title="GoogleNet的结构"></a>GoogleNet的结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004162104.jpg" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004192544.png" alt></p>
+<h4 id="GoogleNet的创新点"><a href="#GoogleNet的创新点" class="headerlink" title="GoogleNet的创新点"></a>GoogleNet的创新点</h4><ul>
+<li>提出了一种Inception结构，它能保留输入信号中的更多特征信息；</li>
+<li>去掉了AlexNet的前两个全连接层，并采用了平均池化，这一设计使得 GoogLeNet只有500万参数，比AlexNet少了12倍；</li>
+<li>在网络的中部引入了辅助分类器，克服了训练过程中的梯度消失问题；</li>
+</ul>
+<p>从AlexNet等一些经典的神经网络中可知参数极大多数来源于与最后一层卷积层相连接的第一层全连接层，当在GoogleNet中最后一层卷积层后采用平均池化的方法，大大降低了第一层全连接层的参数；</p>
+<h4 id="串联结构（如VGG）存在的问题"><a href="#串联结构（如VGG）存在的问题" class="headerlink" title="串联结构（如VGG）存在的问题"></a>串联结构（如VGG）存在的问题</h4><p>后面的卷积层只能处理 前层输出的特征图;前层丢失重要信息，后层无法找回。</p>
+<p>解决方案：</p>
+<p>—每一层尽量多的保留输入信号中的信息。</p>
+<h4 id="Inception模块和Inception-V1模块"><a href="#Inception模块和Inception-V1模块" class="headerlink" title="Inception模块和Inception V1模块"></a>Inception模块和Inception V1模块</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004162758.png" alt></p>
+<p>1 * 1 conv：把原来的信息进行压缩整理；</p>
+<p>3 <em> 3 conv：提取3 </em> 3的局部特征；</p>
+<p>5 <em> 5 conv：提取5 </em> 5的局部特征；</p>
+<p>1 * 1 max pooling：提取扩张以后的信息；(max pooling相当于最大化抑制，max pooling对周围信息进行了扩展，比如一片区域内最大值是9，那么经过max pooling后，9的周围就会都变成9，对9这个信号进行加强)</p>
+<p>为了保证输出的特征图大小相同，分别对1 <em> 1,3 </em> 3,5 * 5这3个卷积层进行边缘进行0,1,2的零填充；</p>
+<h5 id="Inception模块-VS-Inception-V1模块"><a href="#Inception模块-VS-Inception-V1模块" class="headerlink" title="Inception模块 VS Inception V1模块"></a>Inception模块 VS Inception V1模块</h5><p>Inception V1模块增加了3个1 * 1的卷积层，使特征图的深度极大的降低，较少了参数个数和计算量，提高了效率；</p>
+<p>1 * 1的卷积核不改变H和W，但是可以降低通道深度；</p>
+<h4 id="GoogleNet的总结"><a href="#GoogleNet的总结" class="headerlink" title="GoogleNet的总结"></a>GoogleNet的总结</h4><h5 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h5><p>输入为去均值后224 * 224的图像，去均值采用的方法是R、G、B；</p>
+<h5 id="平均池化"><a href="#平均池化" class="headerlink" title="平均池化"></a>平均池化</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004193002.png" alt></p>
+<p>与全连接层相连时，采用的池化是平均池化；</p>
+<h5 id="辅助分类器损失"><a href="#辅助分类器损失" class="headerlink" title="辅助分类器损失"></a>辅助分类器损失</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004193250.png" alt></p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><h5 id="平均池化向量化与直接展开向量化有什么区别？"><a href="#平均池化向量化与直接展开向量化有什么区别？" class="headerlink" title="平均池化向量化与直接展开向量化有什么区别？"></a>平均池化向量化与直接展开向量化有什么区别？</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010193207.png" alt></p>
+<p>平移不变性：图像中的目标，不管被移动到图片的哪个位置，得到的结果应该是相同的，这就是卷积神经网络的平移不变性。</p>
+<h5 id="利用1x1卷积进行压缩会损失信息吗？"><a href="#利用1x1卷积进行压缩会损失信息吗？" class="headerlink" title="利用1x1卷积进行压缩会损失信息吗？"></a>利用1x1卷积进行压缩会损失信息吗？</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010193618.png" alt></p>
+<p>因为一个图像经过卷积核后，只有满足卷积核特征的地方值才会很大，其余基本上为0；又因为一个图像上满足某一特征的地方往往又很少，因此得到的特征向量图是十分稀疏的，经过压缩往往是压缩了大量的0，因此非线性压缩通常不会损失信息。</p>
+<h3 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010194206.png" alt></p>
+<h4 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010194303.png" alt></p>
+<p>通过前面四种网络的学习，我们几乎可以想到越深层次的网络的学习效果越好；但是其实并不是这样的，当网络较深时，就会出现正反向信息流动不顺畅的问题，ResNet的出现解决了这个问题。</p>
+<h4 id="ResNet的贡献"><a href="#ResNet的贡献" class="headerlink" title="ResNet的贡献"></a>ResNet的贡献</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010195045.png" alt> </p>
+<h4 id="ResNet残差模块"><a href="#ResNet残差模块" class="headerlink" title="ResNet残差模块"></a>ResNet残差模块</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010195641.png" alt></p>
+<ul>
+<li>通过公式我们可以看出，即使F(x)不起作用，H(x)还是x的值，从而可以知道F(x)即使不起作用也不会造成负面影响；</li>
+<li>原图+细节=锐化；可以理解为F(x)为提取的细节，使x得到了锐化即H(x),当H(x)作为输入时，即可以提取原图中的特征，也可以在上一层提取的细节上进行增强，因此这个前向传播信号也是不容易衰减的；</li>
+<li>反向传播时，即使F(x)内梯度为0，x梯度恒为1，也能够使梯度进行回传，保证了反向梯度的通畅；</li>
+<li>F(x)=H(x)-X,即残差=输出-输入；输出和输入的差异叫做残差，也因此叫残差模型；</li>
+</ul>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010205947.png" alt></p>
+<p>第一个Conv 1 * 1的作用：降低通道数，使能够减少参数和计算量；</p>
+<p>第二个Conv 1 * 1的作用：增加通道数，使能够和X相加；</p>
+<h4 id="ResNet结构"><a href="#ResNet结构" class="headerlink" title="ResNet结构"></a>ResNet结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010211858.png" alt></p>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><h4 id="为什么残差网络性能那么好？"><a href="#为什么残差网络性能那么好？" class="headerlink" title="为什么残差网络性能那么好？"></a>为什么残差网络性能那么好？</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010212138.png" alt></p>
+<p>普通网络当某一层失去作用时，可能就会瘫痪，而残差网络不用这样；</p>
+<p>残差网络会自动适应选择某些层进行工作；</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>介绍了5种经典的卷积神经网络AlexNet、ZFNet、VGG、GoogLeNet和ResNet；</li>
+<li>残差网络和Inception V4是公认的推广性能最好的两个分类模型；</li>
+<li>特殊应用环境下的模型：面向有限存储资源的SqueezeNet以及面向有限计算资源的 MobileNet和ShuffleNet；</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="RomanticQq 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="RomanticQq 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>RomanticQq
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://romanticqq.top/posts/13634/" title="经典网络分析">https://romanticqq.top/posts/13634/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/10636/" rel="prev" title="卷积神经网络">
+                  <i class="fa fa-chevron-left"></i> 卷积神经网络
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/49853/" rel="next" title="视觉识别">
+                  视觉识别 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RomanticQq</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">90k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:22</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6100d6bc1e1955f3" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : ID,
+      el    : 'wpac-rating',
+      color : '#fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"rEBj8vWrB99LB7kFl08fn8gh-gzGzoHsz","appKey":"Dq07I4aM2XTwyXH36k7Slh7t","serverURLs":"https://rebj8vwr.lc-cn-n1-shared.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":true,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/posts/13634/",
+      serverURLs: "https://rebj8vwr.lc-cn-n1-shared.com"
+    }));
+  }, window.Valine);
+});
+</script>
+<script type="text/javascript">
+   fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("veditor").setAttribute("placeholder",data.hitokoto+"--"+data.from);
+    })
+    .catch(console.error)
+</script>
+</body>
+</html>

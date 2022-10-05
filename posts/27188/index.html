@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"romanticqq.top","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="补充材料1：卷积与图像去噪图像去噪与卷积噪声图像噪声的一般表达：这个点的像素比其他点的像素值都大，而且可能还大好多； 图像去噪可以使用加权求和的方法达到去噪的目的。 边界填充如果不考虑边界填充，那么卷出来至少少一圈； 填充的层数与模板的大小有关； 一般采取0填充； 除了0填充，还有拉伸填充(将四周边缘像素拉伸)和镜像填充； 卷积平移原图  向左右平移  平均卷积核平滑  锐化  原图-平滑&#x3D;边缘图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卷积补充知识">
+<meta property="og:url" content="https://romanticqq.top/posts/27188/index.html">
+<meta property="og:site_name" content="RomanticQq">
+<meta property="og:description" content="补充材料1：卷积与图像去噪图像去噪与卷积噪声图像噪声的一般表达：这个点的像素比其他点的像素值都大，而且可能还大好多； 图像去噪可以使用加权求和的方法达到去噪的目的。 边界填充如果不考虑边界填充，那么卷出来至少少一圈； 填充的层数与模板的大小有关； 一般采取0填充； 除了0填充，还有拉伸填充(将四周边缘像素拉伸)和镜像填充； 卷积平移原图  向左右平移  平均卷积核平滑  锐化  原图-平滑&#x3D;边缘图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928214845.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928214939.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928215043.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928215137.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928215844.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928220434.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210929093954.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210929100105.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210929100441.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210930104530.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210930105001.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210930105233.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210930105900.png">
+<meta property="og:image" content="https://romanticqq.top/C:/Users/RomanticQq/AppData/Roaming/Typora/typora-user-images/image-20211001103924027.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001104331.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001105135.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001110823.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001110940.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001112548.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001112618.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001112938.png">
+<meta property="og:image" content="https://romanticqq.top/C:/Users/RomanticQq/AppData/Roaming/Typora/typora-user-images/image-20211001163609151.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001163915.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001164525.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001164819.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001165211.png">
+<meta property="article:published_time" content="2021-09-28T13:25:36.000Z">
+<meta property="article:modified_time" content="2022-08-27T11:47:39.000Z">
+<meta property="article:author" content="RomanticQq">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="卷积神经网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928214845.png">
+
+
+<link rel="canonical" href="https://romanticqq.top/posts/27188/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>卷积补充知识 | RomanticQq</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+    <script type="text/javascript" src="/love.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">RomanticQq</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">保持对生活的热爱，唯有生活不可被辜负</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E6%9D%90%E6%96%991%EF%BC%9A%E5%8D%B7%E7%A7%AF%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA"><span class="nav-text">补充材料1：卷积与图像去噪</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E4%B8%8E%E5%8D%B7%E7%A7%AF"><span class="nav-text">图像去噪与卷积</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%99%AA%E5%A3%B0%E5%9B%BE%E5%83%8F"><span class="nav-text">噪声图像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA"><span class="nav-text">图像去噪</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E5%A1%AB%E5%85%85"><span class="nav-text">边界填充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E5%B9%B3%E7%A7%BB"><span class="nav-text">卷积平移</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E5%9D%87%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="nav-text">平均卷积核</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="nav-text">高斯卷积核</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E5%9D%87%E5%8D%B7%E7%A7%AF%E6%A0%B8%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">平均卷积核存在的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E5%8D%B7%E7%A7%AF%E6%A0%B8-1"><span class="nav-text">高斯卷积核</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E5%8D%B7%E7%A7%AF%E6%A0%B8%E5%8F%82%E6%95%B0"><span class="nav-text">高斯卷积核参数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%99%AA%E5%A3%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-text">图像噪声与中值滤波器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%99%AA%E5%A3%B0"><span class="nav-text">图像噪声</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E5%8E%BB%E5%99%AA"><span class="nav-text">高斯去噪</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AD%E5%80%BC%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-text">中值滤波器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E6%9D%90%E6%96%992%EF%BC%9A%E5%8D%B7%E7%A7%AF%E5%92%8C%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96"><span class="nav-text">补充材料2：卷积和边缘提取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96"><span class="nav-text">边缘提取</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98"><span class="nav-text">边缘</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%A0%94%E7%A9%B6%E8%BE%B9%E7%BC%98"><span class="nav-text">为什么要研究边缘</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-text">边缘的种类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B"><span class="nav-text">边缘检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%B1%82%E5%AF%BC"><span class="nav-text">图像求导</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%A2%AF%E5%BA%A6"><span class="nav-text">图像梯度</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E4%B8%80%E9%98%B6%E5%81%8F%E5%AF%BC%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="nav-text">高斯一阶偏导卷积核</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%99%AA%E5%A3%B0%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-text">噪声的影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E6%BB%91%E5%8E%BB%E5%99%AA%E5%86%8D%E6%B1%82%E5%AF%BC"><span class="nav-text">平滑去噪再求导</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E4%B8%80%E9%98%B6%E5%81%8F%E5%AF%BC"><span class="nav-text">高斯一阶偏导</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E4%B8%80%E9%98%B6%E5%81%8F%E5%AF%BC%E5%8D%B7%E7%A7%AF%E6%A0%B8-1"><span class="nav-text">高斯一阶偏导卷积核</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E6%A0%B8-VS-%E9%AB%98%E6%96%AF%E4%B8%80%E9%98%B6%E5%81%8F%E5%AF%BC%E6%A0%B8"><span class="nav-text">高斯核 VS 高斯一阶偏导核</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-text">边缘目标检测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6"><span class="nav-text">非极大值抑制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Canny%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B%E5%99%A8"><span class="nav-text">Canny边缘检测器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E6%9D%90%E6%96%993%EF%BC%9A%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA"><span class="nav-text">补充材料3：纹理表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%B9%E7%90%86"><span class="nav-text">纹理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%B7%E7%A7%AF%E6%A0%B8%E7%BB%84%E7%9A%84%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="nav-text">基于卷积核组的纹理表示方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E6%A0%B8%E7%BB%84"><span class="nav-text">卷积核组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%B7%E7%A7%AF%E6%A0%B8%E7%BB%84%E7%9A%84%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA"><span class="nav-text">基于卷积核组的图像表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1"><span class="nav-text">纹理分类任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%B7%E7%A7%AF%E6%A0%B8%E7%BB%84%E7%9A%84%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA-1"><span class="nav-text">基于卷积核组的图像表示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%8F%E6%B8%B8%E6%88%8F"><span class="nav-text">小游戏</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E6%A0%B8%E7%BB%84%E8%AE%BE%E8%AE%A1"><span class="nav-text">卷积核组设计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="RomanticQq"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">RomanticQq</p>
+  <div class="site-description" itemprop="description">种一棵树最好的时间是十年前,其次是现在!</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Romanticqq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Romanticqq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:3236997288@qq.com" title="E-Mail → mailto:3236997288@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/romanticqq" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;romanticqq" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/romanticqq" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/27188/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          卷积补充知识
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-28 21:25:36" itemprop="dateCreated datePublished" datetime="2021-09-28T21:25:36+08:00">2021-09-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/27188/" class="post-meta-item leancloud_visitors" data-flag-title="卷积补充知识" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/27188/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/27188/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="补充材料1：卷积与图像去噪"><a href="#补充材料1：卷积与图像去噪" class="headerlink" title="补充材料1：卷积与图像去噪"></a>补充材料1：卷积与图像去噪</h3><h4 id="图像去噪与卷积"><a href="#图像去噪与卷积" class="headerlink" title="图像去噪与卷积"></a>图像去噪与卷积</h4><h5 id="噪声图像"><a href="#噪声图像" class="headerlink" title="噪声图像"></a>噪声图像</h5><p>噪声的一般表达：这个点的像素比其他点的像素值都大，而且可能还大好多；</p>
+<h5 id="图像去噪"><a href="#图像去噪" class="headerlink" title="图像去噪"></a>图像去噪</h5><p>可以使用加权求和的方法达到去噪的目的。</p>
+<h5 id="边界填充"><a href="#边界填充" class="headerlink" title="边界填充"></a>边界填充</h5><p>如果不考虑边界填充，那么卷出来至少少一圈；</p>
+<p>填充的层数与模板的大小有关；</p>
+<p>一般采取0填充；</p>
+<p>除了0填充，还有拉伸填充(将四周边缘像素拉伸)和镜像填充；</p>
+<h5 id="卷积平移"><a href="#卷积平移" class="headerlink" title="卷积平移"></a>卷积平移</h5><p>原图</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928214845.png" alt></p>
+<p>向左右平移</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928214939.png" alt></p>
+<h5 id="平均卷积核"><a href="#平均卷积核" class="headerlink" title="平均卷积核"></a>平均卷积核</h5><p>平滑</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928215043.png" alt></p>
+<p>锐化</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928215137.png" alt></p>
+<p>原图-平滑=边缘图；</p>
+<p>原图+边缘图=锐化；</p>
+<h4 id="高斯卷积核"><a href="#高斯卷积核" class="headerlink" title="高斯卷积核"></a>高斯卷积核</h4><h5 id="平均卷积核存在的问题"><a href="#平均卷积核存在的问题" class="headerlink" title="平均卷积核存在的问题"></a>平均卷积核存在的问题</h5><p>卷积后的图像产生了一些水平和竖直方向的条状(振铃);</p>
+<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h5><p>根据邻域像素与中心的远近程度分配权重，即高斯卷积核；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928215844.png" alt></p>
+<h5 id="高斯卷积核-1"><a href="#高斯卷积核-1" class="headerlink" title="高斯卷积核"></a>高斯卷积核</h5><p>高斯卷积核的性质就是使中心位置权重大边缘位置权重小；</p>
+<p>高斯卷积核的作用：去除图像中的高频成分（因为高斯卷积核也是一个平均操作，把高的地方给磨皮，即去除高频成分，另外也可以理解让低频的像素通过，即又称低通滤波器）；</p>
+<p>高斯卷积核是一个线性卷积核；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210928220434.png" alt></p>
+<p>高斯卷积核各个位置的权值的求法：以中心位置为(0,0),把x，y代入求解，则(0,0)左边为(-1,0)代入求解，以此类推；</p>
+<p>对权重值进行归一化处理：不做归一化会出现两个问题(若总和小于1，比如相加之和为0.1，在一个白色图像上，卷完就成25.5，对原图像进行了衰减；若大于1，那么像素值就有可能大于255)</p>
+<h5 id="高斯卷积核参数"><a href="#高斯卷积核参数" class="headerlink" title="高斯卷积核参数"></a>高斯卷积核参数</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210929093954.png" alt></p>
+<p>根据高斯函数的计算公式，在(0,0)处方差越大，G(0,0)的值越小即权重越小，受周围像素的影响较大，即平滑能力强；同理方差越小，平滑能力越弱；</p>
+<p>当相同方差时，G(0,0)处的值，大窗口进行归一化后值小，小窗口值大；</p>
+<p>G(0,0)越大，平滑能力越强；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210929100105.png" alt></p>
+<p>图像经过1,2两个卷积核卷积后，和图像经过1,2两个卷积核的标准差平方和再开方后的结果是相同的；可以推广到多个；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210929100441.png" alt></p>
+<p>一个二维的高斯卷积核可以分解为两个一维的高斯卷积核。</p>
+<h4 id="图像噪声与中值滤波器"><a href="#图像噪声与中值滤波器" class="headerlink" title="图像噪声与中值滤波器"></a>图像噪声与中值滤波器</h4><h5 id="图像噪声"><a href="#图像噪声" class="headerlink" title="图像噪声"></a>图像噪声</h5><ul>
+<li>椒盐噪声: 黑色像素和白色像 素随机出现；</li>
+<li>脉冲噪声: 白色像素随机出现；</li>
+<li>高斯噪声: 噪声强度变化服从高斯分布（正态分布）</li>
+</ul>
+<h5 id="高斯去噪"><a href="#高斯去噪" class="headerlink" title="高斯去噪"></a>高斯去噪</h5><p>高斯卷积核可以去除高斯噪声，并且噪声方差越大，卷积核也应越大；</p>
+<p>椒盐噪声和脉冲噪声不能使用高斯卷积核达到去噪的效果；</p>
+<h5 id="中值滤波器"><a href="#中值滤波器" class="headerlink" title="中值滤波器"></a>中值滤波器</h5><p>它是一个空的3 <em> 3或5 </em> 5…的模板套在数据集上，然后把所有像素值进行排序，找到中位数，用中位数去替换模板中间位置的数。<br>好处：它的值一定是图像上某一点的值；</p>
+<h3 id="补充材料2：卷积和边缘提取"><a href="#补充材料2：卷积和边缘提取" class="headerlink" title="补充材料2：卷积和边缘提取"></a>补充材料2：卷积和边缘提取</h3><h4 id="边缘提取"><a href="#边缘提取" class="headerlink" title="边缘提取"></a>边缘提取</h4><h5 id="边缘"><a href="#边缘" class="headerlink" title="边缘"></a>边缘</h5><p>图像中亮度明显而急剧变化的点；</p>
+<h5 id="为什么要研究边缘"><a href="#为什么要研究边缘" class="headerlink" title="为什么要研究边缘"></a>为什么要研究边缘</h5><ul>
+<li>编码图像中的语义和图像信息</li>
+<li>想对于像素表示，边缘表示显得更加紧凑</li>
+</ul>
+<h5 id="边缘的种类"><a href="#边缘的种类" class="headerlink" title="边缘的种类"></a>边缘的种类</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210930104530.png" alt></p>
+<p>表面法向不连续：两个面交界的地方会形成边；</p>
+<p>深度不连续：不是真实存在的，比如拍照时照不到形成的边；</p>
+<p>表面颜色不连续：物品上的细节，例如字等；</p>
+<p>光照不连续：阴影；</p>
+<h5 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210930105001.png" alt></p>
+<p>图像中亮度明显而急剧变化的地方称为边缘，从而可知边缘处相邻处像素相差较大，即一阶导数的绝对值较大；</p>
+<h5 id="图像求导"><a href="#图像求导" class="headerlink" title="图像求导"></a>图像求导</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210930105233.png" alt></p>
+<p>可以根据图像求导找出图像的边缘，边缘处的导数最大；</p>
+<p>在计算图像求导时，ε=1，则经过化简可得，某一像素点处的导数等于它右边的像素减去它自己的像素；</p>
+<p>并且可以通过卷积核实现对x,y的求导；</p>
+<h5 id="图像梯度"><a href="#图像梯度" class="headerlink" title="图像梯度"></a>图像梯度</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210930105900.png" alt></p>
+<p>梯度指向灰度变化最快的方向；</p>
+<p>信号方向与梯度方向垂直，所以通过梯度方向还可以知道信号大概的方向；</p>
+<p>图像梯度通常由暗的地方指向亮的地方；</p>
+<p>梯度的值越大，表明是边缘的可能性就越大；</p>
+<h4 id="高斯一阶偏导卷积核"><a href="#高斯一阶偏导卷积核" class="headerlink" title="高斯一阶偏导卷积核"></a>高斯一阶偏导卷积核</h4><h5 id="噪声的影响"><a href="#噪声的影响" class="headerlink" title="噪声的影响"></a>噪声的影响</h5><p>对于含有噪声的图像是不能直接求导求边缘的，需要先平滑，如果直接求导将很难判断边缘；</p>
+<p>注：这的噪声一般都是指高斯噪声；</p>
+<h5 id="平滑去噪再求导"><a href="#平滑去噪再求导" class="headerlink" title="平滑去噪再求导"></a>平滑去噪再求导</h5><p><img src="/C:/Users\RomanticQq\AppData\Roaming\Typora\typora-user-images\image-20211001103924027.png" alt="image-20211001103924027"></p>
+<p>先用高斯卷积核去噪以后再对去噪后的图像进行求导；</p>
+<h5 id="高斯一阶偏导"><a href="#高斯一阶偏导" class="headerlink" title="高斯一阶偏导"></a>高斯一阶偏导</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001104331.png" alt></p>
+<p>高斯一阶偏导是先对高斯卷积核求偏导，因为卷积操作满足交换律和结合律；</p>
+<p>对高斯卷积核求导后的结果称为高斯一阶偏导；</p>
+<h5 id="高斯一阶偏导卷积核-1"><a href="#高斯一阶偏导卷积核-1" class="headerlink" title="高斯一阶偏导卷积核"></a>高斯一阶偏导卷积核</h5><p>高斯一阶偏导卷积核只有一个参数，就是方差；</p>
+<p>方差越小，获取的图像边缘越清晰；方差越大，获取的图像边缘越粗糙；</p>
+<p>方差小关注细颗粒度，方差大关注粗颗粒度；</p>
+<h5 id="高斯核-VS-高斯一阶偏导核"><a href="#高斯核-VS-高斯一阶偏导核" class="headerlink" title="高斯核 VS 高斯一阶偏导核"></a>高斯核 VS 高斯一阶偏导核</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001105135.png" alt></p>
+<p>高斯一阶偏导卷结合总和是0是可以证明的，它表名了在一个没有像素变化图像的图像上，梯度恒为0；</p>
+<h4 id="边缘目标检测"><a href="#边缘目标检测" class="headerlink" title="边缘目标检测"></a>边缘目标检测</h4><h5 id="非极大值抑制"><a href="#非极大值抑制" class="headerlink" title="非极大值抑制"></a>非极大值抑制</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001110823.png" alt></p>
+<p>利用高斯偏导卷积核求出的图像可能会出现较粗的边，这是由于某处它附近的梯度值都很大的缘故，此时需要用到非极大值抑制；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001110940.png" alt></p>
+<p>p点的梯度强度需要与它正梯度方向和反梯度方向的点去进行比较，如果比这两个梯度都强保留，否则删去；</p>
+<h5 id="Canny边缘检测器"><a href="#Canny边缘检测器" class="headerlink" title="Canny边缘检测器"></a>Canny边缘检测器</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001112548.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001112618.png" alt></p>
+<p>用一个高门限把高阈值留下来，然后这些低阈值就会产生很多边，把那些跟高阈值有连接的边留下来；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001112938.png" alt></p>
+<h3 id="补充材料3：纹理表示"><a href="#补充材料3：纹理表示" class="headerlink" title="补充材料3：纹理表示"></a>补充材料3：纹理表示</h3><h4 id="纹理"><a href="#纹理" class="headerlink" title="纹理"></a>纹理</h4><p>纹理可以区分不同物品，它表示了一些材质或则属性；</p>
+<p><img src="/C:/Users\RomanticQq\AppData\Roaming\Typora\typora-user-images\image-20211001163609151.png" alt="image-20211001163609151"></p>
+<p>纹理分为规则纹理和随机纹理；</p>
+<h4 id="基于卷积核组的纹理表示方法"><a href="#基于卷积核组的纹理表示方法" class="headerlink" title="基于卷积核组的纹理表示方法"></a>基于卷积核组的纹理表示方法</h4><ul>
+<li><p>利用卷积核组提取图像中的纹理基；</p>
+</li>
+<li><p>利用基元的统计信息来 表示图像中的纹理；</p>
+</li>
+</ul>
+<h4 id="卷积核组"><a href="#卷积核组" class="headerlink" title="卷积核组"></a>卷积核组</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001163915.png" alt></p>
+<p>卷积核组是有多个卷积核组成的，每个卷积核表示着不同的特征；</p>
+<p>比如：第一个卷积核检测水平方向的边，最后一个卷积核检测圆形或斑状物体；</p>
+<h4 id="基于卷积核组的图像表示"><a href="#基于卷积核组的图像表示" class="headerlink" title="基于卷积核组的图像表示"></a>基于卷积核组的图像表示</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001164525.png" alt></p>
+<p>把每个卷积核得到的特征响应图打平组合成一个向量；</p>
+<p>ri的个数等于卷积核组中卷积核的个数；</p>
+<h4 id="纹理分类任务"><a href="#纹理分类任务" class="headerlink" title="纹理分类任务"></a>纹理分类任务</h4><ul>
+<li><p>忽略基元位置；</p>
+</li>
+<li><p>关注出现了哪种基元对应的纹理以及基元出现的频率；</p>
+</li>
+</ul>
+<h5 id="基于卷积核组的图像表示-1"><a href="#基于卷积核组的图像表示-1" class="headerlink" title="基于卷积核组的图像表示"></a>基于卷积核组的图像表示</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001164819.png" alt></p>
+<p> 该方式采用的每个响应特征的均值，可以减少计算量；</p>
+<h5 id="小游戏"><a href="#小游戏" class="headerlink" title="小游戏"></a>小游戏</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211001165211.png" alt></p>
+<p>可见在纹理A中第四个颜色最白表明含有第四个卷积核的特征，即垂直的线条，因为为图像2；</p>
+<h5 id="卷积核组设计"><a href="#卷积核组设计" class="headerlink" title="卷积核组设计"></a>卷积核组设计</h5><p>设计重点：</p>
+<ul>
+<li>卷积核类型（边缘、条形以及点状） </li>
+<li>卷积核尺度（3-6个尺度） </li>
+<li>卷积核方向（6个角度）</li>
+</ul>
+<p>卷积核尺度，大尺度提取粗粒度的边，小尺度提取细粒度的边；</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><ul>
+<li>设计卷积核组；</li>
+<li>利用卷积核组对图像进行卷积操作获得对应的特征响应图组; </li>
+<li>利用特征响应图的某种统计信息来表示图像中的纹理。</li>
+</ul>
+<p>图像——&gt;卷积核模板——&gt;特征响应图——&gt;ri特征向量的均值</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="RomanticQq 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="RomanticQq 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>RomanticQq
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://romanticqq.top/posts/27188/" title="卷积补充知识">https://romanticqq.top/posts/27188/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
+              <a href="/tags/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 卷积神经网络</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/48631/" rel="prev" title="hexo使用中遇到的坑">
+                  <i class="fa fa-chevron-left"></i> hexo使用中遇到的坑
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/10636/" rel="next" title="卷积神经网络">
+                  卷积神经网络 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RomanticQq</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">90k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:22</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6100d6bc1e1955f3" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : ID,
+      el    : 'wpac-rating',
+      color : '#fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"rEBj8vWrB99LB7kFl08fn8gh-gzGzoHsz","appKey":"Dq07I4aM2XTwyXH36k7Slh7t","serverURLs":"https://rebj8vwr.lc-cn-n1-shared.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":true,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/posts/27188/",
+      serverURLs: "https://rebj8vwr.lc-cn-n1-shared.com"
+    }));
+  }, window.Valine);
+});
+</script>
+<script type="text/javascript">
+   fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("veditor").setAttribute("placeholder",data.hitokoto+"--"+data.from);
+    })
+    .catch(console.error)
+</script>
+</body>
+</html>

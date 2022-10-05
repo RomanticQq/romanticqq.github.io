@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"romanticqq.top","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="0.像素表示 如（r1,g1,b1,r2,g2,b2…rn,gn,bn)这样 1.多层感知机全连接神经网络 max()叫激活函数。 激活函数不能去掉，去掉就退化成线性分类器。 全连接神经网络的权值 w1可以看做模板，它可以有比类别数更多的分类，就是一个类别可以有多个模板。 比如10中类别的动物，w1可以有50中模板甚至更多，即同一类动物可以有多个模板，把与x得到的结果与w2融合，找到最大的，得出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全连接神经网络">
+<meta property="og:url" content="https://romanticqq.top/posts/13828/index.html">
+<meta property="og:site_name" content="RomanticQq">
+<meta property="og:description" content="0.像素表示 如（r1,g1,b1,r2,g2,b2…rn,gn,bn)这样 1.多层感知机全连接神经网络 max()叫激活函数。 激活函数不能去掉，去掉就退化成线性分类器。 全连接神经网络的权值 w1可以看做模板，它可以有比类别数更多的分类，就是一个类别可以有多个模板。 比如10中类别的动物，w1可以有50中模板甚至更多，即同一类动物可以有多个模板，把与x得到的结果与w2融合，找到最大的，得出">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161320.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161649.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161939.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162041.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162213.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162318.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162404.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162526.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164220.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164319.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165009.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164808.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165313.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165521.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165825.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165738.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171843.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171927.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171947.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920150534.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920151419.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920152101.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920152632.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920153549.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920154715.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211644.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211751.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211830.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920212056.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920212429.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920213241.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920214530.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920215559.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920220019.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920221036.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920220101.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921163331.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202104.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202149.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202213.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202249.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202313.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202338.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202412.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202431.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202452.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202518.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925140653.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925141101.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925141157.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925142720.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925142825.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925143511.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925143602.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145211.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145300.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145343.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145404.png">
+<meta property="og:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145439.png">
+<meta property="article:published_time" content="2021-09-18T08:02:26.000Z">
+<meta property="article:modified_time" content="2022-08-27T11:47:39.000Z">
+<meta property="article:author" content="RomanticQq">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="图像处理">
+<meta property="article:tag" content="全连接神经网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161320.png">
+
+
+<link rel="canonical" href="https://romanticqq.top/posts/13828/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>全连接神经网络 | RomanticQq</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+    <script type="text/javascript" src="/love.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">RomanticQq</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">保持对生活的热爱，唯有生活不可被辜负</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-%E5%83%8F%E7%B4%A0%E8%A1%A8%E7%A4%BA"><span class="nav-text">0.像素表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-text">1.多层感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-text">全连接神经网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%9D%83%E5%80%BC"><span class="nav-text">全连接神经网络的权值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86"><span class="nav-text">全连接神经网络与线性不可分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%BB%98%E5%88%B6%E4%B8%8E%E5%91%BD%E5%90%8D"><span class="nav-text">全连接神经网络绘制与命名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-text">2.激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-text">激活函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-text">常用的激活函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="nav-text">网络结构设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B0%8F%E7%BB%93"><span class="nav-text">全连接神经网络小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-softmax%E4%B8%8E%E4%BA%A4%E5%8F%89%E7%86%B5"><span class="nav-text">3.softmax与交叉熵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#softmax%E5%87%BD%E6%95%B0"><span class="nav-text">softmax函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5"><span class="nav-text">交叉熵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AF%B9%E6%AF%94%E5%A4%9A%E7%B1%BB%E6%94%AF%E6%92%91%E5%90%91%E9%87%8F%E6%9C%BA%E6%8D%9F%E5%A4%B1"><span class="nav-text">4.对比多类支撑向量机损失</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1-vs-%E5%A4%9A%E7%B1%BB%E6%94%AF%E6%92%91%E5%90%91%E9%87%8F%E6%9C%BA%E6%8D%9F%E5%A4%B1"><span class="nav-text">交叉熵损失 vs 多类支撑向量机损失</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%AE%A1%E7%AE%97%E5%9B%BE%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-text">5.计算图与反向传播</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="nav-text">计算图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE%E7%9A%84%E9%A2%97%E7%B2%92%E5%BA%A6"><span class="nav-text">计算图的颗粒度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%A8%E5%8D%95%E5%85%83"><span class="nav-text">计算图中常见的门单元</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%86%8D%E7%9C%8B%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-text">6.再看激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1"><span class="nav-text">梯度消失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8"><span class="nav-text">梯度爆炸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E9%80%89%E6%8B%A9%E6%80%BB%E7%BB%93"><span class="nav-text">激活函数选择总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E5%8A%A8%E9%87%8F%E6%B3%95%E4%B8%8E%E8%87%AA%E9%80%82%E5%BA%94%E6%A2%AF%E5%BA%A6-%E6%A2%AF%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-text">7.动量法与自适应梯度(梯度算法的改进)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">梯度下降算法存在的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E6%B3%95"><span class="nav-text">动量法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E6%A2%AF%E5%BA%A6%E4%B8%8ERMSProp"><span class="nav-text">自适应梯度与RMSProp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ADAM"><span class="nav-text">ADAM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E6%9D%83%E5%80%BC%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">8.权值初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E9%9B%B6%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">全零初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%9D%83%E5%80%BC%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">随机权值初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xavier%E5%88%9D%E8%AF%95%E5%8C%96"><span class="nav-text">Xavier初试化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HE%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">HE初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E5%80%BC%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B0%8F%E7%BB%93"><span class="nav-text">权值初始化小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E6%89%B9%E5%BD%92%E4%B8%80%E5%8C%96"><span class="nav-text">9.批归一化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E6%AC%A0%E6%8B%9F%E5%90%88%E3%80%81%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8EDropout"><span class="nav-text">10.欠拟合、过拟合与Dropout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-text">过拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E8%8A%82%E6%A8%A1%E5%9E%8B%E5%A4%A7%E5%B0%8F"><span class="nav-text">调节模型大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E5%A4%B1%E6%B4%BB"><span class="nav-text">随机失活</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AC%A0%E6%8B%9F%E5%90%88"><span class="nav-text">欠拟合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E6%A8%A1%E5%9E%8B%E6%AD%A3%E5%88%99%E4%B8%8E%E8%B6%85%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="nav-text">11.模型正则与超参数优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E8%B6%85%E5%8F%82%E6%95%B0"><span class="nav-text">神经网络中的超参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%AE%BE%E7%BD%AE"><span class="nav-text">学习率设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-text">参数优化方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E7%9A%84%E6%A0%87%E5%B0%BA%E7%A9%BA%E9%97%B4"><span class="nav-text">超参数的标尺空间</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="RomanticQq"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">RomanticQq</p>
+  <div class="site-description" itemprop="description">种一棵树最好的时间是十年前,其次是现在!</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Romanticqq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Romanticqq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:3236997288@qq.com" title="E-Mail → mailto:3236997288@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/romanticqq" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;romanticqq" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/romanticqq" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/13828/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          全连接神经网络
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-18 16:02:26" itemprop="dateCreated datePublished" datetime="2021-09-18T16:02:26+08:00">2021-09-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/13828/" class="post-meta-item leancloud_visitors" data-flag-title="全连接神经网络" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/13828/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/13828/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161320.png" alt></p>
+<h3 id="0-像素表示"><a href="#0-像素表示" class="headerlink" title="0.像素表示"></a>0.像素表示</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161649.png" alt></p>
+<p>如（r1,g1,b1,r2,g2,b2…rn,gn,bn)这样</p>
+<h3 id="1-多层感知机"><a href="#1-多层感知机" class="headerlink" title="1.多层感知机"></a>1.多层感知机</h3><h4 id="全连接神经网络"><a href="#全连接神经网络" class="headerlink" title="全连接神经网络"></a>全连接神经网络</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161939.png" alt></p>
+<p>max()叫激活函数。</p>
+<p>激活函数不能去掉，去掉就退化成线性分类器。</p>
+<h4 id="全连接神经网络的权值"><a href="#全连接神经网络的权值" class="headerlink" title="全连接神经网络的权值"></a>全连接神经网络的权值</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162041.png" alt></p>
+<p>w1可以看做模板，它可以有比类别数更多的分类，就是一个类别可以有多个模板。</p>
+<p>比如10中类别的动物，w1可以有50中模板甚至更多，即同一类动物可以有多个模板，把与x得到的结果与w2融合，找到最大的，得出结果。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162213.png" alt></p>
+<p>线性分类器的w行数和类别数相同，而全连接神经网络中只需最外层w的行数和类别数相同。</p>
+<h4 id="全连接神经网络与线性不可分"><a href="#全连接神经网络与线性不可分" class="headerlink" title="全连接神经网络与线性不可分"></a>全连接神经网络与线性不可分</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162318.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162404.png" alt></p>
+<p>线性分类器可用于分离线性可分的，但是线性分类器不能把线性不可分的分开，此时就需要有全连接神经网络这样的模型。</p>
+<h4 id="全连接神经网络绘制与命名"><a href="#全连接神经网络绘制与命名" class="headerlink" title="全连接神经网络绘制与命名"></a>全连接神经网络绘制与命名</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162526.png" alt></p>
+<p>每个x相互独立为单独的输入。</p>
+<h3 id="2-激活函数"><a href="#2-激活函数" class="headerlink" title="2.激活函数"></a>2.激活函数</h3><h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164220.png" alt></p>
+<h4 id="常用的激活函数"><a href="#常用的激活函数" class="headerlink" title="常用的激活函数"></a>常用的激活函数</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164319.png" alt></p>
+<p>sigmoid函数的范围为(0,1);</p>
+<p>tanh函数的范围是(-1,1);而且是中心对称的；</p>
+<h4 id="网络结构设计"><a href="#网络结构设计" class="headerlink" title="网络结构设计"></a>网络结构设计</h4><ol>
+<li><p><strong>用不用隐层，用一个还是用几个隐层？（深度设计）</strong> </p>
+</li>
+<li><p><strong>每隐层设置多少个神经元比较合适？（宽度设计)</strong></p>
+<p>没有确定的答案。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165009.png" alt></p>
+<p>依据分类任务的难易程度来调整神经网络模型的复杂程度。分 类任务越难，我们设计的神经网络结构就应该越深、越宽。但是， 需要注意的是对训练集分类精度最高的全连接神经网络模型，在 真实场景下识别性能未必是最好的（过拟合） 。</p>
+</li>
+</ol>
+<h4 id="全连接神经网络小结"><a href="#全连接神经网络小结" class="headerlink" title="全连接神经网络小结"></a>全连接神经网络小结</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164808.png" alt></p>
+<h3 id="3-softmax与交叉熵"><a href="#3-softmax与交叉熵" class="headerlink" title="3.softmax与交叉熵"></a>3.softmax与交叉熵</h3><h4 id="softmax函数"><a href="#softmax函数" class="headerlink" title="softmax函数"></a>softmax函数</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165313.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165521.png" alt></p>
+<p>softmax函数是把分类的结果得分转换成各种结果的概率。</p>
+<h4 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h4><p>在此处交叉熵的意义在于衡量两个分布的不相似度。</p>
+<p>计算交叉熵之前要用softmax方法做归一化处理。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165825.png" alt></p>
+<p>相对熵中的p和q是不能交换的，p和q之间不能交距离，只能叫散度，因为二者不满足可交换性。</p>
+<p>熵表示的信息量的大小。</p>
+<p>比如：中国和巴西踢足球，巴西赢的概率为1，平的概率为0，输的概率为0，这种事情没有信息量，确定性极强，熵为0；</p>
+<p>当每种概率都是1/n时，此时熵是最大的，因为结果是不确定的。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165738.png" alt></p>
+<p>通过熵，交叉熵，相对熵的公式可以看出：<strong>交叉熵=熵+相对熵</strong></p>
+<p>又因为真实分布的熵为0，此时交叉熵等于相对熵。</p>
+<p>因为相对熵又称为KL散度，表示的是两个随机分布之间的差异，且交叉熵等于相对熵，所以可用交叉熵来表示两个随机分布之间的差异。</p>
+<h3 id="4-对比多类支撑向量机损失"><a href="#4-对比多类支撑向量机损失" class="headerlink" title="4.对比多类支撑向量机损失"></a>4.对比多类支撑向量机损失</h3><h4 id="交叉熵损失-vs-多类支撑向量机损失"><a href="#交叉熵损失-vs-多类支撑向量机损失" class="headerlink" title="交叉熵损失 vs 多类支撑向量机损失"></a>交叉熵损失 vs 多类支撑向量机损失</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171843.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171927.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171947.png" alt></p>
+<p>很明显，计算出来的交叉熵损失和多类支撑向量机损失的值是不同的。</p>
+<p>采用交叉熵损失训练的结果是，某一项分数高时，还要尽可能去压低其余项的分数；</p>
+<p>采用多类支撑向量机损失训练的结果是，某一项分数高时，只比其余项高出1即可。</p>
+<p>在使用多类支撑向量机损失时，可能会出现loss值几乎没有变但是分类精度却提高了，比如：</p>
+<p>【0.35,0.33,0.32】和【0.33,0.35,0.32】，两则计算出的loss值差距很小，但是分类的结果却完全不同。</p>
+<h3 id="5-计算图与反向传播"><a href="#5-计算图与反向传播" class="headerlink" title="5.计算图与反向传播"></a>5.计算图与反向传播</h3><h4 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h4><p>计算图是一种有向图，它用来表达输入、输出以及中 间变量之间的计算关系，图中的每个节点对应着一种数学运算。</p>
+<p>当多层神经网络时，写出求导后的表达式是不容易的，引入计算图可以实现复杂函数的求导问题。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920150534.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920151419.png" alt></p>
+<p>通过计算图计算某处的值，要知道三点：</p>
+<ol>
+<li>上图中1处的值，即z=x+y处的z值是多少；</li>
+<li>上图中2处求导的表达式，即z^2求导的表达式</li>
+<li>上图中3处的导数的值；</li>
+</ol>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920152101.png" alt></p>
+<h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920152632.png" alt></p>
+<p>总结：</p>
+<ol>
+<li>通过正向计算出各处的值；</li>
+<li>能反向计算是因为有了链式法则；</li>
+<li>反向传播最后一个导数为1，因为f对f求导还是1；</li>
+<li>所求处的梯度=上游梯度*局部梯度；</li>
+<li>上游梯度是指所求处右侧的梯度；局部梯度为所求处右侧圆圈式子里的梯度；</li>
+<li>局部梯度的式子若为+1，即为x+1,若为*-1，即为-x,以此类推；</li>
+</ol>
+<p>存在的问题：因为是相乘操作，当梯度都特别小时，乘着乘着就可能出现梯度消失的情况；</p>
+<h4 id="计算图的颗粒度"><a href="#计算图的颗粒度" class="headerlink" title="计算图的颗粒度"></a>计算图的颗粒度</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920153549.png" alt></p>
+<p>计算图的颗粒度：每一个门可以是一个很复杂的函数，也可以是简单的加减乘除；函数越复杂代表颗粒度越大；</p>
+<p>简单函数的好处是都可以按照基源去操作，坏处是要严格按照链路一步一步去计算；</p>
+<p>复杂的函数颗粒度较大，但计算效率较高；</p>
+<h4 id="计算图中常见的门单元"><a href="#计算图中常见的门单元" class="headerlink" title="计算图中常见的门单元"></a>计算图中常见的门单元</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920154715.png" alt></p>
+<ul>
+<li>加法门：左边每个分支的值都等于右边的值；</li>
+<li>乘法门：两数互换，再相乘；</li>
+<li>拷贝门：左边等于右边的和；</li>
+<li>max门：把右边的值赋给左边最大的，其余为0；</li>
+</ul>
+<h3 id="6-再看激活函数"><a href="#6-再看激活函数" class="headerlink" title="6.再看激活函数"></a>6.再看激活函数</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211644.png" alt></p>
+<h4 id="梯度消失"><a href="#梯度消失" class="headerlink" title="梯度消失"></a>梯度消失</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211751.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211830.png" alt></p>
+<p>通过观察sigmoid函数和tanh函数的图像可知，当x超出一定值后梯度为0，由于链式法则是相乘的就会出现梯度消失的情况。</p>
+<p>为了解决这一问题就出现了Leakly ReLU函数</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920212056.png" alt></p>
+<p>Leakly ReLU函数在x&gt;0的情况下梯度恒为1，在x&lt;0的情况下恒为0.01；效果较好；</p>
+<h4 id="梯度爆炸"><a href="#梯度爆炸" class="headerlink" title="梯度爆炸"></a>梯度爆炸</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920212429.png" alt></p>
+<p>梯度爆炸会导致错过良好的w值；</p>
+<p>通过限制步长的方法来解决梯度爆炸；</p>
+<h4 id="激活函数选择总结"><a href="#激活函数选择总结" class="headerlink" title="激活函数选择总结"></a>激活函数选择总结</h4><p>尽量选择ReLU函数或者Leakly ReLU函数，相对于Sigmoid/tanh， ReLU函数或者Leakly ReLU函数会让梯度流更加顺畅，训练过程收敛 得更快。</p>
+<p>由于Sigmoid/tanh函数的特性，一般情况下不会在隐层中使用，但可能会用在输出层，把结果控制在某一个范围中。</p>
+<h3 id="7-动量法与自适应梯度-梯度算法的改进"><a href="#7-动量法与自适应梯度-梯度算法的改进" class="headerlink" title="7.动量法与自适应梯度(梯度算法的改进)"></a>7.动量法与自适应梯度(梯度算法的改进)</h3><h4 id="梯度下降算法存在的问题"><a href="#梯度下降算法存在的问题" class="headerlink" title="梯度下降算法存在的问题"></a>梯度下降算法存在的问题</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920213241.png" alt></p>
+<p>当存在多个w时，传统梯度下降算法会在陡峭处w会来回震荡，而平坦处的w优化缓慢；</p>
+<p>仅仅增大步长并不能加快算法收敛的速度，因为w=w-步长*某点处梯度，增加步长会使陡峭的地方震荡幅度增大(因为陡峭处的梯度值的绝对值较大)，平坦的地方进展仍然缓慢(因为平坦处的梯度值的绝对值较小)；</p>
+<h4 id="动量法"><a href="#动量法" class="headerlink" title="动量法"></a>动量法</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920214530.png" alt></p>
+<p>动量是有方向的，梯度也是有方向的；</p>
+<p>在陡峭的地方，梯度方向是不断变化的，当把一定的梯度累加在一起可能是在某一个方向上一个很小的数；在平坦的地方，梯度的方向是一定的，虽然它是一个很小的数，但是累加起来就是一个较大的数，从而实现梯度较快更新的目的；</p>
+<p>动量法累加梯度信息是图中3处，并不是2处，2处是小批量随机梯度下降算法的累加；</p>
+<p>动量系数u控制历史信息是不是要被衰减；</p>
+<p>若u=0时就退化成梯度下降算法；若u=1时就会不断的加大历史的影响，即v=v+g,即使梯度下降算法走到平坦的区域(g=0)时，v仍然不等于0，那么权值会仍然更新下去，但若v=0.9时，v=0.9v，一定次数后v的值将会非常小。</p>
+<p>u的值一般使用0.9；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920215559.png" alt></p>
+<p>因为鞍点和局部最小值点的导数都为0，又因为w=w-步长*导数，则w更新不动了，此时通常就认为收敛了，但这是不对的；</p>
+<p>加入动量以后，即使局部梯度为0，即g=0,但是v=uv+g不为0，并不会马上停止更新，此时就有可能冲出局部最小点或鞍点 ，找到更优的解。</p>
+<h4 id="自适应梯度与RMSProp"><a href="#自适应梯度与RMSProp" class="headerlink" title="自适应梯度与RMSProp"></a>自适应梯度与RMSProp</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920220019.png" alt></p>
+<p>自适应梯度算法就是在陡峭的地方用小步长，在平坦的地方用大步长。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920221036.png" alt></p>
+<p> 通过计算梯度平方和找出震荡方向和平坦方向，在4中表达式可以看出较大的r学习率较小，较小的r学习率较大，从而达到减少震荡更快达到谷底的目的。</p>
+<p>存在问题：因为r一直在累加，当加到很大时，学习率就会趋近于0，失去调节作用；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920220101.png" alt></p>
+<p>RMSProp解决了AdaGrad存在的问题，因为r前面存在ρ,当r加到一定的次数，前面的r就会衰减变得非常小，进而保证r的值永远不会很大。</p>
+<p>ρ=0时，仅仅考虑当前梯度的强度；</p>
+<p>ρ=1时，r=r，又r初始为0，显示不可能；</p>
+<p>ρ一般取0.999；</p>
+<p>保留的次数越多，p的值就应该越大，例如：保留一百个数p的值应为0.99(1-1/100=0.99),可以此类推(只是大概而已)；</p>
+<h4 id="ADAM"><a href="#ADAM" class="headerlink" title="ADAM"></a>ADAM</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921163331.png" alt></p>
+<p>ADAM是动量法和自适应梯度下降算法的结合；</p>
+<p>图中3处体现了动量法，图中4处体现了自适应梯度下降算法，图中5处解决了程序初期的冷启动问题；</p>
+<p>图中5处解决程序刚开始运行时的冷启动问题：当第一次执行程序，u=0.9，v=0,t=1时:图中3处v=0.1g，若此时去更新梯度则实际步长是非常小的，更新较慢，在图中5处进行修正偏差，u=0.9,t=1此时修正后的v=g,从而解决了程序刚开始执行时梯度更新较慢的问题，随着t的增大，u的t次方趋近于0，从而修正偏差逐渐失去作用，不会对开始一段时间后的更新产生影响；r的更新同理。</p>
+<p>t代表程序第t次执行；</p>
+<p>一般情况下，u=0.9,ρ=0.999，这两个是经验值，可以直接用。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>动量法：采用累加梯度的思想，降低陡峭处w的变化幅度，增强平坦处w的变化幅度；</p>
+<p>自适用梯度和RMSProp：自适应梯度算法的思想是减小陡峭处的步长，增大平坦处的步长，从而提高优化效率，但是存在问题(因为r一直在累加增大，当r太大时，就会对步长失去调节作用)，为解决这个问题就出现了RMSProp算法，它通过给r设置衰减系数的方法，从而防止r的值不会变的很大。</p>
+<p>ADAM：ADAM算法是动量法和自适用梯度算法的结合，又加入了修正偏差，解决了冷启动问题(程序刚开始执行时，梯度更新较慢)。</p>
+<p>在一般情况下使用ADAM算法，但是它没有动量法+小批量梯度下降算法手动调优的效果好。ADAM算法在大部分任务下可以速度很快。</p>
+<p>在实际使用过程中，有可能先用ADAM算法初始学习一下，学不动了用动量法+SGD手动调；也有可能先用动量法+SGD先学习一下，然后用ADAM做后面的加速。</p>
+<h3 id="8-权值初始化"><a href="#8-权值初始化" class="headerlink" title="8.权值初始化"></a>8.权值初始化</h3><h4 id="全零初始化"><a href="#全零初始化" class="headerlink" title="全零初始化"></a>全零初始化</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202104.png" alt></p>
+<p>全零初始化会使不同的神经元有相同的输出，不能进行正向传播和反向传播；</p>
+<h4 id="随机权值初始化"><a href="#随机权值初始化" class="headerlink" title="随机权值初始化"></a>随机权值初始化</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202149.png" alt></p>
+<p>如采用较小的随机正态分布采样，通过双曲正切激活函数的图像可知，激活后几乎所有值趋近于0，在经过激活函数所有值就为0，在后面的隐层不能进行正向传播；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202213.png" alt></p>
+<p>如采用较大的随机正态分布采样，通过双曲正切激活函数的图像可知，激活后几乎所有值趋近于1和-1，此时局部神经元梯度为0，不能进行反向传播；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202249.png" alt></p>
+<h4 id="Xavier初试化"><a href="#Xavier初试化" class="headerlink" title="Xavier初试化"></a>Xavier初试化</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202313.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202338.png" alt></p>
+<p>(此处公式推导的原理还不明白)</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202412.png" alt></p>
+<p>N为输入的神经元个数；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202431.png" alt></p>
+<h4 id="HE初始化"><a href="#HE初始化" class="headerlink" title="HE初始化"></a>HE初始化</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202452.png" alt></p>
+<h4 id="权值初始化小结"><a href="#权值初始化小结" class="headerlink" title="权值初始化小结"></a>权值初始化小结</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202518.png" alt></p>
+<h3 id="9-批归一化"><a href="#9-批归一化" class="headerlink" title="9.批归一化"></a>9.批归一化</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925140653.png" alt></p>
+<p>批归一化就是把输入先调整成0均值1方差的样子，然后再调整成与输入具有相同的分布。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925141101.png" alt></p>
+<p>批归一化在非线性激活之前。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925141157.png" alt></p>
+<p>γ和β是参数，是通过训练得到的；</p>
+<p>经过减均值，除方差后，数据会集中在均值两侧，此时梯度较好，几乎不会出现为0的情况；</p>
+<p>批归一化的作用是使数据集中在激活函数的中间位置，使梯度不会出现为0的情况；</p>
+<h3 id="10-欠拟合、过拟合与Dropout"><a href="#10-欠拟合、过拟合与Dropout" class="headerlink" title="10.欠拟合、过拟合与Dropout"></a>10.欠拟合、过拟合与Dropout</h3><h4 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h4><p>过拟合——是指学习时选择的模型所包含的参数过多，以至于出现这一模 型对已知数据预测的很好，但对未知数据预测得很差的现象。这种情况下 模型可能只是记住了训练集数据，而不是学习到了数据特征。 </p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925142720.png" alt></p>
+<p>一般当出现在验证集上误差增大时即为训练最优状态。</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925142825.png" alt></p>
+<h5 id="调节模型大小"><a href="#调节模型大小" class="headerlink" title="调节模型大小"></a>调节模型大小</h5><p>调节模型的宽度和深度；</p>
+<h5 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h5><p>L2正则损失对于大数值的权值向量进行严厉惩罚，鼓励更加分散的权重向量， 使模型倾向于使用所有输入特征做决策，此时的模型泛化性能好；</p>
+<p>使分界面变得平滑，不那么复杂；</p>
+<h5 id="随机失活"><a href="#随机失活" class="headerlink" title="随机失活"></a>随机失活</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925143511.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925143602.png" alt></p>
+<p>随机失活鼓励权值分散，因为当某些较大的权值被失活时就可能造成神经网络的瘫痪。</p>
+<p>解释三：Dropout可以看作模型的集成，因为随机失活，每个随机失活剩余的模型就不同(则可以看作多个模型的集成)，可能会出现不同的分类结果，可以找到分类结果出现最多的那次(相当于投票)。</p>
+<h4 id="欠拟合"><a href="#欠拟合" class="headerlink" title="欠拟合"></a>欠拟合</h4><p>欠拟合——模型描述能力太弱，以至于不能很好地学习到数据中的规律。 产生欠拟合的原因通常是模型过于简单。</p>
+<h3 id="11-模型正则与超参数优化"><a href="#11-模型正则与超参数优化" class="headerlink" title="11.模型正则与超参数优化"></a>11.模型正则与超参数优化</h3><h4 id="神经网络中的超参数"><a href="#神经网络中的超参数" class="headerlink" title="神经网络中的超参数"></a>神经网络中的超参数</h4><ul>
+<li><p>网络结构——隐层神经元个数，网络层数，非线性单元选择等；</p>
+</li>
+<li><p>优化相关——学习率、dropout比率、正则项强度等；</p>
+</li>
+</ul>
+<h4 id="学习率设置"><a href="#学习率设置" class="headerlink" title="学习率设置"></a>学习率设置</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145211.png" alt></p>
+<h4 id="参数优化方法"><a href="#参数优化方法" class="headerlink" title="参数优化方法"></a>参数优化方法</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145300.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145343.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145404.png" alt></p>
+<h4 id="超参数的标尺空间"><a href="#超参数的标尺空间" class="headerlink" title="超参数的标尺空间"></a>超参数的标尺空间</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145439.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="RomanticQq 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="RomanticQq 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>RomanticQq
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://romanticqq.top/posts/13828/" title="全连接神经网络">https://romanticqq.top/posts/13828/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
+              <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 图像处理</a>
+              <a href="/tags/%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 全连接神经网络</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/51215/" rel="prev" title="线性分类器">
+                  <i class="fa fa-chevron-left"></i> 线性分类器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/48631/" rel="next" title="hexo使用中遇到的坑">
+                  hexo使用中遇到的坑 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RomanticQq</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">90k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:22</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6100d6bc1e1955f3" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : ID,
+      el    : 'wpac-rating',
+      color : '#fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"rEBj8vWrB99LB7kFl08fn8gh-gzGzoHsz","appKey":"Dq07I4aM2XTwyXH36k7Slh7t","serverURLs":"https://rebj8vwr.lc-cn-n1-shared.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":true,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/posts/13828/",
+      serverURLs: "https://rebj8vwr.lc-cn-n1-shared.com"
+    }));
+  }, window.Valine);
+});
+</script>
+<script type="text/javascript">
+   fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("veditor").setAttribute("placeholder",data.hitokoto+"--"+data.from);
+    })
+    .catch(console.error)
+</script>
+</body>
+</html>

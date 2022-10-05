@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"romanticqq.top","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迁移学习模型">
+<meta property="og:url" content="https://romanticqq.top/posts/60901/index.html">
+<meta property="og:site_name" content="RomanticQq">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-19T11:53:06.000Z">
+<meta property="article:modified_time" content="2022-08-27T11:47:39.000Z">
+<meta property="article:author" content="RomanticQq">
+<meta property="article:tag" content="计算机视觉">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://romanticqq.top/posts/60901/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>迁移学习模型 | RomanticQq</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+    <script type="text/javascript" src="/love.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">RomanticQq</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">保持对生活的热爱，唯有生活不可被辜负</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="RomanticQq"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">RomanticQq</p>
+  <div class="site-description" itemprop="description">种一棵树最好的时间是十年前,其次是现在!</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Romanticqq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Romanticqq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:3236997288@qq.com" title="E-Mail → mailto:3236997288@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/romanticqq" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;romanticqq" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/romanticqq" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/60901/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          迁移学习模型
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-19 19:53:06" itemprop="dateCreated datePublished" datetime="2022-04-19T19:53:06+08:00">2022-04-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/60901/" class="post-meta-item leancloud_visitors" data-flag-title="迁移学习模型" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/60901/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/60901/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms,models,datasets</span><br><span class="line"><span class="keyword">import</span> imageio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据读取与预处理操作</span></span><br><span class="line">data_dir = <span class="string">&#x27;./flower_data/&#x27;</span></span><br><span class="line">train_dir = data_dir + <span class="string">&#x27;/train&#x27;</span></span><br><span class="line">valid_dir = data_dir + <span class="string">&#x27;/valid&#x27;</span></span><br><span class="line">num_classes = <span class="number">102</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 制作好数据源</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据增强(Data Augmentation)</span></span><br><span class="line"><span class="comment"># 数据不够怎么办？如何更高效的利用数据？</span></span><br><span class="line"><span class="comment"># 对图像进行镜像，翻转，旋转，放大，缩小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 制作好数据源</span></span><br><span class="line"><span class="comment"># data_transforms中指定了所有图像预处理操作</span></span><br><span class="line"><span class="comment"># ImageFolder假设所有的文件按文件夹保存好，每个文件夹下面存同一类别的图片，文件夹的名字为分类的名字</span></span><br><span class="line">data_transfroms = &#123;</span><br><span class="line">    <span class="string">&#x27;train&#x27;</span>:transforms.Compose([ <span class="comment"># transforms.Compose()类用来组合多个torchvision.transforms操作。</span></span><br><span class="line">        transforms.RandomRotation(<span class="number">45</span>),<span class="comment"># 随机旋转，-45到45度之间随机选</span></span><br><span class="line">        transforms.CenterCrop(<span class="number">224</span>), <span class="comment">#从中心开始裁剪  留下224*224的图像区域   另外还有随机裁剪</span></span><br><span class="line">        transforms.RandomHorizontalFlip(p=<span class="number">0.5</span>), <span class="comment"># 随机水平翻转，选择一个概率  做镜像</span></span><br><span class="line">        transforms.RandomVerticalFlip(p=<span class="number">0.5</span>), <span class="comment"># 随机垂直翻转   做镜像</span></span><br><span class="line">        transforms.ColorJitter(brightness=<span class="number">0.2</span>,contrast=<span class="number">0.1</span>,saturation=<span class="number">0.1</span>,hue=<span class="number">0.1</span>), <span class="comment"># 参数1为亮度，参数2为对比度，参数3为饱和度，参数4为色相</span></span><br><span class="line">        transforms.RandomGrayscale(p=<span class="number">0.025</span>), <span class="comment"># 概率转换成灰度率，3通道就是R=G=B</span></span><br><span class="line">        transforms.ToTensor(), <span class="comment"># ???归一化</span></span><br><span class="line">        <span class="comment"># PIL Image或numpy.ndarray(形状为HxWxC)数据范围是[0,255]到一个Torch.FloatTensor</span></span><br><span class="line"></span><br><span class="line">        transforms.Normalize([<span class="number">0.485</span>,<span class="number">0.456</span>,<span class="number">0.406</span>],[<span class="number">0.229</span>,<span class="number">0.224</span>,<span class="number">0.225</span>]) <span class="comment"># 均值，标准差</span></span><br><span class="line">        <span class="comment"># 为了使迁移学习效果更好，用人家模型的均值和标准差</span></span><br><span class="line">    ]),</span><br><span class="line">    <span class="comment"># 除了数据增强外，训练集和验证集的数据处理要一样</span></span><br><span class="line">    <span class="string">&#x27;valid&#x27;</span>:transforms.Compose([</span><br><span class="line">        transforms.Resize(<span class="number">256</span>), <span class="comment">#调整图片的大小，使图片</span></span><br><span class="line">        transforms.CenterCrop(<span class="number">224</span>),</span><br><span class="line">        transforms.ToTensor(),</span><br><span class="line">        transforms.Normalize([<span class="number">0.485</span>,<span class="number">0.456</span>,<span class="number">0.406</span>],[<span class="number">0.229</span>,<span class="number">0.224</span>,<span class="number">0.225</span>]) <span class="comment"># 均值，标准差 和训练时参数设置一样</span></span><br><span class="line">        <span class="comment"># 因为这里是预测图像的结果，不需要考虑训练时的一些参数设置</span></span><br><span class="line">    ]),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Batch数据制作</span></span><br><span class="line">batch_size = <span class="number">8</span> <span class="comment">#根据内存适当的调整大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># datasets.ImageFolder(root,transform,...)</span></span><br><span class="line"><span class="comment"># root 图片存储的根路径 transform 图片进行的变换</span></span><br><span class="line"><span class="comment"># 返回值 self.classes：用一个list保存类别名称;...</span></span><br><span class="line">image_datasets = &#123;x: datasets.ImageFolder(os.path.join(data_dir,x),data_transfroms[x]) <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">&#x27;train&#x27;</span>,<span class="string">&#x27;valid&#x27;</span>]&#125;</span><br><span class="line">dataloaders = &#123;x: torch.utils.data.DataLoader(image_datasets[x],batch_size=batch_size,shuffle=<span class="literal">True</span>) <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">&#x27;train&#x27;</span>,<span class="string">&#x27;valid&#x27;</span>]&#125;</span><br><span class="line">dataset_sizes = &#123;x: <span class="built_in">len</span>(image_datasets[x]) <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">&#x27;train&#x27;</span>,<span class="string">&#x27;valid&#x27;</span>]&#125;</span><br><span class="line">class_names = image_datasets[<span class="string">&#x27;train&#x27;</span>].classes</span><br><span class="line">print(class_names)</span><br><span class="line"><span class="comment"># print(dataset_sizes)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取标签对应的名字</span></span><br><span class="line"><span class="comment">#  with as 操作已经打开的文件对象（本身就是上下文管理器），无论期间是否抛出异常，都能保证 with as 语句执行完毕后自动关闭已经打开的文件。</span></span><br><span class="line"><span class="comment"># target 参数用于指定一个变量，该语句会将 expression 指定的结果保存到该变量中</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;cat_to_name.json&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    cat_to_name = json.load(f)  <span class="comment"># json.load读取文件类型，返回的数据类型是字典</span></span><br><span class="line">    print(cat_to_name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 展示下数据</span></span><br><span class="line"><span class="comment"># 注意tensor的数据需要转化成numpy的格式，而且还需要还原回标准化的结果</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">im_convert</span>(<span class="params">tensor</span>):</span></span><br><span class="line">    <span class="comment"># 展示数据</span></span><br><span class="line">    image = tensor.to(<span class="string">&quot;cpu&quot;</span>).clone().detach()</span><br><span class="line">    image = image.numpy().squeeze()</span><br><span class="line">    image = image.transpose(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>) <span class="comment"># h,w,c     在tensor中c,h,w</span></span><br><span class="line">    image = image * np.array((<span class="number">0.229</span>,<span class="number">0.224</span>,<span class="number">0.225</span>)) + np.array((<span class="number">0.485</span>,<span class="number">0.456</span>,<span class="number">0.406</span>)) <span class="comment"># 把数据还原回去</span></span><br><span class="line">    image = image.clip(<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line"></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">20</span>,<span class="number">12</span>))</span><br><span class="line"><span class="comment"># plt.figure设置画布的大小和背景   figsize:设置画布大小</span></span><br><span class="line">columns = <span class="number">4</span></span><br><span class="line">rows = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">dataiter = <span class="built_in">iter</span>(dataloaders[<span class="string">&#x27;train&#x27;</span>]) <span class="comment"># iter的输入是支持迭代的集合对象</span></span><br><span class="line">print(dataiter)</span><br><span class="line">inputs,classes = dataiter.<span class="built_in">next</span>()</span><br><span class="line">print(classes)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(columns * rows):</span><br><span class="line">    <span class="comment"># add_subplot(rows, columns, idx) 将画布分成rows行，columns列，图像画在从左到右从上到下的第idx块</span></span><br><span class="line">    ax = fig.add_subplot(rows, columns, idx+<span class="number">1</span>, xticks=[], yticks=[])</span><br><span class="line">    ax.set_title(cat_to_name[<span class="built_in">str</span>(<span class="built_in">int</span>(class_names[classes[idx]]))])</span><br><span class="line">    plt.imshow(im_convert(inputs[idx]))</span><br><span class="line"><span class="comment"># plt.show()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载models中提供的模型，并且直接用训练好的权重当做初试化参数</span></span><br><span class="line"><span class="comment"># 第一次执行需要下载，可能会比较慢</span></span><br><span class="line"></span><br><span class="line">model_name = <span class="string">&#x27;resnet&#x27;</span> <span class="comment"># 可选的比较多[&#x27;ResNet&#x27;,&#x27;alexnet&#x27;,&#x27;vgg&#x27;,&#x27;squeezenet&#x27;,&#x27;densenet&#x27;,&#x27;inception&#x27;]</span></span><br><span class="line"><span class="comment"># 是否用人家训练好的特征来做</span></span><br><span class="line">feature_extract = <span class="literal">True</span></span><br><span class="line"><span class="comment"># 是否用GPU训练</span></span><br><span class="line">train_on_gpu = torch.cuda.is_available()</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> train_on_gpu:</span><br><span class="line">    print(<span class="string">&#x27;GPU false&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">&#x27;GPU True&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#torch.device包含一个设备类型（&#x27;cpu&#x27;或&#x27;cuda&#x27;设备类型）和可选的设备的序号</span></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda:0&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line"><span class="comment"># print(device)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置不更新的部分</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_parameter_requires_grad</span>(<span class="params">model, feature_extracting</span>):</span></span><br><span class="line">    <span class="keyword">if</span> feature_extracting:</span><br><span class="line">        <span class="keyword">for</span> param <span class="keyword">in</span> model.parameters():</span><br><span class="line">            param.requires_grad = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">model_ft = models.resnet152()</span><br><span class="line"><span class="comment"># print(model_ft)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">initialize_model</span>(<span class="params">model_name,num_classes,feature_extract,use_pretrained=<span class="literal">True</span></span>):</span></span><br><span class="line">    <span class="comment"># 选择合适的模型，不同模型的初始化方法稍微有点区别</span></span><br><span class="line">    model_ft = <span class="literal">None</span></span><br><span class="line">    input_size = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> model_name == <span class="string">&#x27;resnet&#x27;</span>:</span><br><span class="line">        model_ft = models.resnet152(pretrained=use_pretrained) <span class="comment"># pretrained为true 会下载训练好的模型</span></span><br><span class="line">        set_parameter_requires_grad(model_ft,feature_extract) <span class="comment"># 选择性的冻住哪些层</span></span><br><span class="line">        num_ftrs = model_ft.fc.in_features <span class="comment"># 用fc.in_features得到最后一层的输出，即下一层的输入</span></span><br><span class="line">        <span class="comment"># 重写fc层</span></span><br><span class="line">        <span class="comment"># softmax和logsoftmax</span></span><br><span class="line">        <span class="comment"># softmax是 该数求指数 / 所有数求指数的和</span></span><br><span class="line">        <span class="comment"># logsoftmax是 log(softmax) 把softmax的结果log一下</span></span><br><span class="line">        model_ft.fc = nn.Sequential(nn.Linear(num_ftrs,num_classes),nn.LogSoftmax(dim=<span class="number">1</span>))</span><br><span class="line">        input_size = <span class="number">224</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> model_ft, input_size</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置哪些层需要训练</span></span><br><span class="line">model_ft, input_size = initialize_model(model_name,num_classes,feature_extract,use_pretrained=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># GPU计算</span></span><br><span class="line"><span class="comment"># 构造好的模型加入GPU</span></span><br><span class="line">model_ft = model_ft.to(device)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模型保存</span></span><br><span class="line">filename = <span class="string">&#x27;checkpoint.pth&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 是否训练所有层</span></span><br><span class="line">params_to_update = model_ft.parameters()</span><br><span class="line">print(<span class="string">&#x27;Params to learn:&#x27;</span>)</span><br><span class="line"><span class="comment"># 这个if else是为了查看哪些参数是需要被训练的</span></span><br><span class="line"><span class="keyword">if</span> feature_extract:</span><br><span class="line">    params_to_update = []</span><br><span class="line">    <span class="keyword">for</span> name,param <span class="keyword">in</span> model_ft.named_parameters():</span><br><span class="line">        <span class="keyword">if</span> param.requires_grad == <span class="literal">True</span>:</span><br><span class="line">            params_to_update.append(param)</span><br><span class="line">            print(<span class="string">&quot;\t&quot;</span>,name)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">for</span> name,param <span class="keyword">in</span> model_ft.named_parameters():</span><br><span class="line">        <span class="keyword">if</span> param.requires_grad == <span class="literal">True</span>:</span><br><span class="line">            print(<span class="string">&quot;\t&quot;</span>,name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 优化器设置</span></span><br><span class="line">optimizer_ft = optim.Adam(model_ft.parameters(),lr=<span class="number">1e-2</span>)</span><br><span class="line">scheduler = optim.lr_scheduler.StepLR(optimizer_ft,step_size=<span class="number">7</span>,gamma=<span class="number">0.1</span>) <span class="comment"># 学习率每7个epoch衰减成原来的1/10</span></span><br><span class="line"><span class="comment"># 最后一层已经LogSoftmax()了，所以不能nn.CrossEntropyLoss()来计算了，nn.CrossEntropyLoss()相当于logSoftmax()和nn.NLLLoss()整合</span></span><br><span class="line">criterion = nn.NLLLoss()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_model</span>(<span class="params">model, dataloaders, criterion, optimizer, num_epochs=<span class="number">10</span>, is_inception=<span class="literal">False</span>, filename=filename</span>):</span></span><br><span class="line">    since = time.time()</span><br><span class="line">    best_acc = <span class="number">0</span> <span class="comment"># 最好的准确率</span></span><br><span class="line">    <span class="comment"># ！！！！不是保存最后一个模型，而是保存准确率较高的模型</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 训练前把模型加入GPU</span></span><br><span class="line">    model.to(device)</span><br><span class="line"></span><br><span class="line">    val_acc_history = []</span><br><span class="line">    train_acc_history = []</span><br><span class="line">    train_losses = []</span><br><span class="line">    valid_losses = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># optimizer.param_groups： 是长度为2的list，其中的元素是2个字典；</span></span><br><span class="line">    <span class="comment"># optimizer.param_groups[0]： 长度为6的字典，包括[‘amsgrad’, ‘params’, ‘lr’, ‘betas’, ‘weight_decay’, ‘eps’]这6个参数；</span></span><br><span class="line">    <span class="comment"># optimizer.param_groups[1]： 好像是表示优化器的状态的一个字典；</span></span><br><span class="line">    LRs = [optimizer.param_groups[<span class="number">0</span>][<span class="string">&#x27;lr&#x27;</span>]] <span class="comment">#学习率数组</span></span><br><span class="line">    <span class="comment"># copy.deepcopy() python中的函数进行深拷贝</span></span><br><span class="line">    best_model_wts = copy.deepcopy(model.state_dict())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">        print(<span class="string">&quot;Epoch &#123;&#125;/&#123;&#125;&quot;</span>.<span class="built_in">format</span>(epoch,num_epochs-<span class="number">1</span>))</span><br><span class="line">        print(<span class="string">&#x27;-&#x27;</span>*<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 训练和验证</span></span><br><span class="line">        <span class="keyword">for</span> phase <span class="keyword">in</span> [<span class="string">&#x27;train&#x27;</span>,<span class="string">&#x27;valid&#x27;</span>]:</span><br><span class="line">            <span class="keyword">if</span> phase == <span class="string">&#x27;train&#x27;</span>:</span><br><span class="line">                model.train() <span class="comment"># 训练</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                model.<span class="built_in">eval</span>() <span class="comment"># 验证</span></span><br><span class="line"></span><br><span class="line">            running_loss = <span class="number">0.0</span></span><br><span class="line">            running_corrects = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 把数据都取个遍</span></span><br><span class="line">            <span class="keyword">for</span> inputs,labels <span class="keyword">in</span> dataloaders[phase]:</span><br><span class="line">                <span class="comment"># 把训练的数据加入GPU</span></span><br><span class="line">                inputs = inputs.to(device)</span><br><span class="line">                labels = labels.to(device)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 清零</span></span><br><span class="line">                optimizer.zero_grad()</span><br><span class="line">                <span class="comment"># 只有训练的时候计算和更新梯度</span></span><br><span class="line">                    <span class="comment"># set_grad_enabled  用于设置梯度计算打开或关闭状态的上下文管理器.</span></span><br><span class="line">                <span class="keyword">with</span> torch.set_grad_enabled(phase == <span class="string">&#x27;train&#x27;</span>):</span><br><span class="line">                    <span class="keyword">if</span> is_inception <span class="keyword">and</span> phase == <span class="string">&#x27;train&#x27;</span>:</span><br><span class="line">                        outputs, aux_outputs = model(inputs)</span><br><span class="line">                        loss1 = criterion(outputs,labels)</span><br><span class="line">                        loss2 = criterion(aux_outputs,labels)</span><br><span class="line">                        loss = loss1 + <span class="number">0.4</span>*loss2</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        outputs = model(inputs)</span><br><span class="line">                        loss = criterion(outputs,labels)</span><br><span class="line">                        <span class="comment"># print(type(outputs))</span></span><br><span class="line">                    _,preds = torch.<span class="built_in">max</span>(outputs,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">                    <span class="comment"># 训练阶段更新权重</span></span><br><span class="line">                    <span class="keyword">if</span> phase == <span class="string">&#x27;train&#x27;</span>:</span><br><span class="line">                        loss.backward()</span><br><span class="line">                        optimizer.step()</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 计算损失</span></span><br><span class="line">                running_loss +=loss.item() * inputs.size(<span class="number">0</span>)</span><br><span class="line">                running_corrects += torch.<span class="built_in">sum</span>(preds == labels.data)</span><br><span class="line"></span><br><span class="line">            epoch_loss = running_loss / <span class="built_in">len</span>(dataloaders[phase].dataset)</span><br><span class="line">            epoch_acc = running_corrects.double() / <span class="built_in">len</span>(dataloaders[phase].dataset)</span><br><span class="line"></span><br><span class="line">            time_elapsed = time.time() - since</span><br><span class="line">            print(<span class="string">&#x27;Time elapsed &#123;:.0f&#125;m &#123;:.0f&#125;s&#x27;</span>.<span class="built_in">format</span>(time_elapsed // <span class="number">60</span>, time_elapsed % <span class="number">60</span>))</span><br><span class="line">            print(<span class="string">&#x27;&#123;&#125; Loss: &#123;:.4f&#125; Acc: &#123;:.4f&#125;&#x27;</span>.<span class="built_in">format</span>(phase, epoch_loss, epoch_acc))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 得到最好那次的模型</span></span><br><span class="line">            <span class="keyword">if</span> phase == <span class="string">&#x27;valid&#x27;</span> <span class="keyword">and</span> epoch_acc &gt; best_acc:</span><br><span class="line">                best_acc = epoch_acc</span><br><span class="line">                best_model_wts = copy.deepcopy(model.state_dict())</span><br><span class="line">                <span class="comment"># pytorch中model.parameters()和model.state_dict()使用时的区别</span></span><br><span class="line">                <span class="comment"># model.parameters()方法返回的是一个生成器generator，里面只有模型的参数，而没有对应的网络层名称；</span></span><br><span class="line">                <span class="comment"># 并且 如果有些层的参数没有被训练，那么它只保存那些被训练的参数</span></span><br><span class="line">                <span class="comment"># model.state_dict() 返回的则是一个字典 &#123;key:value&#125;，key 是网络层名称，value 则是该层的参数</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># state_dict()是一个状态字典,⼀个简单的python的字典对象,将每⼀层与它的对应参数建⽴映射关系</span></span><br><span class="line">                state = &#123;</span><br><span class="line">                    <span class="string">&#x27;state_dict&#x27;</span>: model.state_dict(),</span><br><span class="line">                    <span class="string">&#x27;best_acc&#x27;</span>: best_acc,</span><br><span class="line">                    <span class="comment"># 优化器参数：有时保存模型的参数需要稍后接着训练，那么就必须保存优化器的状态和其所使用的超参数</span></span><br><span class="line">                    <span class="string">&#x27;optimizer&#x27;</span>: optimizer.state_dict(), <span class="comment"># 包含了优化器的状态，以及被使用的超参数</span></span><br><span class="line">                &#125;</span><br><span class="line">                torch.save(state, filename)</span><br><span class="line">            <span class="keyword">if</span> phase == <span class="string">&#x27;valid&#x27;</span>:</span><br><span class="line">                val_acc_history.append(epoch_acc)</span><br><span class="line">                valid_losses.append(epoch_loss)</span><br><span class="line">                <span class="comment"># scheduler.step（）按照Pytorch的定义是用来更新优化器的学习率的，一般是按照epoch为单位进行更换，即多少个epoch后更换一次学习率</span></span><br><span class="line">                <span class="comment"># ???epoch_loss这个参数有什么意义呢</span></span><br><span class="line">                scheduler.step(epoch_loss)</span><br><span class="line">            <span class="keyword">if</span> phase == <span class="string">&#x27;train&#x27;</span>:</span><br><span class="line">                train_acc_history.append(epoch_acc)</span><br><span class="line">                train_losses.append(epoch_loss)</span><br><span class="line"></span><br><span class="line">        print(<span class="string">&#x27;Optimizer learning rate : &#123;:.7f&#125;&#x27;</span>.<span class="built_in">format</span>(optimizer.param_groups[<span class="number">0</span>][<span class="string">&#x27;lr&#x27;</span>]))</span><br><span class="line">        LRs.append(optimizer.param_groups[<span class="number">0</span>][<span class="string">&#x27;lr&#x27;</span>])</span><br><span class="line">        print()</span><br><span class="line"></span><br><span class="line">    time_elapsed = time.time() - since</span><br><span class="line">    print(<span class="string">&#x27;Training complete in &#123;:.0f&#125;m &#123;:.0f&#125;s&#x27;</span>.<span class="built_in">format</span>(time_elapsed // <span class="number">60</span>, time_elapsed % <span class="number">60</span>))</span><br><span class="line">    print(<span class="string">&#x27;Best val Acc: &#123;:4f&#125;&#x27;</span>.<span class="built_in">format</span>(best_acc))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 训练完后用最好的一次当做模型最终的结果</span></span><br><span class="line">    model.load_state_dict(best_model_wts)</span><br><span class="line">    <span class="keyword">return</span> model, val_acc_history, train_acc_history, valid_losses, train_losses, LRs</span><br><span class="line"></span><br><span class="line">model_ft, val_acc_history, train_acc_history, valid_losses, train_losses, LRs  = train_model(model_ft, dataloaders, criterion, optimizer_ft, num_epochs=<span class="number">10</span>, is_inception=(model_name==<span class="string">&quot;inception&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="RomanticQq 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="RomanticQq 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>RomanticQq
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://romanticqq.top/posts/60901/" title="迁移学习模型">https://romanticqq.top/posts/60901/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/21594/" rel="prev" title="线性回归模型">
+                  <i class="fa fa-chevron-left"></i> 线性回归模型
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/9806/" rel="next" title="常见概念解释">
+                  常见概念解释 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RomanticQq</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">90k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:22</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6100d6bc1e1955f3" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : ID,
+      el    : 'wpac-rating',
+      color : '#fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"rEBj8vWrB99LB7kFl08fn8gh-gzGzoHsz","appKey":"Dq07I4aM2XTwyXH36k7Slh7t","serverURLs":"https://rebj8vwr.lc-cn-n1-shared.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":true,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/posts/60901/",
+      serverURLs: "https://rebj8vwr.lc-cn-n1-shared.com"
+    }));
+  }, window.Valine);
+});
+</script>
+<script type="text/javascript">
+   fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("veditor").setAttribute("placeholder",data.hitokoto+"--"+data.from);
+    })
+    .catch(console.error)
+</script>
+</body>
+</html>

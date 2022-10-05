@@ -27,7 +27,8 @@ date: 2021-01-04 18:43:43
 1. 把github的博客仓库**backup**分支的内容下载到本地
 2. 依次执行下列命令
     ```
-    npm install hexo
+    npm install hexo-cli -g # 如果是新电脑，要先执行这一行，安装hexo环境
+    npm install hexo #先只执行这一行，如果hexo s报错再考虑执行下面的
     npm install
     npm install hexo-deployer-git
     ```

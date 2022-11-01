@@ -34,6 +34,24 @@
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
   </entry>
   <entry>
+    <title>安装tensorRT</title>
+    <url>/posts/54278/</url>
+    <content><![CDATA[<ol>
+<li>下载cuda、cudnn、tensorrt；</li>
+<li>把cudnn下的lib、bin、include对应复制到cudn下面；</li>
+<li>把tensorrt的lib加到环境变量中；</li>
+<li>安装pycuda时去官网下载whl文件，直接装可能会报错；如果cuda版本太高，用pycuda最新的版本就可以，不用回退cuda版本；</li>
+<li>安装下载好的tensorrt；</li>
+</ol>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>tensorRT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GPU内存占用测试报告</title>
     <url>/posts/48938/</url>
     <content><![CDATA[<p><strong>显卡：</strong>NVIDIA GeForce GTX 1070</p>

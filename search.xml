@@ -34,6 +34,30 @@
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
   </entry>
   <entry>
+    <title>归一化的方法</title>
+    <url>/posts/29435/</url>
+    <content><![CDATA[<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/202211021208331.png" alt="image-20221102120054647"></p>
+<h1 id="Batch-Norm"><a href="#Batch-Norm" class="headerlink" title="Batch Norm"></a>Batch Norm</h1><ul>
+<li>按照不同的通道进行批归一化；</li>
+<li>比如输入是【2,3,4,5】，输入两张三通道的图像，取这两张图像的第一个通道组合起来做一次归一化，取这两张图像的第二个通道组合起来做一次归一化……</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">x = torch.randn([<span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line">bn = torch.nn.BatchNorm2d(<span class="number">3</span>)</span><br><span class="line">res = bn(x)</span><br><span class="line">res1 = res[:, <span class="number">0</span>, ...]</span><br><span class="line">print(res1)</span><br><span class="line"></span><br><span class="line">x1 = x[:, <span class="number">0</span>, ...]</span><br><span class="line">u = x1.mean()</span><br><span class="line">s = (x1-u).<span class="built_in">pow</span>(<span class="number">2</span>).mean()</span><br><span class="line">res2 = (x1-u)/torch.sqrt(s+<span class="number">1e-5</span>)</span><br><span class="line">print(res2)</span><br><span class="line"><span class="comment"># res1 == res2</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="Layer-Norm"><a href="#Layer-Norm" class="headerlink" title="Layer Norm"></a>Layer Norm</h1><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/202211021220230.png" alt="image-20221102122020184"></p>
+<p>假设我们的输入为(1, 3, 5, 5)的变量，并对其进行LayerNorm，一般来说有两种归一化的方式。如下图所示，左边为第一种归一化方法，对所有channel所有像素计算；右边为第二种归一化方法，对所有channel的每个像素分别计算</p>
+<ul>
+<li>计算一个batch中所有channel中所有参数的均值和方差，然后进行归一化，即(3, 5, 5)</li>
+<li>计算一个batch中所有channel中的每一个参数的均值和方差进行归一化，即(3, 1, 1)，计算25次</li>
+</ul>
+<p><a href="!https://blog.csdn.net/weixin_41978699/article/details/122778085">参考</a></p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>归一化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安装tensorRT</title>
     <url>/posts/54278/</url>
     <content><![CDATA[<ol>
@@ -241,8 +265,8 @@
       </categories>
       <tags>
         <tag>深度学习</tag>
-        <tag>计算机视觉</tag>
         <tag>卷积神经网络</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -991,8 +1015,8 @@ y=\frac{1}{1+e^{-θx}}</script>]]></content>
       </categories>
       <tags>
         <tag>深度学习</tag>
-        <tag>计算机视觉</tag>
         <tag>卷积神经网络</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -1124,8 +1148,8 @@ y=\frac{1}{1+e^{-θx}}</script>]]></content>
       </categories>
       <tags>
         <tag>深度学习</tag>
-        <tag>计算机视觉</tag>
         <tag>卷积神经网络</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>

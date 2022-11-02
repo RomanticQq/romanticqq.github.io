@@ -24,21 +24,21 @@
     var CONFIG = {"hostname":"romanticqq.top","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;终于稳定下来了，一直想把最近的面试经历记录下来，可是由于一直在忙着找房子和工作，今天终于有时间可以写一写了。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在上一周面试了大概有十家左右，虽然每天跑的感觉特别疲惫，但从失败的教训中确实也学到了好多东西。在面试的过程中，一般都会先要求">
+  <meta name="description" content="torch.permutepermute作用为调换Tensor的维度，参数为调换的维度。例如对于一个二维Tensor来说，调用tensor.permute(1,0)意为将1轴（列轴）与0轴（行轴）调换，相当于进行转置 torch.reshapereshape和view得到的tensor并不是转置的效果，而是相当于将原tensor的元素按行取出，然后按行放入到新形状的tensor中。 torch.r">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一次面试-2021北京暑假实习">
-<meta property="og:url" content="https://romanticqq.top/posts/48614/index.html">
+<meta property="og:title" content="torch.permute和torch.reshape的区别">
+<meta property="og:url" content="https://romanticqq.top/posts/17446/index.html">
 <meta property="og:site_name" content="RomanticQq">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;终于稳定下来了，一直想把最近的面试经历记录下来，可是由于一直在忙着找房子和工作，今天终于有时间可以写一写了。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在上一周面试了大概有十家左右，虽然每天跑的感觉特别疲惫，但从失败的教训中确实也学到了好多东西。在面试的过程中，一般都会先要求">
+<meta property="og:description" content="torch.permutepermute作用为调换Tensor的维度，参数为调换的维度。例如对于一个二维Tensor来说，调用tensor.permute(1,0)意为将1轴（列轴）与0轴（行轴）调换，相当于进行转置 torch.reshapereshape和view得到的tensor并不是转置的效果，而是相当于将原tensor的元素按行取出，然后按行放入到新形状的tensor中。 torch.r">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-29T11:01:31.000Z">
-<meta property="article:modified_time" content="2022-08-27T11:47:39.000Z">
+<meta property="article:published_time" content="2022-11-02T05:13:49.000Z">
+<meta property="article:modified_time" content="2022-11-02T05:29:35.421Z">
 <meta property="article:author" content="RomanticQq">
-<meta property="article:tag" content="面试">
+<meta property="article:tag" content="torch函数">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://romanticqq.top/posts/48614/">
+<link rel="canonical" href="https://romanticqq.top/posts/17446/">
 
 
 <script class="page-configurations">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>第一次面试-2021北京暑假实习 | RomanticQq</title>
+  <title>torch.permute和torch.reshape的区别 | RomanticQq</title>
   
 
 
@@ -229,7 +229,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%A2%91%E7%8E%87%E6%AF%94%E8%BE%83%E9%AB%98%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">遇到的频率比较高的问题</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#torch-permute"><span class="nav-text">torch.permute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#torch-reshape"><span class="nav-text">torch.reshape</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#torch-reshape%E5%92%8Ctorch-view%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">torch.reshape和torch.view的区别</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -314,7 +314,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/48614/">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/17446/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -327,7 +327,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          第一次面试-2021北京暑假实习
+          torch.permute和torch.reshape的区别
         </h1>
 
         <div class="post-meta-container">
@@ -337,28 +337,22 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-05-29 19:01:31" itemprop="dateCreated datePublished" datetime="2021-05-29T19:01:31+08:00">2021-05-29</time>
+      <time title="创建时间：2022-11-02 13:13:49 / 修改时间：13:29:35" itemprop="dateCreated datePublished" datetime="2022-11-02T13:13:49+08:00">2022-11-02</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
         </span>
     </span>
 
   
-    <span id="/posts/48614/" class="post-meta-item leancloud_visitors" data-flag-title="第一次面试-2021北京暑假实习" title="阅读次数">
+    <span id="/posts/17446/" class="post-meta-item leancloud_visitors" data-flag-title="torch.permute和torch.reshape的区别" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -373,8 +367,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/48614/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/48614/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/17446/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/17446/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -386,7 +380,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>444</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -404,19 +398,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;终于稳定下来了，一直想把最近的面试经历记录下来，可是由于一直在忙着找房子和工作，今天终于有时间可以写一写了。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上一周面试了大概有十家左右，虽然每天跑的感觉特别疲惫，但从失败的教训中确实也学到了好多东西。在面试的过程中，一般都会先要求自我介绍，然后给一些笔试题做一下，再就是技术面试。这几场面试下来，给我的感觉不仅是一些知识自己没有熟练掌握，更重要的是有些技术自己根本就没有听说过、考虑过或使用过。以前在学校的时候感觉在同学中应该还算个中等水平，现在感觉自己就是一个井底之蛙，我觉得这才是最可怕的地方。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这么多面试官中给我留下印象最深刻的是乔，他面了我三次，最然他最后没有录用我，但是我觉得他给了我更重要的东西。一面是电话面试，他简单的问了我一些计算机专业的知识，然后让我给他介绍毕设；二面的时候是在公司，他指出我毕设数据库表的设计有问题，并现场让我改正，写了对数据库的增删改查的一些功能。这里要说了，这是我所有的面试中唯一一个让现场写代码的。一开始我以为是个特例，后来问了同学，他们说他们面的时候也需要现场写。后来由于他有事，他给我布置了两个问题，让我写一下，问题分别是：(1)写一个单例模式，并写出对它的理解；(2)根据对数据库的修改去修改响应的代码；三面的时候，第一个问题写单例模式，虽然最后写出来了，但是写的特别慢，又问我你还看了别的设计模式了吗？我说没有；后来看到我写的文档数据库表中字段名起的规则不一致，说我命名不严谨；最后问我在二面的时候代码中那个bug修改了没有，我说没有；结果可想而知，我肯定是被pass掉了。原因：他说单例模式你虽然写出来了但是写的太慢了，你在关注这个模式的时候没有去考虑别的设计模式；遇到的bug这都好几天了，你应该已经解决了但是你并没有解决了，给我的感觉是你并没有那么喜欢计算机这个行业；还有就是对数据库字段命名的时候没有自己的原则，可见没有良好的代码习惯。纵使我说我很喜欢，但是靠嘴说是没有用的。随后他给我讲了一些计算机大面上的东西，虽然不是具体知识上面的，但我感觉确实受益匪浅。其中有一个问题就是：你喜欢广度优先还是深度优先？还告诉我要有长期的目标，以及产品、需求和代码之间的关系等。虽然当时我没有通过面试，心情非常失落，但是我获得了更重要的东西。我特别特别感谢他，他一下子把我拍醒了，让我对自己有了一个更加清楚的认识。从这次面试失败的经历中，我感觉到有两点特别重要：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 细节决定成败；</span><br><span class="line"><span class="number">2.</span> 对于遇到的问题要及时去解决，问题本身就是最宝贵的；</span><br></pre></td></tr></table></figure><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有些话一直在说，但是没有教训的话，可能体会的并没有那么深刻。</p>
-<h5 id="遇到的频率比较高的问题"><a href="#遇到的频率比较高的问题" class="headerlink" title="遇到的频率比较高的问题"></a>遇到的频率比较高的问题</h5><ol>
-<li>时间复杂度；</li>
-<li>队列和栈； </li>
-<li>冒泡排序和快排；</li>
-<li>五层模型和七层模型；</li>
-<li>http和https；</li>
-<li>TCP和UDP；</li>
-<li>线程和进程；</li>
-<li>数据库优化；</li>
-<li>事务；</li>
-<li>SQL语句的书写；</li>
-</ol>
+        <h1 id="torch-permute"><a href="#torch-permute" class="headerlink" title="torch.permute"></a>torch.permute</h1><p>permute作用为调换Tensor的维度，参数为调换的维度。例如对于一个二维Tensor来说，调用tensor.permute(1,0)意为将1轴（列轴）与0轴（行轴）调换，相当于进行转置</p>
+<h1 id="torch-reshape"><a href="#torch-reshape" class="headerlink" title="torch.reshape"></a>torch.reshape</h1><p>reshape和view得到的tensor并不是转置的效果，而是相当于将原tensor的元素按行取出，然后按行放入到新形状的tensor中。</p>
+<h1 id="torch-reshape和torch-view的区别"><a href="#torch-reshape和torch-view的区别" class="headerlink" title="torch.reshape和torch.view的区别"></a>torch.reshape和torch.view的区别</h1><p>torch的view()与reshape()方法都可以用来重塑tensor的shape，区别就是使用的条件不一样。</p>
+<p>view()方法只适用于满足连续性条件的tensor，并且该操作不会开辟新的内存空间，只是产生了对原存储空间的一个新别称和引用，返回值是视图。</p>
+<p>reshape()即可以处理连续内存的数据，也可以处理不是连续内存空间的数据；当内存空间连续时和view()相同；当数据内存空间不连续时，就会对数据进行复制到连续内存空间上，然后再进行维度的改变。</p>
 
     </div>
 
@@ -452,7 +438,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://romanticqq.top/posts/48614/" title="第一次面试-2021北京暑假实习">https://romanticqq.top/posts/48614/</a>
+      <a href="https://romanticqq.top/posts/17446/" title="torch.permute和torch.reshape的区别">https://romanticqq.top/posts/17446/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -461,7 +447,7 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+              <a href="/tags/torch%E5%87%BD%E6%95%B0/" rel="tag"><i class="fa fa-tag"></i> torch函数</a>
           </div>
 
         
@@ -473,14 +459,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/46132/" rel="prev" title="单例模式">
-                  <i class="fa fa-chevron-left"></i> 单例模式
+                <a href="/posts/29435/" rel="prev" title="归一化的方法">
+                  <i class="fa fa-chevron-left"></i> 归一化的方法
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/8642/" rel="next" title="第一次来北京">
-                  第一次来北京 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -645,7 +628,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"rEBj8vWrB99LB7kFl08fn8gh-gzGzoHsz","appKey":"Dq07I4aM2XTwyXH36k7Slh7t","serverURLs":"https://rebj8vwr.lc-cn-n1-shared.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":true,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
       el: '#valine-comments',
-      path: "/posts/48614/",
+      path: "/posts/17446/",
       serverURLs: "https://rebj8vwr.lc-cn-n1-shared.com"
     }));
   }, window.Valine);

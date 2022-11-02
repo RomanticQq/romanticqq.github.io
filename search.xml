@@ -34,6 +34,22 @@
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
   </entry>
   <entry>
+    <title>torch.permute和torch.reshape的区别</title>
+    <url>/posts/17446/</url>
+    <content><![CDATA[<h1 id="torch-permute"><a href="#torch-permute" class="headerlink" title="torch.permute"></a>torch.permute</h1><p>permute作用为调换Tensor的维度，参数为调换的维度。例如对于一个二维Tensor来说，调用tensor.permute(1,0)意为将1轴（列轴）与0轴（行轴）调换，相当于进行转置</p>
+<h1 id="torch-reshape"><a href="#torch-reshape" class="headerlink" title="torch.reshape"></a>torch.reshape</h1><p>reshape和view得到的tensor并不是转置的效果，而是相当于将原tensor的元素按行取出，然后按行放入到新形状的tensor中。</p>
+<h1 id="torch-reshape和torch-view的区别"><a href="#torch-reshape和torch-view的区别" class="headerlink" title="torch.reshape和torch.view的区别"></a>torch.reshape和torch.view的区别</h1><p>torch的view()与reshape()方法都可以用来重塑tensor的shape，区别就是使用的条件不一样。</p>
+<p>view()方法只适用于满足连续性条件的tensor，并且该操作不会开辟新的内存空间，只是产生了对原存储空间的一个新别称和引用，返回值是视图。</p>
+<p>reshape()即可以处理连续内存的数据，也可以处理不是连续内存空间的数据；当内存空间连续时和view()相同；当数据内存空间不连续时，就会对数据进行复制到连续内存空间上，然后再进行维度的改变。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>torch函数</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>归一化的方法</title>
     <url>/posts/29435/</url>
     <content><![CDATA[<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/202211021208331.png" alt="image-20221102120054647"></p>

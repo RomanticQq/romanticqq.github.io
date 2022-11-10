@@ -26,7 +26,7 @@ model = nn.DataParallel(model, device_ids=[0, 1])
 module.features.0.weight # 经过nn.DataParallel
 features.0.weight # 没有经过nn.DataParallel
 # 没有经过nn.DataParallel的模型，没有model.module这个属性
-# 经过nn.DataParallel的模型，初始化时是model.module(params)
+# 经过nn.DataParallel的模型，给模型传参时使用model.module(params)，比如给forward传数据时
 ```
 
 

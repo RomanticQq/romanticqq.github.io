@@ -354,14 +354,14 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -414,6 +414,123 @@ mjx-container[display="true"] + br {
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/29656/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/29656/" class="post-title-link" itemprop="url">git的基本使用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-26 00:01:12" itemprop="dateCreated datePublished" datetime="2022-06-26T00:01:12+08:00">2022-06-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+
+  
+    <span id="/posts/29656/" class="post-meta-item leancloud_visitors" data-flag-title="git的基本使用" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/29656/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/29656/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>704</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="1-删除仓库文件"><a href="#1-删除仓库文件" class="headerlink" title="1.删除仓库文件"></a>1.删除仓库文件</h4><p>先删除本地文件-&gt;git add -u</p>
+<h4 id="2-创建test分支"><a href="#2-创建test分支" class="headerlink" title="2.创建test分支"></a>2.创建test分支</h4><p>列出所有分支git branch -a(带*绿色的为当前分支，白色和绿色的为当前分支，红色所有远端分支)-&gt;创建test分支git branch test-&gt;切换分支git checkout test-&gt;提交分支git push origin test</p>
+<h4 id="3-把test分支合并到master分支"><a href="#3-把test分支合并到master分支" class="headerlink" title="3.把test分支合并到master分支"></a>3.把test分支合并到master分支</h4><p>git merge test</p>
+<h4 id="4-删除test分支"><a href="#4-删除test分支" class="headerlink" title="4.删除test分支"></a>4.删除test分支</h4><p>切换非删除的分支<br>git branch -D test 删除本地分支<br>git push —delete test 删除远端分支  删除远端分支时，本地分支不会被删除</p>
+<h4 id="5-从github下载代码的时候一定要使用ssh地址，使用https地址的时候可能会出现问题"><a href="#5-从github下载代码的时候一定要使用ssh地址，使用https地址的时候可能会出现问题" class="headerlink" title="5.从github下载代码的时候一定要使用ssh地址，使用https地址的时候可能会出现问题"></a>5.从github下载代码的时候一定要使用ssh地址，使用https地址的时候可能会出现问题</h4><h4 id="6-从仓库拉去代码"><a href="#6-从仓库拉去代码" class="headerlink" title="6.从仓库拉去代码"></a>6.从仓库拉去代码</h4><p>git pull</p>
+<h4 id="7-把代码推送到仓库"><a href="#7-把代码推送到仓库" class="headerlink" title="7.把代码推送到仓库"></a>7.把代码推送到仓库</h4><p>把文件添加到缓冲区 git add 文件名<br>把文件添加到本地仓库 git commit -a 本地提交的注释<br>把文件推送到仓库git push(origin 当前分支名)(亲测，如果是分支第一次提交不能省略，可能是因为要把新分支和代码同时推上去，否则括号内的内容可省)</p>
+<h4 id="8-恢复被修改的文件"><a href="#8-恢复被修改的文件" class="headerlink" title="8.恢复被修改的文件"></a>8.恢复被修改的文件</h4><p>git checkout .(恢复被修改的所有文件)<br>git checkout — 文件名/文件夹名(恢复被修改的文件名或则文件夹名)</p>
+<h4 id="9-内容回滚"><a href="#9-内容回滚" class="headerlink" title="9.内容回滚"></a>9.内容回滚</h4><p>git reset HEAD^ 所有内容回退到上一个版本<br>git reset HEAD^ 文件名 具体文件回退到上一个版本<br>git reset 哈希值 回退到产生这个哈希值的状态</p>
+<h4 id="10-如何拉取远端所有分支"><a href="#10-如何拉取远端所有分支" class="headerlink" title="10.如何拉取远端所有分支"></a>10.如何拉取远端所有分支</h4><p>get checkout -b 分支名  origin/分支名 切换到远端的分支并在本地命名</p>
+<h4 id="这些平时就已经够用了，更加高级的用法用到时可自行百度"><a href="#这些平时就已经够用了，更加高级的用法用到时可自行百度" class="headerlink" title="这些平时就已经够用了，更加高级的用法用到时可自行百度"></a>这些平时就已经够用了，更加高级的用法用到时可自行百度</h4>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1670,126 +1787,6 @@ y=\frac{1}{1+e^{-θx}}</script>
 <p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220503163101.png" style="zoom:50%;"></p>
 <p>求出PR曲线平滑后围成图形的面积，即为<strong>AP</strong>值；</p>
 <p>求出各个类的AP，然后求平均，即为mAP(通常来说AP是在单个类别下的，mAP是AP值在所有类别下的均值)；</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/9806/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/9806/" class="post-title-link" itemprop="url">常见概念解释</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-05-01 23:51:05" itemprop="dateCreated datePublished" datetime="2022-05-01T23:51:05+08:00">2022-05-01</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/9806/" class="post-meta-item leancloud_visitors" data-flag-title="常见概念解释" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/9806/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/9806/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>9</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33605633/article/details/119713351">NMS非极大值抑制</a></li>
-</ol>
 
       
     </div>

@@ -242,14 +242,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -302,6 +302,124 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/31746/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/31746/" class="post-title-link" itemprop="url">解决innerHTML不能解析数据</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-15 15:25:23" itemprop="dateCreated datePublished" datetime="2021-01-15T15:25:23+08:00">2021-01-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/31746/" class="post-meta-item leancloud_visitors" data-flag-title="解决innerHTML不能解析数据" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/31746/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/31746/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>191</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>当使用<code>document.(&#39;div&#39;).innerHTML=`` </code>向页面追加内容时可能会出现变量不解析的情况。<br>正确姿势：<code>=</code>后面是<code>`` </code>,而不是单引号或双引号,只有<code>`` </code>才能解析。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.querySelector(&#x27;div&#x27;).innerHTML=`<span class="tag">&lt;<span class="name">h2</span>&gt;</span>编号：$&#123;resp.id&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>`	</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1467,130 +1585,6 @@ client代码<figure class="highlight html"><table><tr><td class="gutter"><pre><s
 <li>缺省参数<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">定义：有些函数的参数是有默认参数，你传了用你的，不传用默认的</span><br><span class="line">eg:</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say</span>(<span class="params">person=<span class="string">&#x27;xiaoming&#x27;</span></span>):</span></span><br><span class="line">    print(<span class="string">&#x27;&#123;&#125;说：他明天去旅游&#x27;</span>.<span class="built_in">format</span>(person))</span><br><span class="line"></span><br><span class="line">say() <span class="comment"># 当say函数不传参数时，就使用默认参数</span></span><br></pre></td></tr></table></figure></li>
 <li>特殊传参<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 当位置参数和关键字参数混合使用时，位置参数在前</span><br><span class="line">eg:</span><br><span class="line">say(<span class="string">&#x27;xiaoming&#x27;</span>,age=<span class="number">18</span>)  <span class="comment"># 位置参数前，关键字参数后</span></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 位置可变参数</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say</span>(<span class="params">name,*args</span>):</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">say(<span class="string">&#x27;xiaoming&#x27;</span>)  <span class="comment"># args为空</span></span><br><span class="line">say(<span class="string">&#x27;xiaoming&#x27;</span>,<span class="number">18</span>)  <span class="comment"># 18以元组的形式存在args里</span></span><br><span class="line"><span class="comment"># 多出来的可变参数会以元组的形式保存在args里</span></span><br><span class="line"><span class="comment"># 在定义函数参数时,先写位置参数再写可变位置参数，传参时也是</span></span><br><span class="line"><span class="comment"># 注意是一个*</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>可变关键字参数</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say</span>(<span class="params">name,**kwargs</span>):</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">say(name=<span class="string">&#x27;xiaoming&#x27;</span>)  <span class="comment"># kwargs为空</span></span><br><span class="line">say(<span class="string">&#x27;xiaoming&#x27;</span>,<span class="number">18</span>)  <span class="comment"># 18以元组的形式存在kwargs里</span></span><br><span class="line"><span class="comment"># 多出来的可变参数会以字典的形式保存在kwargs里</span></span><br><span class="line"><span class="comment"># 在定义函数参数时,先写位置参数再写可变位置参数，传参时也是</span></span><br><span class="line"><span class="comment"># 注意是**</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.</span>当位置参数，可变位置参数，缺省参数，关键字参数，可变关键字参数同时出现时</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say</span>(<span class="params">位置参数，可变位置参数，缺省参数，关键字参数，可变关键字参数</span>)  </span></span><br><span class="line"><span class="function">#传参时也是一样</span></span><br></pre></td></tr></table></figure></li>
 <li>注意事项 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 在Python中函数不允许重名,重名后一个会覆盖前一个</span><br><span class="line"><span class="number">2.</span> 函数名和变量名也不能重名</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/9223/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/9223/" class="post-title-link" itemprop="url">Python元组、列表、字典、集合</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-01-11 13:54:58" itemprop="dateCreated datePublished" datetime="2021-01-11T13:54:58+08:00">2021-01-11</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/9223/" class="post-meta-item leancloud_visitors" data-flag-title="Python元组、列表、字典、集合" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/9223/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/9223/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li><h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 元组和列表很像，用来保存多个数据</span></span><br><span class="line"><span class="comment"># 使用一对小括号(),来表示一个元组</span></span><br><span class="line"><span class="comment"># 元组是不可变数据类型,因此只能进行查，不能进行增删改</span></span><br><span class="line"><span class="comment"># 元组是一个有序的存储数据的容器，可以通过下标来获取元素</span></span><br><span class="line"><span class="comment"># 元组也可以遍历</span></span><br><span class="line"></span><br><span class="line">index <span class="comment"># 通过下标获取元素</span></span><br><span class="line">count <span class="comment"># 用来统计指定元素的个数</span></span><br><span class="line">x=(<span class="number">1</span>,)  <span class="comment">#表示只有一个元素的元组</span></span><br><span class="line"><span class="built_in">tuple</span>   <span class="comment"># 实现可迭代对象转化为元组(列表list也可以这样用)</span></span><br></pre></td></tr></table></figure></li>
-<li><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 当我们保存多个数据时可以使用列表(列表近似于C语言的数组)</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 使用[]表示一个列表，列表里的每一个数据表示元素，中间用逗号隔开</span><br><span class="line">[<span class="string">&#x27;xiaoming&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;河南&#x27;</span>] <span class="comment"># 即表示一个列表，数据类型可以不同</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 可以使用<span class="built_in">list</span>(可迭代对象),将可迭代对象转换成一个列表</span><br><span class="line">eg：</span><br><span class="line">x=<span class="built_in">list</span>((<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;李四&#x27;</span>,<span class="string">&#x27;王五&#x27;</span>))</span><br><span class="line">print(x) <span class="comment"># 打印结果：[&#x27;张三&#x27;, &#x27;李四&#x27;, &#x27;王五&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.</span> 可以通过下标获取修改列表即对列表进行切片</span><br><span class="line">注：A[m:n] <span class="comment"># 例如在对a进行切片时,从下标m开始,不包含下标为n的</span></span><br><span class="line"></span><br><span class="line"><span class="number">5.</span> 增加列表元素</span><br><span class="line">append <span class="comment"># 在列表末尾加一个元素</span></span><br><span class="line">insert <span class="comment"># 在指定位置插入元素</span></span><br><span class="line">extend <span class="comment"># 将可迭代对象添加到末尾</span></span><br><span class="line"></span><br><span class="line"><span class="number">6.</span> 删除列表元素</span><br><span class="line">remove <span class="comment"># 删除列表指定元素</span></span><br><span class="line">clear <span class="comment"># 清空列表</span></span><br><span class="line"><span class="keyword">del</span> <span class="comment">#删除一个列表元素</span></span><br><span class="line">pop <span class="comment">#移除列表中的一个元素（默认最后一个元素），并且返回该元素的值</span></span><br><span class="line"></span><br><span class="line"><span class="number">7.</span> 查询列表元素</span><br><span class="line">index <span class="comment"># 返回指定元素下标,不存在会报错</span></span><br><span class="line">count <span class="comment"># 返回指定元素的个数</span></span><br><span class="line"></span><br><span class="line"><span class="number">8.</span> 修改元素</span><br><span class="line">用下标定位到元素,直接赋值</span><br><span class="line"></span><br><span class="line"><span class="number">9.</span> 调用列表的sort方法进行排序</span><br><span class="line">顺序排序:默认循序排序</span><br><span class="line">逆序排序:x.sort(reverse=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">10.</span> 内置函数<span class="built_in">sorted</span>排序</span><br><span class="line">新生成一个列表</span><br><span class="line"><span class="comment"># 注：sort排序是改变原列表的序列,sorted新生成一个列表</span></span><br><span class="line"></span><br><span class="line"><span class="number">11.</span> 列表逆序</span><br><span class="line">reverse:用函数</span><br><span class="line">x.[::-<span class="number">1</span>]:用切片法</span><br><span class="line"></span><br><span class="line"><span class="number">12.</span> 复制列表</span><br><span class="line">y=x <span class="comment"># x,y指向了同一个内存地址,会相互影响</span></span><br><span class="line">copy <span class="comment"># 新列表和原列表数据相同,内存地址不同,不会相互影响</span></span><br><span class="line"></span><br><span class="line"><span class="number">13.</span> 使用<span class="keyword">for</span>...<span class="keyword">in</span>对列表进行循环遍历时,尽量不要对列表进行删除操作</span><br><span class="line"></span><br><span class="line"><span class="number">14.</span> 列表的嵌套</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,[<span class="number">3</span>,<span class="number">4</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]] <span class="comment"># 列表可以嵌套使用</span></span><br><span class="line"></span><br><span class="line"><span class="number">15.</span> 带下标进行<span class="keyword">for</span>...<span class="keyword">in</span>循环(一般用<span class="keyword">while</span>)</span><br><span class="line"><span class="keyword">for</span> i,room <span class="keyword">in</span> <span class="built_in">enumerate</span>(rooms) <span class="comment"># enumerate是关键字</span></span><br><span class="line"></span><br><span class="line"><span class="number">16.</span> 列表推导式</span><br><span class="line"><span class="comment"># 用列表推导式创建一个列表,产生列表条件简单的时候使用</span></span><br><span class="line">nums=[i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)] <span class="comment"># 产生0-9,这10个数据的列表</span></span><br><span class="line"></span><br><span class="line"><span class="number">17.</span> 列表合并</span><br><span class="line">extend <span class="comment"># 将两个列表合并成一个列表</span></span><br></pre></td></tr></table></figure></li>
-<li><h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典里的数据都是以键值对的形式保存的</span></span><br><span class="line"><span class="comment"># key,value之间使用冒号连接，多个键值对之间使用逗号连接</span></span><br><span class="line"><span class="comment"># key是不允许重复的,重复了后一个会覆盖前一个</span></span><br><span class="line"><span class="comment"># key只能是不可变数据类型，而value可以是任意数据类型</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.查找数据(因为字典是无序的数据类型,所以只能用key来查找值)</span></span><br><span class="line">x[<span class="string">&#x27;key&#x27;</span>] <span class="comment"># 查找不到会报错</span></span><br><span class="line">x.get[<span class="string">&#x27;key&#x27;</span>] <span class="comment"># 查找不到会默认返回None</span></span><br><span class="line">x.get[<span class="string">&#x27;key&#x27;</span>,default] <span class="comment"># 查找不到返回default</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.修改和删除(若存在key则修改,不存在则删除)</span></span><br><span class="line">x[<span class="string">&#x27;key&#x27;</span>]=value</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.删除</span></span><br><span class="line">pop(<span class="string">&#x27;key&#x27;</span>) <span class="comment"># 删除并返回,否则返回默认值</span></span><br><span class="line">pop(<span class="string">&#x27;key&#x27;</span>,default) <span class="comment"># 删除并返回,否则返回default</span></span><br><span class="line">popitem() <span class="comment"># 返回并删除字典中的最后一对键和值</span></span><br><span class="line">clear() <span class="comment"># 清空字典</span></span><br><span class="line"><span class="keyword">del</span> x[<span class="string">&#x27;key&#x27;</span>] <span class="comment"># 直接删除,无返回值</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.</span>合并</span><br><span class="line">A.update(B) <span class="comment"># A,B合并成一个字典,并赋值给A</span></span><br><span class="line"></span><br><span class="line"><span class="number">5.</span>循环</span><br><span class="line">方法一:直接<span class="keyword">for</span>...<span class="keyword">in</span>循环遍历字典</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> x: <span class="comment"># for...in循环遍历获取的是key</span></span><br><span class="line">    print(x,<span class="string">&#x27;=&#x27;</span>,x[k])</span><br><span class="line"></span><br><span class="line">方法二:获取所有的key,再由key获取value</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> x.keys(): </span><br><span class="line">    print(x,<span class="string">&#x27;=&#x27;</span>,x[k])</span><br><span class="line"><span class="comment"># 一般不用这种方法,和方法一几乎相同,多此一举</span></span><br><span class="line"></span><br><span class="line">方法三:获取所有的value</span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> x.values():</span><br><span class="line">    print(v)</span><br><span class="line"></span><br><span class="line">方法四:拆包获取key,value</span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> x.items():</span><br><span class="line">    print(k,<span class="string">&#x27;=&#x27;</span>,v)</span><br><span class="line"><span class="comment"># 常用方法一和四</span></span><br><span class="line"></span><br><span class="line"><span class="number">6.</span> 交换key和value的位置</span><br><span class="line">方法一:</span><br><span class="line">x1=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;xiaoming&#x27;</span>&#125;</span><br><span class="line">x2=&#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> x1.items():</span><br><span class="line">    x2[v]=k</span><br><span class="line">方法二:字典推导式</span><br><span class="line">x=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;xiaoming&#x27;</span>&#125;</span><br><span class="line">x1=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> x.items() &#125;</span><br><span class="line">print(x1)</span><br><span class="line"></span><br><span class="line"><span class="number">7.</span>字典推导式</span><br><span class="line">x1=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> x.items() &#125;</span><br></pre></td></tr></table></figure></li>
-<li><h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 集合是一个不重复的无序的数据类型</span></span><br><span class="line"><span class="comment"># 集合可以用&#123;&#125;或set表示</span></span><br><span class="line"><span class="comment"># &#123;&#125;有两种意思:字典、集合;当里面的数据不是键值对时表示字典</span></span><br><span class="line"><span class="comment"># 字典中不允许有重复元素,当有重复元素时会自动去重</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span>增加元素</span><br><span class="line">add() <span class="comment"># 增加一个元素</span></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>清空集合</span><br><span class="line">clear() <span class="comment"># 清空集合</span></span><br><span class="line"><span class="built_in">set</span>() <span class="comment">#表示空集合</span></span><br><span class="line">&#123;&#125; <span class="comment"># 表示空列表</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 删除元素</span><br><span class="line">pop <span class="comment"># 随机删除一个</span></span><br><span class="line">remove <span class="comment"># 指定删除一个,若删除的元素不存在则会报错</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.</span> 合并</span><br><span class="line">union <span class="comment"># 两个集合合并在一起,生成一个新的集合</span></span><br><span class="line">A.update(B) <span class="comment"># 将B拼接在A里</span></span><br><span class="line"><span class="comment"># 被合并的那个是可迭代对象即可</span></span><br><span class="line"></span><br><span class="line"><span class="number">5.</span> 集合支持很多运算符(但不支持加法)</span><br><span class="line">A-B <span class="comment"># A与B的差集,就是去掉A中,B中有的元素</span></span><br><span class="line">A&amp;b <span class="comment"># A与B的交集</span></span><br><span class="line">A|B <span class="comment">#A与B的并集</span></span><br><span class="line">A^B <span class="comment">#A和B差集的并集(即去掉AB中共有的元素,把其余的合并在一起)</span></span><br><span class="line"></span><br><span class="line"><span class="number">6.</span> 特殊情况</span><br><span class="line"><span class="comment"># 当列表转化为集合,如果是数字会去重且自动按升序排序</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><h3 id="元组、列表、字典的区别"><a href="#元组、列表、字典的区别" class="headerlink" title="元组、列表、字典的区别"></a>元组、列表、字典的区别</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>元组(Tuple)</span><br><span class="line"><span class="comment"># (),有序，元素任意，元素不可变</span></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>列表(List)</span><br><span class="line"><span class="comment"># [],有序，元素任意，元素可变</span></span><br><span class="line"><span class="comment"># 与C语言的数组相似，不同的是C语言的数据类型要相同，list可以不同</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>字典(Dictionary)</span><br><span class="line"><span class="comment"># &#123;&#125;，无序，元素任意，元素可变</span></span><br><span class="line"><span class="comment"># 元素键值对存在</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表用extend合并,字典用update合并</span></span><br><span class="line"><span class="comment"># 元组和列表可以用加号使两个元组和列表合并成一个，字典不可以</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 
       

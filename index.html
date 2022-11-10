@@ -575,7 +575,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-11-10 09:35:45 / 修改时间：09:46:37" itemprop="dateCreated datePublished" datetime="2022-11-10T09:35:45+08:00">2022-11-10</time>
+      <time title="创建时间：2022-11-10 09:35:45 / 修改时间：09:52:04" itemprop="dateCreated datePublished" datetime="2022-11-10T09:35:45+08:00">2022-11-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -616,7 +616,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>451</span>
+      <span>469</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -638,7 +638,7 @@
 <h3 id="当训练时没有使用nn-DataParallel，而测试时使用"><a href="#当训练时没有使用nn-DataParallel，而测试时使用" class="headerlink" title="当训练时没有使用nn.DataParallel，而测试时使用"></a>当训练时没有使用nn.DataParallel，而测试时使用</h3><p>这种情况就会报错，应该先把模型加载进来，在使用nn.DataParallel</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model.load_state_dict(torch.load(save_path))</span><br><span class="line">model = nn.DataParallel(model, device_ids=[<span class="number">0</span>, <span class="number">1</span>]) </span><br></pre></td></tr></table></figure>
 <p><strong>造成这些问题的根本原因是因为模型经过nn.DataParallel后，权重参数的形式会发生变化</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">module.features<span class="number">.0</span>.weight <span class="comment"># 经过nn.DataParallel</span></span><br><span class="line">features<span class="number">.0</span>.weight <span class="comment"># 没有经过nn.DataParallel</span></span><br><span class="line"><span class="comment"># 没有经过nn.DataParallel的模型，没有model.module这个属性</span></span><br><span class="line"><span class="comment"># 经过nn.DataParallel的模型，初始化时是model.module(params)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">module.features<span class="number">.0</span>.weight <span class="comment"># 经过nn.DataParallel</span></span><br><span class="line">features<span class="number">.0</span>.weight <span class="comment"># 没有经过nn.DataParallel</span></span><br><span class="line"><span class="comment"># 没有经过nn.DataParallel的模型，没有model.module这个属性</span></span><br><span class="line"><span class="comment"># 经过nn.DataParallel的模型，给模型传参时使用model.module(params)，比如给forward传数据时</span></span><br></pre></td></tr></table></figure>
 
       
     </div>

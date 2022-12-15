@@ -242,7 +242,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -255,7 +255,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -302,6 +302,423 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/13634/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/13634/" class="post-title-link" itemprop="url">经典网络分析</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-03 14:38:52" itemprop="dateCreated datePublished" datetime="2021-10-03T14:38:52+08:00">2021-10-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/13634/" class="post-meta-item leancloud_visitors" data-flag-title="经典网络分析" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/13634/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/13634/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003152950.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153020.png" alt></p>
+<h3 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h3><p><em>AlexNet——验证了深度卷积神经网络的高效性</em></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153124.png" alt></p>
+<h4 id="主体贡献"><a href="#主体贡献" class="headerlink" title="主体贡献"></a>主体贡献</h4><ol>
+<li>提出了一种卷积层加全连接层的卷积神经网络结构； </li>
+<li>首次使用ReLU函数做为神经网络的激活函数； </li>
+<li>首次提出Dropout正则化来控制过拟合 ；</li>
+<li>使用加入动量的小批量梯度下降算法加速了训练过程的收敛；</li>
+<li>使用数据增强策略极大地抑制了训练过程的过拟合； </li>
+<li>利用了GPU的并行计算能力，加速了网络的训练与推断；</li>
+</ol>
+<h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003153205.png" alt></p>
+<p>NORM：批量相应归一化层；(现在基本不用了，因为它的性能在更深的网络里不太明显，计算量又有点大)</p>
+<p>Max POOL：池化层；</p>
+<p>AlexNet是8层神经网络结构，池化层和归一化层在计算神经网络的层数时不参与计算；</p>
+<h4 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h4><p>第一个卷积层的输入是经过去均值操作 后的数据，即原始向量—均值向量，再输入到神经网络里面；</p>
+<p>去均值的作用？</p>
+<p>我们在分类任务中，均值向量是没有实际意义的，在向量比较时，绝对值是没有意义的，比较的相对值。去均值是为了保留自己的相对值，这样也会更加有利于计算。</p>
+<h4 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h4><p>3个池化层的卷积核大小3 * 3，步长为2；</p>
+<p>这里是重叠池化，重叠有利于对抗过拟合，但是一般还是采用2*2的卷积核，步长为2；</p>
+<p>池化层的作用：降低特征图尺寸，对抗轻微的目标偏移带来的影响；</p>
+<p>轻微的目标偏移：比如在一个卷积核中最大值为8，最大池化后是8；但当这个8跑到这个卷积核中别的位置时，池化后的结果还是为8；因此能够对抗轻微的目标偏移带来的影响。</p>
+<h4 id="局部相应归一化层"><a href="#局部相应归一化层" class="headerlink" title="局部相应归一化层"></a>局部相应归一化层</h4><p>目前基本不用了；</p>
+<p>后来的研究表明： 更深的网络中该层 对分类性能的提升 效果并不明显，且 会增加计算量与存 储空间。</p>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
+<li>对局部神经元的活动创建竞争机制； 、</li>
+<li>响应比较大的值变得相对更大； </li>
+<li>抑制其他反馈较小的神经元；</li>
+<li>增强模型的泛化能力；</li>
+</ul>
+<h4 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h4><p>MAX POOL3的输出：特征响应图组，大小为6 <em> 6 </em> 256；</p>
+<p>把MAX POOL3的输出打平成9216（6 <em> 6 </em> 256）维的向量，交给全连接层；</p>
+<h4 id="重要说明"><a href="#重要说明" class="headerlink" title="重要说明"></a>重要说明</h4><ul>
+<li>用于提取图像特征的卷积层以及用于分类的全连接层是同时学习的； </li>
+<li>卷积层与全连接层在学习过程中会相互影响、相互促进；</li>
+</ul>
+<p>卷积层和全连接层是一起训练的，被训练的梯度是可以回传的；</p>
+<h4 id="重要技巧"><a href="#重要技巧" class="headerlink" title="重要技巧"></a>重要技巧</h4><ul>
+<li>Dropout策略防止过拟合； </li>
+<li>使用加入动量的随机梯度下降算法，加速收敛； </li>
+<li>验证集损失不下降时，手动降低10倍的学习率； </li>
+<li>采用样本增强策略增加训练样本数量，防止过拟合； </li>
+<li>集成多个模型，进一步提高精度(同时训练多个模型)；</li>
+</ul>
+<h4 id="AlexNet卷积层在做什么"><a href="#AlexNet卷积层在做什么" class="headerlink" title="AlexNet卷积层在做什么"></a>AlexNet卷积层在做什么</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003152829.png" alt></p>
+<p>把AlexNet卷积层看作是一个卷积层，输入227 <em> 227 </em> 3，输出6 <em> 6 </em> 256，相当于有256个卷积核，获得256个特征响应图，把256个特征响应图拉成向量；</p>
+<p>特征响应图某点处较亮，说明该亮处含有该卷积核的特征；</p>
+<h3 id="ZFNet"><a href="#ZFNet" class="headerlink" title="ZFNet"></a>ZFNet</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003205744.png" alt></p>
+<h4 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003210036.png" alt></p>
+<h4 id="主要改进"><a href="#主要改进" class="headerlink" title="主要改进"></a>主要改进</h4><ul>
+<li>将第一个卷积层的卷积核大小改为了7×7；(不要一次卷积就丢掉细颗粒度的东西)</li>
+<li>将第一、第二个卷积层的卷积步长都设置为2；(缓慢给图像降维)</li>
+<li>增加了第三、第四个卷积层的卷积核个数；(第三层、第四层有语义信息了，增加了神经元即增加模板信息，仅仅靠现有的模板数不足以存储信息)</li>
+</ul>
+<h4 id="AlexNet与ZFNet的对比"><a href="#AlexNet与ZFNet的对比" class="headerlink" title="AlexNet与ZFNet的对比"></a>AlexNet与ZFNet的对比</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003213738.png" alt></p>
+<h3 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003210609.png" alt></p>
+<h4 id="结构-1"><a href="#结构-1" class="headerlink" title="结构"></a>结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003211407.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003212318.png" alt></p>
+<h4 id="VGG的输入"><a href="#VGG的输入" class="headerlink" title="VGG的输入"></a>VGG的输入</h4><p>VGG的输入与AlexNet和ZFNet是不同的，它是先把所有的R、G、B的均值求出来，然后再进行去均值的操作。</p>
+<h4 id="VGG16-VS-VGG19"><a href="#VGG16-VS-VGG19" class="headerlink" title="VGG16 VS VGG19"></a>VGG16 VS VGG19</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211003211538.png" alt></p>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><h5 id="问题1：小卷积核有哪些优势？"><a href="#问题1：小卷积核有哪些优势？" class="headerlink" title="问题1：小卷积核有哪些优势？"></a>问题1：小卷积核有哪些优势？</h5><p>多个小尺寸卷积核串联可以得到与大尺寸卷积核相同的感受野； </p>
+<p>使用小卷积核串联构建的网络深度更深、非线性更强、参数也更少。</p>
+<p>注：2个3 <em> 3卷积核的感受野相当于1个5 </em> 5卷积核的感受野；这两方式虽然感受野相同，但是最后获取的结果可能是不同的。</p>
+<h5 id="问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？"><a href="#问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？" class="headerlink" title="问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？"></a>问题2：：为什么VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？</h5><ol>
+<li><p>池化操作可以减小特征图尺寸，降低显存占用；</p>
+</li>
+<li><p>增加卷积核个数有助于学习更多的结构特征，但会增加网络参数数量以及内存消耗；</p>
+</li>
+<li><p>一减一增的设计平衡了识别精度与存储、计算开销；</p>
+<p><em>最终还是提升了性能</em></p>
+</li>
+</ol>
+<h5 id="问题3：为什么卷积核个数增加到512后就不再增加了？"><a href="#问题3：为什么卷积核个数增加到512后就不再增加了？" class="headerlink" title="问题3：为什么卷积核个数增加到512后就不再增加了？"></a>问题3：为什么卷积核个数增加到512后就不再增加了？</h5><ol>
+<li>第一个全连接层含102M参数，占总参数个数的74%；</li>
+<li>这一层的参数个数是特征图的尺寸与个数的乘积； </li>
+<li>参数过多容易过拟合，且不易被训练；</li>
+</ol>
+<p>注：第一层全连接层的输入为7 <em> 7 </em> 512维的向量，则这一层需要的参数为102M(7 <em> 7 </em> 512 * 4096)参数;</p>
+<p>若继续增加卷积核个数，那么第一层全连接层参数会更多，如为1024个卷积核，那么第一层全连接层参数将为200M，那样模型将会很难被训练；因此不是不想增加，而是增加不了。</p>
+<h3 id="GoogleNet"><a href="#GoogleNet" class="headerlink" title="GoogleNet"></a>GoogleNet</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004161701.png" alt></p>
+<h4 id="GoogleNet的结构"><a href="#GoogleNet的结构" class="headerlink" title="GoogleNet的结构"></a>GoogleNet的结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004162104.jpg" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004192544.png" alt></p>
+<h4 id="GoogleNet的创新点"><a href="#GoogleNet的创新点" class="headerlink" title="GoogleNet的创新点"></a>GoogleNet的创新点</h4><ul>
+<li>提出了一种Inception结构，它能保留输入信号中的更多特征信息；</li>
+<li>去掉了AlexNet的前两个全连接层，并采用了平均池化，这一设计使得 GoogLeNet只有500万参数，比AlexNet少了12倍；</li>
+<li>在网络的中部引入了辅助分类器，克服了训练过程中的梯度消失问题；</li>
+</ul>
+<p>从AlexNet等一些经典的神经网络中可知参数极大多数来源于与最后一层卷积层相连接的第一层全连接层，当在GoogleNet中最后一层卷积层后采用平均池化的方法，大大降低了第一层全连接层的参数；</p>
+<h4 id="串联结构（如VGG）存在的问题"><a href="#串联结构（如VGG）存在的问题" class="headerlink" title="串联结构（如VGG）存在的问题"></a>串联结构（如VGG）存在的问题</h4><p>后面的卷积层只能处理 前层输出的特征图;前层丢失重要信息，后层无法找回。</p>
+<p>解决方案：</p>
+<p>—每一层尽量多的保留输入信号中的信息。</p>
+<h4 id="Inception模块和Inception-V1模块"><a href="#Inception模块和Inception-V1模块" class="headerlink" title="Inception模块和Inception V1模块"></a>Inception模块和Inception V1模块</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004162758.png" alt></p>
+<p>1 * 1 conv：把原来的信息进行压缩整理；</p>
+<p>3 <em> 3 conv：提取3 </em> 3的局部特征；</p>
+<p>5 <em> 5 conv：提取5 </em> 5的局部特征；</p>
+<p>1 * 1 max pooling：提取扩张以后的信息；(max pooling相当于最大化抑制，max pooling对周围信息进行了扩展，比如一片区域内最大值是9，那么经过max pooling后，9的周围就会都变成9，对9这个信号进行加强)</p>
+<p>为了保证输出的特征图大小相同，分别对1 <em> 1,3 </em> 3,5 * 5这3个卷积层进行边缘进行0,1,2的零填充；</p>
+<h5 id="Inception模块-VS-Inception-V1模块"><a href="#Inception模块-VS-Inception-V1模块" class="headerlink" title="Inception模块 VS Inception V1模块"></a>Inception模块 VS Inception V1模块</h5><p>Inception V1模块增加了3个1 * 1的卷积层，使特征图的深度极大的降低，较少了参数个数和计算量，提高了效率；</p>
+<p>1 * 1的卷积核不改变H和W，但是可以降低通道深度；</p>
+<h4 id="GoogleNet的总结"><a href="#GoogleNet的总结" class="headerlink" title="GoogleNet的总结"></a>GoogleNet的总结</h4><h5 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h5><p>输入为去均值后224 * 224的图像，去均值采用的方法是R、G、B；</p>
+<h5 id="平均池化"><a href="#平均池化" class="headerlink" title="平均池化"></a>平均池化</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004193002.png" alt></p>
+<p>与全连接层相连时，采用的池化是平均池化；</p>
+<h5 id="辅助分类器损失"><a href="#辅助分类器损失" class="headerlink" title="辅助分类器损失"></a>辅助分类器损失</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211004193250.png" alt></p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><h5 id="平均池化向量化与直接展开向量化有什么区别？"><a href="#平均池化向量化与直接展开向量化有什么区别？" class="headerlink" title="平均池化向量化与直接展开向量化有什么区别？"></a>平均池化向量化与直接展开向量化有什么区别？</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010193207.png" alt></p>
+<p>平移不变性：图像中的目标，不管被移动到图片的哪个位置，得到的结果应该是相同的，这就是卷积神经网络的平移不变性。</p>
+<h5 id="利用1x1卷积进行压缩会损失信息吗？"><a href="#利用1x1卷积进行压缩会损失信息吗？" class="headerlink" title="利用1x1卷积进行压缩会损失信息吗？"></a>利用1x1卷积进行压缩会损失信息吗？</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010193618.png" alt></p>
+<p>因为一个图像经过卷积核后，只有满足卷积核特征的地方值才会很大，其余基本上为0；又因为一个图像上满足某一特征的地方往往又很少，因此得到的特征向量图是十分稀疏的，经过压缩往往是压缩了大量的0，因此非线性压缩通常不会损失信息。</p>
+<h3 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010194206.png" alt></p>
+<h4 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010194303.png" alt></p>
+<p>通过前面四种网络的学习，我们几乎可以想到越深层次的网络的学习效果越好；但是其实并不是这样的，当网络较深时，就会出现正反向信息流动不顺畅的问题，ResNet的出现解决了这个问题。</p>
+<h4 id="ResNet的贡献"><a href="#ResNet的贡献" class="headerlink" title="ResNet的贡献"></a>ResNet的贡献</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010195045.png" alt> </p>
+<h4 id="ResNet残差模块"><a href="#ResNet残差模块" class="headerlink" title="ResNet残差模块"></a>ResNet残差模块</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010195641.png" alt></p>
+<ul>
+<li>通过公式我们可以看出，即使F(x)不起作用，H(x)还是x的值，从而可以知道F(x)即使不起作用也不会造成负面影响；</li>
+<li>原图+细节=锐化；可以理解为F(x)为提取的细节，使x得到了锐化即H(x),当H(x)作为输入时，即可以提取原图中的特征，也可以在上一层提取的细节上进行增强，因此这个前向传播信号也是不容易衰减的；</li>
+<li>反向传播时，即使F(x)内梯度为0，x梯度恒为1，也能够使梯度进行回传，保证了反向梯度的通畅；</li>
+<li>F(x)=H(x)-X,即残差=输出-输入；输出和输入的差异叫做残差，也因此叫残差模型；</li>
+</ul>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010205947.png" alt></p>
+<p>第一个Conv 1 * 1的作用：降低通道数，使能够减少参数和计算量；</p>
+<p>第二个Conv 1 * 1的作用：增加通道数，使能够和X相加；</p>
+<h4 id="ResNet结构"><a href="#ResNet结构" class="headerlink" title="ResNet结构"></a>ResNet结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010211858.png" alt></p>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><h4 id="为什么残差网络性能那么好？"><a href="#为什么残差网络性能那么好？" class="headerlink" title="为什么残差网络性能那么好？"></a>为什么残差网络性能那么好？</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211010212138.png" alt></p>
+<p>普通网络当某一层失去作用时，可能就会瘫痪，而残差网络不用这样；</p>
+<p>残差网络会自动适应选择某些层进行工作；</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>介绍了5种经典的卷积神经网络AlexNet、ZFNet、VGG、GoogLeNet和ResNet；</li>
+<li>残差网络和Inception V4是公认的推广性能最好的两个分类模型；</li>
+<li>特殊应用环境下的模型：面向有限存储资源的SqueezeNet以及面向有限计算资源的 MobileNet和ShuffleNet；</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/10636/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/10636/" class="post-title-link" itemprop="url">卷积神经网络</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-02 17:26:05" itemprop="dateCreated datePublished" datetime="2021-10-02T17:26:05+08:00">2021-10-02</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/10636/" class="post-meta-item leancloud_visitors" data-flag-title="卷积神经网络" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/10636/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/10636/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="全连接神经网络的瓶颈"><a href="#全连接神经网络的瓶颈" class="headerlink" title="全连接神经网络的瓶颈"></a>全连接神经网络的瓶颈</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002204347.png" alt></p>
+<p>把图像拉成拉成一维的向量作为输入层；</p>
+<p>隐层神经元的参数个数为前一层神经元个数+1；</p>
+<p>在全连接神经网络中，当图像较大时，参数就会非常多，因此会出现过拟合和计算困难的情况，而且也不容易学习出有效的东西，此时卷积神经网络就出现了；</p>
+<p>全连接神经网络对一些表示成向量形式特别是简洁的向量形式特别有效，比如适合处理小的图像，或则把一些处理过的数据获得的简洁结果作为输入；</p>
+<h3 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h3><h4 id="卷积神经网络层次结构"><a href="#卷积神经网络层次结构" class="headerlink" title="卷积神经网络层次结构"></a>卷积神经网络层次结构</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002174135.png" alt></p>
+<p>卷积神经网络分为卷积层、激活层、池化层和全连接层；</p>
+<h4 id="卷积神经网络的工作流程"><a href="#卷积神经网络的工作流程" class="headerlink" title="卷积神经网络的工作流程"></a>卷积神经网络的工作流程</h4><p>图像输入——&gt;卷积核组——&gt;获得结果——&gt;全连接神经网络——&gt;分类</p>
+<h4 id="基于卷积核组的图像表示"><a href="#基于卷积核组的图像表示" class="headerlink" title="基于卷积核组的图像表示"></a>基于卷积核组的图像表示</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002174913.png" alt></p>
+<p>卷积神经网络的卷积核和纹理的原理基本一致；</p>
+<p>如果特征响应图某一点较亮，说明原图像这一点存在该特征；</p>
+<h4 id="卷积网络中的卷积核"><a href="#卷积网络中的卷积核" class="headerlink" title="卷积网络中的卷积核"></a>卷积网络中的卷积核</h4><ul>
+<li>不仅具有宽和高，还具有深度，常写成如下形式： 宽度 x 高度 x 深度</li>
+<li>卷积核参数不仅包括核中存储的权值，还包括一个偏置值</li>
+</ul>
+<h4 id="设计卷积核"><a href="#设计卷积核" class="headerlink" title="设计卷积核"></a>设计卷积核</h4><p>只需要设计卷积核的W,H和卷积核个数，因为卷积核深度由前一层的卷积核个数决定；</p>
+<h4 id="卷积网络中的卷积操作"><a href="#卷积网络中的卷积操作" class="headerlink" title="卷积网络中的卷积操作"></a>卷积网络中的卷积操作</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002175339.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002175419.png" alt></p>
+<p>特征响应图中每个位置上的值反映了图像上对应位置是否存在卷积核所记录的基元结构信息；</p>
+<p>浅层次的卷积核只是记录边缘，深层次的卷积核记录可能就是一个模板；</p>
+<h4 id="卷积步长"><a href="#卷积步长" class="headerlink" title="卷积步长"></a>卷积步长</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002175543.png" alt></p>
+<h4 id="边界填充"><a href="#边界填充" class="headerlink" title="边界填充"></a>边界填充</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002175625.png" alt></p>
+<h4 id="特征响应图组尺寸计算"><a href="#特征响应图组尺寸计算" class="headerlink" title="特征响应图组尺寸计算"></a>特征响应图组尺寸计算</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002175749.png" alt></p>
+<h4 id="池化操作"><a href="#池化操作" class="headerlink" title="池化操作"></a>池化操作</h4><h5 id="池化的作用"><a href="#池化的作用" class="headerlink" title="池化的作用"></a>池化的作用</h5><p>对每一个特征响应图独立进行，降低特征响应图组中每个特 征响应图的宽度和高度，减少后续卷积层的参数的数量，降低计算资源耗 费，进而控制过拟合。 </p>
+<ul>
+<li>降低计算资源消耗；</li>
+<li>扩大感受野，即卷积核变大，方差变大；</li>
+</ul>
+<h5 id="池化操作-1"><a href="#池化操作-1" class="headerlink" title="池化操作"></a>池化操作</h5><p>对特征响应图某个区域进行池化就是在该区域上指定一个值来 代表整个区域。 </p>
+<h5 id="常见的池化操作"><a href="#常见的池化操作" class="headerlink" title="常见的池化操作"></a>常见的池化操作</h5><ul>
+<li>最大池化——使用区域内的最大值来代表这个区域； </li>
+<li>平均池化——采用区域内所有值的均值作为代表。</li>
+</ul>
+<p>最大池化可以理解成这几个位置都表现出了某一特征，只是表现强度和位置不一样，把最大强度的选出来；</p>
+<h5 id="池化层的超参数"><a href="#池化层的超参数" class="headerlink" title="池化层的超参数"></a>池化层的超参数</h5><p>池化窗口和池化步长</p>
+<h5 id="池化示例"><a href="#池化示例" class="headerlink" title="池化示例"></a>池化示例</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002180055.png" alt></p>
+<p>池化操作不用填充边；</p>
+<h4 id="卷积神经网络如何与全连接神经网络相连"><a href="#卷积神经网络如何与全连接神经网络相连" class="headerlink" title="卷积神经网络如何与全连接神经网络相连"></a>卷积神经网络如何与全连接神经网络相连</h4><ul>
+<li>用均值：把每一个特征响应图展成一个向量，即r1,r2….(r表示向量)</li>
+<li>用均值：求每个特征响应图的均值，即r1,r2….(r表示均值)</li>
+</ul>
+<h4 id="损失函数-amp-优化算法"><a href="#损失函数-amp-优化算法" class="headerlink" title="损失函数&amp;优化算法"></a>损失函数&amp;优化算法</h4><ul>
+<li>损失函数：交叉熵损失 </li>
+<li>优化算法：SGD、带动量的SGD以及ADAM</li>
+</ul>
+<h3 id="图像增强"><a href="#图像增强" class="headerlink" title="图像增强"></a>图像增强</h3><h4 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h4><p>过拟合的原因是学习样本太少，导致无法训练出能够泛化到新数 据的模型。</p>
+<h4 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h4><p>是从现有的训练样本中生成更多的训练数据，其方法是利用多种能 够生成可信图像的随机变换来增加样本。 </p>
+<h4 id="数据增强的目标"><a href="#数据增强的目标" class="headerlink" title="数据增强的目标"></a>数据增强的目标</h4><p>模型在训练时不会两次查看完全相同的图像。这让模型能够 观察到数据的更多内容，从而具有更好的泛化能力。</p>
+<h3 id="样本增强"><a href="#样本增强" class="headerlink" title="样本增强"></a>样本增强</h3><h4 id="翻转"><a href="#翻转" class="headerlink" title="翻转"></a>翻转</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002204615.png" alt></p>
+<h4 id="随机缩放-amp-抠图"><a href="#随机缩放-amp-抠图" class="headerlink" title="随机缩放&amp;抠图"></a>随机缩放&amp;抠图</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002203209.png" alt></p>
+<h4 id="色彩抖动"><a href="#色彩抖动" class="headerlink" title="色彩抖动"></a>色彩抖动</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002203843.png" alt></p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211002203904.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1751,283 +2168,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/20921/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/20921/" class="post-title-link" itemprop="url">解决空html页面有hight的问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-06-23 20:03:06" itemprop="dateCreated datePublished" datetime="2021-06-23T20:03:06+08:00">2021-06-23</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/20921/" class="post-meta-item leancloud_visitors" data-flag-title="解决空html页面有hight的问题" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/20921/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/20921/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>141</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>可能是由于meta的标签的问题，更换成下面meta标签中的内容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta content=<span class="string">&quot;width=device-width,initial-scale=1,user-scalable=no&quot;</span> name=<span class="string">&quot;viewport&quot;</span>&gt;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/30139/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/30139/" class="post-title-link" itemprop="url">laravel8路由</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-06-03 22:28:38" itemprop="dateCreated datePublished" datetime="2021-06-03T22:28:38+08:00">2021-06-03</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/30139/" class="post-meta-item leancloud_visitors" data-flag-title="laravel8路由" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/30139/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/30139/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li><p>get请求</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Route::get(<span class="string">&#x27;/aaa&#x27;</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;aaa&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Route::get(<span class="string">&#x27;/aaa&#x27;</span>,[TestController::class,<span class="string">&#x27;form&#x27;</span>]);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>post请求</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Route::post(<span class="string">&#x27;/aaa&#x27;</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;aaa&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Route::post(<span class="string">&#x27;/aaa&#x27;</span>,[TestController::class,<span class="string">&#x27;form&#x27;</span>]);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个路由响应多个http请求动作</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Route::match([<span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;post&#x27;</span>], <span class="string">&#x27;foo&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;This is a request from get or post&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个路由来响应所有 HTTP 请求动作</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Route::any(<span class="string">&#x27;bar&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">&#x27;This is a request from any HTTP verb&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重定向路由</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Route::redirect(<span class="string">&#x27;/here&#x27;</span>,<span class="string">&#x27;/aaa&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
-<li>视图路由<br> ```php<br> Route::view(‘hello’, ‘hello’, [‘name’ =&gt; ‘学院君’]);<br> <h1><pre><code> Hello, &#123;&#123; $name &#125;&#125;!
-</code></pre> &lt;/h1&gt;<br> 注：在view中第一个参数为URL，第二个参数为视图名称，第三个参数可选为需要传到视图文件的值</h1></li>
-</ol>
-<ol>
-<li>路由参数<br> ```php<br> //必选参数<br> Route::get(‘user/{id}’, function ($id) {<pre><code> return &#39;User &#39; . $id;
-</code></pre> });<br> //可选参数  可以设置默认值<br> Route::get(‘user/{id？}’, function ($id=1) {<pre><code> return &#39;User &#39; . $id;
-</code></pre> });<br> //多个参数<br> Route::get(‘posts/{post}/{comment}’, function ($postId, $commentId) {<pre><code> return $postId . &#39;-&#39; . $commentId;
-</code></pre> });</li>
-</ol>
-<ol>
-<li><p>正则约束<br>```php<br>//判断一个值<br>Route::get(‘user/{id}’, function ($id) {</p>
-<pre><code>// $id 必须是数字
-</code></pre><p>})-&gt;where(‘id’, ‘[0-9]+’);<br>//判断多个值<br>Route::get(‘user/{id}’, function ($id) {</p>
-<pre><code>// $id 必须是数字
-</code></pre><p>})-&gt;where(‘id’, ‘[0-9]+’);</p>
-</li>
-<li><p>全局约束</p>
-<p>```php<br>//需要在 RouteServiceProvider 类的 boot 方法中定义这种约束模式<br>public function boot()<br>{</p>
-<pre><code>Route::pattern(&#39;id&#39;, &#39;[0-9]+&#39;);
-</code></pre><p>}<br>Route::get(‘user/{id}’, function ($id) {</p>
-<pre><code>// 只有当 &#123;id&#125; 是数字时才会被调用
-</code></pre><p>});</p>
-</li>
-</ol>
-<ol>
-<li>分组前缀<br>```php<br>Route::prefix(‘sss’)-&gt;group(function (){<br>Route::get(‘index’,function (){<br>return 33;<br>});<br>Route::get(‘welcome’,function (){<br>return 44;<br>});<br>});<br>//访问时路由为/sss/index或/sss/welcome</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
 
   
   <nav class="pagination">
@@ -2084,14 +2224,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">93k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -34,6 +34,39 @@
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
   </entry>
   <entry>
+    <title>C++指针</title>
+    <url>/posts/1390/</url>
+    <content><![CDATA[<ol>
+<li><p>指针的定义</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span>* p;<span class="comment">//定义一个指针</span></span><br><span class="line">p = &amp;a;<span class="comment">//p的值是一个地址,可以通过*把p位置的值取到，即*p(*p是一个数值，p是地址)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指针所占内存空间</p>
+<p>指针所占用内存空间是固定的，所有指针类型在32位操作系统下是4个字节，在64位操作系统下是8个字节；</p>
+</li>
+<li><p>空指针和野指针</p>
+<ul>
+<li>空指针指向内存中编号为0的空间；</li>
+<li>野指针指向非法的内存空间；</li>
+<li>空指针和野指针指向的内存空间都是不可访问的；</li>
+</ul>
+</li>
+<li><p>const修饰指针</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* p;<span class="comment">//此时*p是常量，且*p是数值，若写*p=a就会报错，p=&amp;a正常；</span></span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p;<span class="comment">//此时p的常量，且p的值是地址，若写p=&amp;a就会报错，*p=a正常；</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* <span class="keyword">const</span> p;<span class="comment">//地址和值都不可修改</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指针和数组</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//参数1 数组的首地址；参数2 数组的长度</span></span><br><span class="line"><span class="comment">//void sortt(int arr[], int len)</span></span><br><span class="line"><span class="comment">//void sortt(int* arr, int len)</span></span><br><span class="line"><span class="comment">//这是两种不同的写法，都可以，传的都是地址</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sortt</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; arr &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; arr[<span class="number">0</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123; <span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">5</span>;</span><br><span class="line">	sortt(arr, len);<span class="comment">//数组名就是数组的首地址</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; arr[j] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//参数1 数组的首地址；参数2 数组的长度</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sortt</span><span class="params">(<span class="keyword">int</span>* arr, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; *arr &lt;&lt; <span class="built_in">endl</span>;<span class="comment">//1，对首地址进行解析</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; arr &lt;&lt; <span class="built_in">endl</span>;<span class="comment">//0000007E2EF2FB28，传过来的是地址</span></span><br><span class="line">	<span class="comment">//[]前面必须紧跟着一个地址或者一个字母(这个字母用于简化这个地址)</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; arr[<span class="number">2</span>] &lt;&lt; <span class="built_in">endl</span>;<span class="comment">//5，可以这样直接取，原因上一行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">5</span>;</span><br><span class="line">	sortt(arr, len);<span class="comment">//数组名就是数组的首地址</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2023春季实习面试</title>
     <url>/posts/8883/</url>
     <content><![CDATA[<h3 id="南京百家云科技有限公司"><a href="#南京百家云科技有限公司" class="headerlink" title="南京百家云科技有限公司"></a>南京百家云科技有限公司</h3><ol>

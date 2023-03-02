@@ -242,20 +242,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -302,6 +302,125 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/20203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/20203/" class="post-title-link" itemprop="url">解决Pytorch-CIFAR-10数据集下载问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-14 18:26:18" itemprop="dateCreated datePublished" datetime="2021-10-14T18:26:18+08:00">2021-10-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Pytorch/" itemprop="url" rel="index"><span itemprop="name">Pytorch</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/20203/" class="post-meta-item leancloud_visitors" data-flag-title="解决Pytorch-CIFAR-10数据集下载问题" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/20203/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/20203/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>203</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>错误：[Errno socket error] [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>全局取消证书验证（当项目对安全性问题不太重视时，推荐使用，可以全局取消证书的验证，简易方便）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line">ssl._create_default_https_context = ssl._create_unverified_context</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -2098,146 +2217,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/6052/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/6052/" class="post-title-link" itemprop="url">createjs小游戏笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-07-09 00:37:05" itemprop="dateCreated datePublished" datetime="2021-07-09T00:37:05+08:00">2021-07-09</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/6052/" class="post-meta-item leancloud_visitors" data-flag-title="createjs小游戏笔记" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/6052/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/6052/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li>创建舞台<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stage = <span class="keyword">new</span> createjs.Stage();<span class="comment">//()中为画布的id,与画布进行绑定</span></span><br></pre></td></tr></table></figure></li>
-<li>创建容器<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> gameView = <span class="keyword">new</span> createjs.Container();</span><br><span class="line">stage.addChild(gameView);<span class="comment">//可将容器放在舞台中，创建的元素放在容器中</span></span><br><span class="line">stage &gt; container &gt; 单个元素<span class="comment">//三代之间的关系，可通过addChild()方法进行追加元素</span></span><br></pre></td></tr></table></figure></li>
-<li>创建图形<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> shape = <span class="keyword">new</span> createjs.Shape();<span class="comment">//创建一个图形</span></span><br><span class="line">shape.graphics.beginFill(color)drawRect(x,y,w,h);<span class="comment">//画一个矩形</span></span><br><span class="line">shape.graphics.beginFill(color)drawRoundRect(x,y,w,h,radius);<span class="comment">//画圆角矩形</span></span><br><span class="line">shape.graphics.beginFill(color)drawCircle(x,y,r);<span class="comment">//画圆</span></span><br></pre></td></tr></table></figure></li>
-<li>创建图片<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> img = <span class="keyword">new</span> createjs.Bitmap();<span class="comment">//括号中为图片路径</span></span><br></pre></td></tr></table></figure></li>
-<li>创建文字<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="keyword">new</span> createjs.Text(text,font,color);<span class="comment">//创建文字</span></span><br><span class="line"><span class="comment">//属性</span></span><br><span class="line">text.lineWidth  <span class="comment">//设置行宽</span></span><br><span class="line">text.lineHeight <span class="comment">//设置行高</span></span><br><span class="line">text.textAlign  <span class="comment">//设置对齐方式</span></span><br><span class="line">注：</span><br><span class="line">当设置左对齐的时候，text.x的值为文字的起始点横坐标；</span><br><span class="line">当设置右对齐的时候，text.x的值为文字的结束点横坐标；</span><br><span class="line">当设置居中对齐的时候，text.x的值为文字的中间点横坐标；</span><br><span class="line">当设置lineWidth会出现中文不换行问题见<span class="number">19</span>；</span><br></pre></td></tr></table></figure></li>
-<li>常见属性和方法<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">demo.x <span class="comment">//设置起始位置横坐标</span></span><br><span class="line">demo.y <span class="comment">//设置起始位置纵坐标</span></span><br><span class="line">demo.alpha <span class="comment">//设置透明度</span></span><br><span class="line">demo.x <span class="comment">//设置起始位置横坐标</span></span><br><span class="line">demo.y <span class="comment">//设置起始位置纵坐标</span></span><br><span class="line">demo.scaleX <span class="comment">//水平变换</span></span><br><span class="line">demo.scaleY <span class="comment">//垂直变换</span></span><br><span class="line">demo.scale  <span class="comment">//整体变换</span></span><br><span class="line">demo.alpha  <span class="comment">//设置透明度</span></span><br><span class="line">demo.mask   <span class="comment">//设置蒙版</span></span><br><span class="line">demo.name   <span class="comment">//设置名称</span></span><br><span class="line">demo.visible <span class="comment">//设置元素是否显示 </span></span><br><span class="line">demo.removeAllChildren(); <span class="comment">//移除所有子元素</span></span><br><span class="line">parent.addChild(child); <span class="comment">//添加子元素</span></span><br><span class="line">parent.setChildIndex(child,parent.getNumChildren()-num);<span class="comment">//设置层级</span></span><br><span class="line">注：</span><br><span class="line"><span class="number">1.</span> 当alpha为<span class="number">0</span>时不能触发事件；</span><br><span class="line"><span class="number">2.</span> mask显示的内容为和蒙版重合的部分，为蒙版不追加入img的父元素中；</span><br></pre></td></tr></table></figure></li>
-<li>雪碧图<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    images: [url],<span class="comment">//图片路径</span></span><br><span class="line">    frames: &#123;<span class="attr">width</span>:w,<span class="attr">height</span>:h,<span class="attr">count</span>:count&#125;,<span class="comment">//w,h是一张精灵图的实际宽高，count的图片数量</span></span><br><span class="line">    animations: &#123;</span><br><span class="line">        run: &#123;</span><br><span class="line">            frames:[<span class="number">0</span>,<span class="number">3</span>],<span class="comment">//显示哪几张图片，0，3为0～3四张</span></span><br><span class="line">            speed:<span class="number">0.5</span> <span class="comment">//图片运动速度</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> spriteSheet = <span class="keyword">new</span> createjs.SpriteSheet(data);</span><br><span class="line"><span class="keyword">let</span> animation = <span class="keyword">new</span> createjs.Sprite(spriteSheet,<span class="string">&quot;run&quot;</span>);</span><br><span class="line">nimation.set(&#123;<span class="attr">x</span>:x,<span class="attr">y</span>:y,<span class="attr">scaleX</span>:scaleX,<span class="attr">scaleY</span>:scaleY&#125;);</span><br></pre></td></tr></table></figure></li>
-<li>创建动画<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">createjs.Tween.get(元素).to(&#123;属性:值&#125;,时间)；<span class="comment">//异步执行</span></span><br><span class="line">createjs.Tween.get(元素).to(&#123;属性:值&#125;,时间).call(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)；<span class="comment">//function()和动画同步执行，会在动画结束后执行</span></span><br></pre></td></tr></table></figure></li>
-<li>资源预加载<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$.when(filePreload()).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;);</span><br><span class="line"><span class="comment">//预加载完成后在执行then后面的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">filePreload</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//deferred对象的含义就是&quot;延迟&quot;到未来某个点再执行。</span></span><br><span class="line">    <span class="keyword">let</span> deferred = <span class="keyword">new</span> $.Deferred();</span><br><span class="line">    <span class="comment">//preload可以方便我们预先加载相关资源</span></span><br><span class="line">    <span class="keyword">let</span> queue = <span class="keyword">new</span> createjs.LoadQueue(<span class="literal">false</span>);</span><br><span class="line">    <span class="comment">//如果载入声音，必须先注册createjs.Sound</span></span><br><span class="line">    queue.installPlugin(createjs.Sound);</span><br><span class="line">    <span class="comment">//将需要预加载的资源放在manifest数组中</span></span><br><span class="line">    <span class="comment">//url：资源的路径</span></span><br><span class="line">    <span class="comment">//id:给资源重新定义的名字，调用改资源时使用</span></span><br><span class="line">    <span class="keyword">let</span> manifest = [</span><br><span class="line">        &#123;<span class="attr">id</span>:id,<span class="attr">src</span>:url<span class="string">&quot;&#125;</span></span><br><span class="line"><span class="string">    ];</span></span><br><span class="line"><span class="string">    //预加载过程中执行的函数</span></span><br><span class="line"><span class="string">    //当调用某一资源时使用bitmapList[id].clone(),且bitmapList需为全局变量</span></span><br><span class="line"><span class="string">    queue.on(&quot;</span>fileload<span class="string">&quot;, function (event) &#123;</span></span><br><span class="line"><span class="string">        if (event.item.type == &quot;</span>image<span class="string">&quot;) &#123;</span></span><br><span class="line"><span class="string">            bitmapList[event.item.id] = new createjs.Bitmap(event.result);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;, this);</span></span><br><span class="line"><span class="string">    //预加载完成后执行的函数</span></span><br><span class="line"><span class="string">    queue.on(&quot;</span>complete<span class="string">&quot;, function (event) &#123;</span></span><br><span class="line"><span class="string">        deferred.resolve();</span></span><br><span class="line"><span class="string">    &#125;, this);</span></span><br><span class="line"><span class="string">    queue.loadManifest(manifest);</span></span><br><span class="line"><span class="string">    return deferred.promise();</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li>设置旋转(竖屏转成横屏) <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stage.rotation = <span class="number">90</span>;</span><br><span class="line">stage.x = screenWidth;</span><br><span class="line">stage.y = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> temp = screenWidth;</span><br><span class="line">screenWidth = screenHeight;</span><br><span class="line">screenHeight = temp;</span><br><span class="line">注：等号右侧为竖屏宽高，左侧为横屏宽高</span><br></pre></td></tr></table></figure></li>
-<li>当使用高清图片时若图片还是不清晰，可适当扩大画布的倍数；</li>
-<li>当使用onload方法且需要传参时，避免异步的影响<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如加载图片时，图片没有加载好就获取图片属性会报错</span></span><br><span class="line"><span class="comment">//若在for循环中，可能计数i会产生影响</span></span><br><span class="line"><span class="keyword">let</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">img.src = url;</span><br><span class="line">img.index = <span class="number">1</span>;</span><br><span class="line">img.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(img.index);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可推广</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123;&#125;;</span><br><span class="line">obj.x = <span class="number">1</span>;</span><br><span class="line">obg.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(obj.x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>动态修改shape图形的参数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shape.graphics.command.属性 = 值；</span><br></pre></td></tr></table></figure></li>
-<li>实现container的滚动<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//主函数</span></span><br><span class="line"><span class="keyword">if</span>(createjs.Touch.isSupported() == <span class="literal">true</span>)&#123;</span><br><span class="line">        createjs.Touch.enable(stage)</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//设置滚动条件</span></span><br><span class="line"><span class="keyword">let</span> localPos,y;</span><br><span class="line">gameView.addEventListener(<span class="string">&#x27;mousedown&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//滑动开始时的位置</span></span><br><span class="line">    <span class="keyword">let</span> stageX = evt.stageX;</span><br><span class="line">    <span class="keyword">let</span> stageY = evt.stageY;</span><br><span class="line">    <span class="comment">//将gameView对象从舞台（全局）坐标转换为显示对象的（本地）坐标</span></span><br><span class="line">    localPos = stage.globalToLocal(stageX,stageY);</span><br><span class="line">    <span class="comment">//获取gameview对象的坐标</span></span><br><span class="line">    y = gameView.y;</span><br><span class="line">&#125;)</span><br><span class="line">gameView.addEventListener(<span class="string">&#x27;pressmove&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//gameview.y = 滑动结束时滑动点处的y-滑动开始时滑动点处的y+滑动开始时gameview的y</span></span><br><span class="line">    <span class="keyword">let</span> move_y = evt.stageY - localPos.y + y;</span><br><span class="line">    <span class="comment">//通过滑动区域y坐标的大小限制滑动区域</span></span><br><span class="line">    <span class="keyword">if</span>(move_y &gt;= -(滑动区域.y-显示区域.y) &amp;&amp; move_y &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">        gameView.y = move_y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-<li>全局只需要在入口函数设置tick刷新舞台即可；</li>
-<li>适配不同的手机屏幕可通过长宽比例进行适配； </li>
-<li>js合并两个数组<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr1 = arr1.concat(arr2);</span><br></pre></td></tr></table></figure></li>
-<li>获取屏幕的宽高<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> screenWidth = <span class="built_in">window</span>.innerWidth;</span><br><span class="line"><span class="keyword">let</span> screenHeight = <span class="built_in">window</span>.innerHeight;</span><br></pre></td></tr></table></figure></li>
-<li>EaselJS的Text中文不会自动换行的问题<br>修改easeljs的p._drawText方法为<br><a target="_blank" rel="noopener" href="https://pasteme.cn/135634">点击</a></li>
-<li><p>解决createjs的点击图片跨域问题</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在图片上面盖上一个形状，使图片不触发单击时间</span></span><br><span class="line"><span class="keyword">var</span> hitArea = <span class="keyword">new</span> createjs.Shape();</span><br><span class="line">hitArea.graphics.beginFill(<span class="string">&quot;#000&quot;</span>).drawRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">92</span>,<span class="number">92</span>);<span class="comment">//这里是图片大小</span></span><br><span class="line">bitmap.hitArea = hitArea;</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
 
   
   <nav class="pagination">
@@ -2294,14 +2273,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">96k</span>
+    <span title="站点总字数">97k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:27</span>
+    <span title="站点阅读时长">1:28</span>
   </span>
 </div>
 <div class="busuanzi-count">

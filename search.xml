@@ -58,6 +58,14 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//参数1 数组的首地址；参数2 数组的长度</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sortt</span><span class="params">(<span class="keyword">int</span>* arr, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; *arr &lt;&lt; <span class="built_in">endl</span>;<span class="comment">//1，对首地址进行解析</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; arr &lt;&lt; <span class="built_in">endl</span>;<span class="comment">//0000007E2EF2FB28，传过来的是地址</span></span><br><span class="line">	<span class="comment">//[]前面必须紧跟着一个地址或者一个字母(这个字母用于简化这个地址)</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; arr[<span class="number">2</span>] &lt;&lt; <span class="built_in">endl</span>;<span class="comment">//5，可以这样直接取，原因上一行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">5</span>;</span><br><span class="line">	sortt(arr, len);<span class="comment">//数组名就是数组的首地址</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<ol>
+<li><p>利用指针进行数组遍历</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span>* p = arr;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *p &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		p++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组指针和指针数组</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> b[] = &#123; <span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> c[] = &#123; <span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span>* arr[] = &#123; a,b,c &#125;; <span class="comment">//这时a,b,c存放在arr里面的都是地址</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; arr[<span class="number">0</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++)</span><br><span class="line">		&#123;	</span><br><span class="line">			<span class="comment">//对于一维数组来说，arr[i]取到的是值，对于二维数组来说arr[i]取到的是地址；</span></span><br><span class="line">            <span class="comment">//对于指针数组来说，它是开辟了新的地址，在新地址中把原来的地址存下来了</span></span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; arr[i] + j &lt;&lt; <span class="built_in">endl</span>;<span class="comment">//输出地址</span></span><br><span class="line">			<span class="comment">//下面两行输出的都是数值，可以对数组进行取值，这两种方法都可以</span></span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; *(arr[i]+j) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; arr[i][j] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>C++</category>
@@ -2691,10 +2699,10 @@ client代码<figure class="highlight html"><table><tr><td class="code"><pre><spa
       </categories>
       <tags>
         <tag>hexo</tag>
+        <tag>图床</tag>
         <tag>PicGo</tag>
         <tag>gitee</tag>
         <tag>Typora</tag>
-        <tag>图床</tag>
       </tags>
   </entry>
   <entry>
@@ -2720,8 +2728,8 @@ client代码<figure class="highlight html"><table><tr><td class="code"><pre><spa
       </categories>
       <tags>
         <tag>hexo</tag>
-        <tag>图床</tag>
         <tag>next</tag>
+        <tag>图床</tag>
       </tags>
   </entry>
   <entry>

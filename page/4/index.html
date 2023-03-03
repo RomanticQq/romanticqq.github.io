@@ -242,7 +242,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -255,7 +255,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -302,6 +302,293 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/1018/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/1018/" class="post-title-link" itemprop="url">YOLOv1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-18 21:41:25" itemprop="dateCreated datePublished" datetime="2021-11-18T21:41:25+08:00">2021-11-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">深度学习算法</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/1018/" class="post-meta-item leancloud_visitors" data-flag-title="YOLOv1" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/1018/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/1018/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="训练阶段"><a href="#训练阶段" class="headerlink" title="训练阶段"></a>训练阶段</h3><ol>
+<li><p>图片处理成大小为448*448，喂给神经网络模型；</p>
+</li>
+<li><p>经过神经网络后，会输出7 <em> 7 </em> 30大小的矩阵；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220503124946.png" alt></p>
+</li>
+<li><p>30是指每个grid cell可以预测出两个bbox,每个bbox会有四个参数来表示这个bbox具体的位置和大小，每个框还有一个confidence score参数，共10个参数；另外，每个gird cell可以预测出20个类别的概率，共20个参数；共30个参数；<br>(x1,y1,w1,h1,confidence1,x2,y2,h2,w2,confidence2,…)</p>
+</li>
+<li><p>(x, y)坐标代表bbox的中心相对于网格单元的边界；w,h是相对于整个图像的预测。</p>
+</li>
+<li><p>一个标记框的中心点落在哪个grid cell中，就让哪个gird cell的一个bbox(IOU较大)去拟合这个框，并且这个grid cell输出的类别也应该是正确的类别；</p>
+</li>
+<li><p>每个grid cell只能预测出一个物体，49个grid cell只能预测出49个物体；这也是YOLO v1在预测小目标和密集目标较差的原因；</p>
+</li>
+<li><p>在训练过程中confidence score参数是 IOU和Pr(Object)的乘积，Pr(Object)是指bbox是否是被选中的预测框的概率，非0即1；IOU是某个gird cell的bbox和打标的真是框的面积交并比；</p>
+</li>
+<li><p>每个grid cell预测出的两个bbox,则会产生两个IOU；若该grid cell有预测物体，则选择IOU较大的bbox去拟合；若该grid cell没有预测物体，则confidence score尽可能的小，接近于0；</p>
+</li>
+<li><p>最后一层预测类概率和边界框坐标。我们根据图像的宽度和高度使边界框的宽度和高度标准化，使它们在0和1之间。我们将边界盒和坐标参数化，使其成为特定网格单元格位置的偏移量，因此它们也被限定在0和1之间。</p>
+</li>
+<li><p>损失函数的设计：</p>
+</li>
+</ol>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211118183146.PNG" alt></p>
+<ul>
+<li>带^的数据是真实值；</li>
+<li>λcoord和λnoobj的作用是为了平衡负样本和正样本比例不均衡的问题；</li>
+<li>Ci的标签值非0即1；</li>
+<li>pi的标签值非0即1；</li>
+</ul>
+<ol>
+<li>对于中心点的损失直接用了均方误差，但是对于宽高为什么用了平方根呢？</li>
+</ol>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211118191016.png" alt></p>
+<p>上图中，蓝色为bounding box，红色框为真实标注，如果W和h没有平方根的话，那么bounding box跟两个真实标注的位置loss是相同的。但是从面积看来B框是A框的25倍，C框是B框的81/25倍。B框跟A框的大小偏差更大，所以不应该有相同的loss。<br>如果W和h加上平方根，那么B对A的位置loss约为3.06，B对C的位置loss约为1.17，B对A的位置loss的值更大，这更加符合我们的实际判断。所以，算法对位置损失中的宽高损失加上了平方根。(参考于<a target="_blank" rel="noopener" href="https://blog.csdn.net/x454045816/article/details/107527326/">https://blog.csdn.net/x454045816/article/details/107527326/</a>)<br><strong>因为平方根对小数据敏感，对大数据不敏感，比如对于根号x，一阶导数随着x的增大而减小</strong></p>
+<h3 id="预测阶段"><a href="#预测阶段" class="headerlink" title="预测阶段"></a>预测阶段</h3><ol>
+<li><p>直接把图片交给神经网络即可输出结果；</p>
+</li>
+<li><p>采用<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33605633/article/details/119713351">NMS非极大值抑制</a>的方法，使低置信度的预测不显示出来；</p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220503125906.png" alt></p>
+</li>
+<li><p>并不是所有的gird cell的都可以预测出物体的位置；</p>
+</li>
+</ol>
+<p>(参考于<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48200452/article/details/116453893">https://blog.csdn.net/weixin_48200452/article/details/116453893</a>)</p>
+<h3 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h3><p><a target="_blank" rel="noopener" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Redmon_You_Only_Look_CVPR_2016_paper.pdf">YOLO v1</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/abeardear/pytorch-YOLO-v1">代码</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/undefined/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/undefined/" class="post-title-link" itemprop="url">numpy.transpose手算</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-26 17:30:18" itemprop="dateCreated datePublished" datetime="2021-10-26T17:30:18+08:00">2021-10-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/numpy/" itemprop="url" rel="index"><span itemprop="name">numpy</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/undefined/" class="post-meta-item leancloud_visitors" data-flag-title="numpy.transpose手算" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/undefined/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/undefined/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>321</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>原理解析请看：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012762410/article/details/78912667">点击1</a> <a target="_blank" rel="noopener" href="https://www.freesion.com/article/149821286/">点击2</a></p>
+<h5 id="当是二维时"><a href="#当是二维时" class="headerlink" title="当是二维时"></a>当是二维时</h5><p>直接对矩阵进行转置；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">array([[<span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">3</span>]])</span><br><span class="line"></span><br><span class="line">transpose后</span><br><span class="line"></span><br><span class="line">array([[<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">3</span>]])</span><br></pre></td></tr></table></figure>
+<h5 id="当是三维时"><a href="#当是三维时" class="headerlink" title="当是三维时"></a>当是三维时</h5><p>交换x,y时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">A = array([[[ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">            [ <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>]],</span><br><span class="line">            </span><br><span class="line">           [[ <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">            [<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]]])</span><br><span class="line">            </span><br><span class="line">transpose后</span><br><span class="line"></span><br><span class="line">A = array([[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>],</span><br><span class="line">  [ <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span> <span class="number">11</span>]],</span><br><span class="line"></span><br><span class="line"> [[ <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>],</span><br><span class="line">  [<span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span>]]])</span><br><span class="line"><span class="comment"># 可以直接把三维数组看成二维数组，把一个一维数组看成一个数，继续使用二维数组转置的方式即可；</span></span><br></pre></td></tr></table></figure>
+<p>np.transpose(img, (1, 0, 2))操作，可以将图像逆时针翻转90度</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1883,340 +2170,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/23252/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/23252/" class="post-title-link" itemprop="url">图像分类任务介绍</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-09-14 20:28:50" itemprop="dateCreated datePublished" datetime="2021-09-14T20:28:50+08:00">2021-09-14</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/23252/" class="post-meta-item leancloud_visitors" data-flag-title="图像分类任务介绍" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/23252/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/23252/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>994</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="什么是图像分类任务，它有哪些应用场合"><a href="#什么是图像分类任务，它有哪些应用场合" class="headerlink" title="什么是图像分类任务，它有哪些应用场合"></a>什么是图像分类任务，它有哪些应用场合</h3><p>图像分类任务：图像分类任务是计算机视觉中的核心任务，其目的是根据图像信息中所反映的不同特征，把不同类别的图像区分开来。<br>应用场合</p>
-<ul>
-<li>图像分类：从已知的类别标签中为给定的输入图片选定一个类别标签。</li>
-<li>图像识别：知道该物体是什么；</li>
-<li>图像搜索：在互联网上搜到该图片的信息(在街上拍个照片去搜索，就知道这个图片在什么位置)</li>
-<li>目标检测</li>
-<li>图像分割</li>
-<li>图像生成</li>
-</ul>
-<h3 id="图像分类任务有哪些难点"><a href="#图像分类任务有哪些难点" class="headerlink" title="图像分类任务有哪些难点"></a>图像分类任务有哪些难点</h3><p>跨越语义鸿沟，建立像素到语义的映射</p>
-<ul>
-<li>视角(不同角度看到同一物体是不一样的)</li>
-<li>光照(不同的光照照射到同一物体上反应出来是不一样的)</li>
-<li>尺寸(从不同的距离看物体大小是不一样的)</li>
-<li>遮挡</li>
-<li>形变(比如同一只猫趴着和站着是不一样的)</li>
-<li>背景杂波(在背景和物体有相似性，背景对识别进行了干扰)</li>
-<li>类内形变(同一类物体具有不同的形状，比如各种各样的凳子)</li>
-<li>运动模糊(一个像素记录了多个像素的值)</li>
-<li>类别繁多</li>
-</ul>
-<h3 id="基于规则的编码方式是否可行"><a href="#基于规则的编码方式是否可行" class="headerlink" title="基于规则的编码方式是否可行"></a>基于规则的编码方式是否可行</h3><p>硬编码：把人的理解写成代码，通过硬编码的方法识别物体是一件很困难的事情；</p>
-<h3 id="什么是数据驱动的图像分类范式"><a href="#什么是数据驱动的图像分类范式" class="headerlink" title="什么是数据驱动的图像分类范式"></a>什么是数据驱动的图像分类范式</h3><ul>
-<li>数据集构建(很多猫、狗等的图片和类别标签)</li>
-<li>分类器设计和学习(从数据中学习)</li>
-<li>分类器决策</li>
-</ul>
-<h3 id="图像表示"><a href="#图像表示" class="headerlink" title="图像表示"></a>图像表示</h3><ul>
-<li>像素表示(RGB)</li>
-<li>全局特征表示(如：GIST，从图像中抽出频率特征，适用于大场景)</li>
-<li>局部特征表示(适应于遮挡，用几个区块特征，即使某个区块被遮挡，也可以用别的区块下结论)</li>
-</ul>
-<h3 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h3><ul>
-<li>近邻分类器</li>
-<li>贝叶斯分类器</li>
-<li><strong>线性分类器</strong></li>
-<li>支持向量机分类器</li>
-<li><strong>神经网络分类器</strong></li>
-<li>随机森林</li>
-<li>Adaboost</li>
-</ul>
-<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><ul>
-<li>0-1损失</li>
-<li>多类支持向量机损失</li>
-<li>交叉熵损失</li>
-<li>L1损失</li>
-<li>L2损失</li>
-</ul>
-<h3 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法"></a>优化方法</h3><p>一阶和二阶方法都是迭代优化法。</p>
-<ul>
-<li>一阶优化方法<ul>
-<li><strong>随机下降法</strong></li>
-<li><strong>随机梯度下降</strong></li>
-<li><strong>小批量随机梯度下降</strong></li>
-</ul>
-</li>
-<li>二阶方法<ul>
-<li><strong>牛顿法</strong></li>
-<li>BFGS</li>
-<li>L-BFGS</li>
-</ul>
-</li>
-</ul>
-<h3 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h3><ul>
-<li>数据集划分(训练集、测试集和验证集)</li>
-<li>数据预处理</li>
-<li>数据增强(旋转、裁剪)</li>
-<li>过拟合和欠拟合(过拟合：在数据集上表现很好，在实际中效果很差；欠拟合：怎么训练都不行，模型太简单而事情太复杂，怎么训练都搞不定)<ul>
-<li>减少算法复杂度<ul>
-<li>使用权重正则项</li>
-<li>使用droput正则化</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>超参数调整(超参数：确定的参数，比如神经元层数，个数；参数：训练过程中确定的数)</li>
-<li>模型集成(通过运用多个模型，使系统性能更好)</li>
-</ul>
-<h3 id="常用的分类任务评价指标是什么"><a href="#常用的分类任务评价指标是什么" class="headerlink" title="常用的分类任务评价指标是什么"></a>常用的分类任务评价指标是什么</h3><p>正确率 = 分对的样本数/全部样本数<br>错误率 = 1 - 正确率<br>Top1指标与Top5指标</p>
-<ul>
-<li>top1：分类结果中第一个正确的才是正确的；</li>
-<li>top5:分类结果中前五个有一个正确的才是正确的；</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/31802/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/31802/" class="post-title-link" itemprop="url">Numpy笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-08-18 17:38:36" itemprop="dateCreated datePublished" datetime="2021-08-18T17:38:36+08:00">2021-08-18</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/31802/" class="post-meta-item leancloud_visitors" data-flag-title="Numpy笔记" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/31802/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/31802/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>504</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li><p>两个数组相加</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ya = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">b = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">c = a + b</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成np数组</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">b = np.array(a)</span><br><span class="line">print(b)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成矩阵</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成10*10 元素全为0的矩阵</span></span><br><span class="line">array_one = np.zeros([<span class="number">10</span>,<span class="number">10</span>])</span><br><span class="line">print(array_one)</span><br><span class="line"><span class="comment"># 生成10*10 元素全为1的矩阵</span></span><br><span class="line">array_one = np.ones([<span class="number">10</span>,<span class="number">10</span>]) </span><br><span class="line">print(array_one)</span><br><span class="line"><span class="comment"># 只能生成0，1其余数字error</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成数组</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成一个0～10，每次递增2的数组，不包括10</span></span><br><span class="line">a = np.arange(<span class="number">0</span>,<span class="number">10</span>,<span class="number">2</span>)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>随机数组的创建</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 该函数可以保证生成的随机数具有可预测性，seed里的值相同，生成的随机数相同</span></span><br><span class="line">np.random.seed(<span class="number">10</span>)</span><br><span class="line"><span class="comment"># 均匀分布</span></span><br><span class="line"><span class="comment"># 生成一个范围的整数</span></span><br><span class="line">a = np.random.randint(<span class="number">0</span>,<span class="number">100</span>)</span><br><span class="line"><span class="comment"># 生成一个10*10且范围在0～1内的数</span></span><br><span class="line">b = np.random.rand(<span class="number">10</span>,<span class="number">10</span>)</span><br><span class="line"><span class="comment"># 生成一个范围内的数</span></span><br><span class="line">c = np.random.uniform(<span class="number">0</span>,<span class="number">100</span>)</span><br><span class="line"><span class="comment"># 正态分布</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
 
   
   <nav class="pagination">
@@ -2273,14 +2226,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">98k</span>
+    <span title="站点总字数">104k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:29</span>
+    <span title="站点阅读时长">1:35</span>
   </span>
 </div>
 <div class="busuanzi-count">

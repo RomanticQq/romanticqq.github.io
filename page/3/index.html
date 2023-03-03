@@ -354,7 +354,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -367,7 +367,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -414,6 +414,302 @@ mjx-container[display="true"] + br {
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/63321/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/63321/" class="post-title-link" itemprop="url">YOLOv4</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-24 13:32:21" itemprop="dateCreated datePublished" datetime="2022-05-24T13:32:21+08:00">2022-05-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">深度学习算法</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/63321/" class="post-meta-item leancloud_visitors" data-flag-title="YOLOv4" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/63321/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/63321/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>722</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="Bag-of-freebies-BOF"><a href="#Bag-of-freebies-BOF" class="headerlink" title="Bag of freebies(BOF)"></a>Bag of freebies(BOF)</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524141933.png" alt></p>
+<h4 id="Mosaic-data-augmentation"><a href="#Mosaic-data-augmentation" class="headerlink" title="Mosaic data augmentation"></a>Mosaic data augmentation</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524141948.png" alt></p>
+<p>Mixup：让两张图片的像素值对应相加，生成一张新的图片；</p>
+<p>Cutout：对一张图片的部分进行遮挡；</p>
+<p>CutMix：把多张图片进行缩放，拼接到一张图片上；</p>
+<h4 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524142001.png" alt></p>
+<p>Random Erase：用随机值或训练集的平均像素替换图像的区域；</p>
+<p>Hide and Seek：根据概率设置随机隐藏一些补丁；</p>
+<h3 id="Self-adversarial-training-SAT"><a href="#Self-adversarial-training-SAT" class="headerlink" title="Self-adversarial-training(SAT)"></a>Self-adversarial-training(SAT)</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220609113938.png" alt></p>
+<p>系数要足够小</p>
+<h3 id="DropBlock"><a href="#DropBlock" class="headerlink" title="DropBlock"></a>DropBlock</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220609114052.png" alt></p>
+<p>之前是随机失活一个像素点，但是周围的像素点还存在，其实对整个图像的影响并不大；</p>
+<p>现在随机吃掉一个区域，使网络的性能更好。</p>
+<h3 id="Label-Smoothing"><a href="#Label-Smoothing" class="headerlink" title="Label Smoothing"></a>Label Smoothing</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524142442.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524142625.png" alt></p>
+<p>平滑标签，不让边界感那么强，可以提高图像的识别率；</p>
+<p>这个0.1的系数是自己设置的；</p>
+<h3 id="IOU损失"><a href="#IOU损失" class="headerlink" title="IOU损失"></a>IOU损失</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220609114132.png" alt></p>
+<h3 id="GIOU损失"><a href="#GIOU损失" class="headerlink" title="GIOU损失"></a>GIOU损失</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524142827.png" alt></p>
+<p><strong>重点：</strong>是在不重叠的情况下，预测框向真实框前进，不重叠，不重叠！！！！</p>
+<p>当重叠时，不能反应出来情况的好坏；</p>
+<h3 id="DIOU损失"><a href="#DIOU损失" class="headerlink" title="DIOU损失"></a>DIOU损失</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524143429.png" alt></p>
+<h3 id="CIOU损失"><a href="#CIOU损失" class="headerlink" title="CIOU损失"></a>CIOU损失</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524144750.PNG" alt></p>
+<h3 id="DIOU-NMS"><a href="#DIOU-NMS" class="headerlink" title="DIOU-NMS"></a>DIOU-NMS</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220609114150.png" alt></p>
+<h3 id="SOFT-NMS"><a href="#SOFT-NMS" class="headerlink" title="SOFT-NMS"></a>SOFT-NMS</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524150424.png" alt></p>
+<p>先不直接剔除，而是降低置信度，再给一次机会。</p>
+<h3 id="SPPNet"><a href="#SPPNet" class="headerlink" title="SPPNet"></a>SPPNet</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524150602.png" alt></p>
+<p>虽然输出的图像尺寸大小可能不一样，但是通过最大池化来满足最终输入特征图的大小是一样的。</p>
+<h3 id="CSPNet"><a href="#CSPNet" class="headerlink" title="CSPNet"></a>CSPNet</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524151021.png" alt></p>
+<p>把特征图平均分成两部分，一部分什么都不做，另外一部分经过卷积进行输出，虽然精度上可能有所降低，但是速度上会加快很多，但是结果表现精度可能并没有降低，还有一点点升高。</p>
+<h3 id="CBAM"><a href="#CBAM" class="headerlink" title="CBAM"></a>CBAM</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524151400.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524151814.png" alt></p>
+<p>Channel Attention Module:对不同特征图产生一个概率，这个概率值表示对不同特征图的关注度；</p>
+<p>SAM：对于特征图的不同位置的注意力机制；</p>
+<h3 id="PAN"><a href="#PAN" class="headerlink" title="PAN"></a>PAN</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524151909.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524151930.png" alt></p>
+<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524152214.png" alt></p>
+<h3 id="激活函数MISH"><a href="#激活函数MISH" class="headerlink" title="激活函数MISH"></a>激活函数MISH</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524152239.png" alt></p>
+<h3 id="eliminate-grid-sensitivity"><a href="#eliminate-grid-sensitivity" class="headerlink" title="eliminate grid sensitivity"></a>eliminate grid sensitivity</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524152333.png" alt></p>
+<p>在σ(ty)前加上大于1的系数；</p>
+<h3 id="整体网络架构"><a href="#整体网络架构" class="headerlink" title="整体网络架构"></a>整体网络架构</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220524152605.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/30065/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/30065/" class="post-title-link" itemprop="url">迁移学习的基本策略</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-17 19:04:30" itemprop="dateCreated datePublished" datetime="2022-05-17T19:04:30+08:00">2022-05-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/30065/" class="post-meta-item leancloud_visitors" data-flag-title="迁移学习的基本策略" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/30065/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/30065/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>114</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="迁移学习的基本策略"><a href="#迁移学习的基本策略" class="headerlink" title="迁移学习的基本策略"></a>迁移学习的基本策略</h3><ul>
+<li>构造数据集<ul>
+<li>是否需要对数据进行处理</li>
+</ul>
+</li>
+<li>初始化模型<ul>
+<li>加载原始模型</li>
+</ul>
+</li>
+<li>设置需要冻住的层</li>
+<li>是否需要GPU运算</li>
+<li>设置迭代器和损失函数</li>
+<li>进行训练<ul>
+<li>加载需要迁移学习的模型</li>
+<li>对训练集进行训练</li>
+<li>对验证集进行应该验证</li>
+<li>保存验证集上准确率最高的模型</li>
+<li>保存模型</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1493,293 +1789,6 @@ y=\frac{1}{1+e^{-θx}}</script>
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/1018/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/1018/" class="post-title-link" itemprop="url">YOLOv1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-11-18 21:41:25" itemprop="dateCreated datePublished" datetime="2021-11-18T21:41:25+08:00">2021-11-18</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">深度学习算法</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/1018/" class="post-meta-item leancloud_visitors" data-flag-title="YOLOv1" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/1018/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/1018/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="训练阶段"><a href="#训练阶段" class="headerlink" title="训练阶段"></a>训练阶段</h3><ol>
-<li><p>图片处理成大小为448*448，喂给神经网络模型；</p>
-</li>
-<li><p>经过神经网络后，会输出7 <em> 7 </em> 30大小的矩阵；</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220503124946.png" alt></p>
-</li>
-<li><p>30是指每个grid cell可以预测出两个bbox,每个bbox会有四个参数来表示这个bbox具体的位置和大小，每个框还有一个confidence score参数，共10个参数；另外，每个gird cell可以预测出20个类别的概率，共20个参数；共30个参数；<br>(x1,y1,w1,h1,confidence1,x2,y2,h2,w2,confidence2,…)</p>
-</li>
-<li><p>(x, y)坐标代表bbox的中心相对于网格单元的边界；w,h是相对于整个图像的预测。</p>
-</li>
-<li><p>一个标记框的中心点落在哪个grid cell中，就让哪个gird cell的一个bbox(IOU较大)去拟合这个框，并且这个grid cell输出的类别也应该是正确的类别；</p>
-</li>
-<li><p>每个grid cell只能预测出一个物体，49个grid cell只能预测出49个物体；这也是YOLO v1在预测小目标和密集目标较差的原因；</p>
-</li>
-<li><p>在训练过程中confidence score参数是 IOU和Pr(Object)的乘积，Pr(Object)是指bbox是否是被选中的预测框的概率，非0即1；IOU是某个gird cell的bbox和打标的真是框的面积交并比；</p>
-</li>
-<li><p>每个grid cell预测出的两个bbox,则会产生两个IOU；若该grid cell有预测物体，则选择IOU较大的bbox去拟合；若该grid cell没有预测物体，则confidence score尽可能的小，接近于0；</p>
-</li>
-<li><p>最后一层预测类概率和边界框坐标。我们根据图像的宽度和高度使边界框的宽度和高度标准化，使它们在0和1之间。我们将边界盒和坐标参数化，使其成为特定网格单元格位置的偏移量，因此它们也被限定在0和1之间。</p>
-</li>
-<li><p>损失函数的设计：</p>
-</li>
-</ol>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211118183146.PNG" alt></p>
-<ul>
-<li>带^的数据是真实值；</li>
-<li>λcoord和λnoobj的作用是为了平衡负样本和正样本比例不均衡的问题；</li>
-<li>Ci的标签值非0即1；</li>
-<li>pi的标签值非0即1；</li>
-</ul>
-<ol>
-<li>对于中心点的损失直接用了均方误差，但是对于宽高为什么用了平方根呢？</li>
-</ol>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20211118191016.png" alt></p>
-<p>上图中，蓝色为bounding box，红色框为真实标注，如果W和h没有平方根的话，那么bounding box跟两个真实标注的位置loss是相同的。但是从面积看来B框是A框的25倍，C框是B框的81/25倍。B框跟A框的大小偏差更大，所以不应该有相同的loss。<br>如果W和h加上平方根，那么B对A的位置loss约为3.06，B对C的位置loss约为1.17，B对A的位置loss的值更大，这更加符合我们的实际判断。所以，算法对位置损失中的宽高损失加上了平方根。(参考于<a target="_blank" rel="noopener" href="https://blog.csdn.net/x454045816/article/details/107527326/">https://blog.csdn.net/x454045816/article/details/107527326/</a>)<br><strong>因为平方根对小数据敏感，对大数据不敏感，比如对于根号x，一阶导数随着x的增大而减小</strong></p>
-<h3 id="预测阶段"><a href="#预测阶段" class="headerlink" title="预测阶段"></a>预测阶段</h3><ol>
-<li><p>直接把图片交给神经网络即可输出结果；</p>
-</li>
-<li><p>采用<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33605633/article/details/119713351">NMS非极大值抑制</a>的方法，使低置信度的预测不显示出来；</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image20220503125906.png" alt></p>
-</li>
-<li><p>并不是所有的gird cell的都可以预测出物体的位置；</p>
-</li>
-</ol>
-<p>(参考于<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48200452/article/details/116453893">https://blog.csdn.net/weixin_48200452/article/details/116453893</a>)</p>
-<h3 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h3><p><a target="_blank" rel="noopener" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Redmon_You_Only_Look_CVPR_2016_paper.pdf">YOLO v1</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/abeardear/pytorch-YOLO-v1">代码</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/undefined/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/undefined/" class="post-title-link" itemprop="url">numpy.transpose手算</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-10-26 17:30:18" itemprop="dateCreated datePublished" datetime="2021-10-26T17:30:18+08:00">2021-10-26</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/numpy/" itemprop="url" rel="index"><span itemprop="name">numpy</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/undefined/" class="post-meta-item leancloud_visitors" data-flag-title="numpy.transpose手算" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/undefined/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/undefined/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>321</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>原理解析请看：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012762410/article/details/78912667">点击1</a> <a target="_blank" rel="noopener" href="https://www.freesion.com/article/149821286/">点击2</a></p>
-<h5 id="当是二维时"><a href="#当是二维时" class="headerlink" title="当是二维时"></a>当是二维时</h5><p>直接对矩阵进行转置；</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">array([[<span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">3</span>]])</span><br><span class="line"></span><br><span class="line">transpose后</span><br><span class="line"></span><br><span class="line">array([[<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">3</span>]])</span><br></pre></td></tr></table></figure>
-<h5 id="当是三维时"><a href="#当是三维时" class="headerlink" title="当是三维时"></a>当是三维时</h5><p>交换x,y时：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">A = array([[[ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">            [ <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>]],</span><br><span class="line">            </span><br><span class="line">           [[ <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">            [<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]]])</span><br><span class="line">            </span><br><span class="line">transpose后</span><br><span class="line"></span><br><span class="line">A = array([[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>],</span><br><span class="line">  [ <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span> <span class="number">11</span>]],</span><br><span class="line"></span><br><span class="line"> [[ <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>],</span><br><span class="line">  [<span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span>]]])</span><br><span class="line"><span class="comment"># 可以直接把三维数组看成二维数组，把一个一维数组看成一个数，继续使用二维数组转置的方式即可；</span></span><br></pre></td></tr></table></figure>
-<p>np.transpose(img, (1, 0, 2))操作，可以将图像逆时针翻转90度</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
 
   
   <nav class="pagination">
@@ -1836,14 +1845,14 @@ y=\frac{1}{1+e^{-θx}}</script>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">98k</span>
+    <span title="站点总字数">104k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:29</span>
+    <span title="站点阅读时长">1:35</span>
   </span>
 </div>
 <div class="busuanzi-count">

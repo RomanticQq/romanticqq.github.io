@@ -242,7 +242,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">82</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -302,6 +302,249 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/21594/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/21594/" class="post-title-link" itemprop="url">线性回归模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-19 19:52:26" itemprop="dateCreated datePublished" datetime="2022-04-19T19:52:26+08:00">2022-04-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/21594/" class="post-meta-item leancloud_visitors" data-flag-title="线性回归模型" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/21594/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/21594/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line">x_values = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">11</span>)]</span><br><span class="line">x_train = np.array(x_values, dtype=np.float32)</span><br><span class="line">x_train = x_train.reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">print(x_train.shape)</span><br><span class="line"></span><br><span class="line">y_values = [<span class="number">2</span> * i + <span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> x_values]</span><br><span class="line">y_train = np.array(y_values, dtype=np.float32)</span><br><span class="line">y_train = y_train.reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">print(y_train.shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 线性回归模型(其实线性回归就是一个不加激活函数的全连接层)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearRegressionModel</span>(<span class="params">nn.Module</span>):</span> <span class="comment"># nn.Module父类</span></span><br><span class="line">    <span class="comment"># 前面介绍了如何自定义一个模型——通过继承nn.Module类来实现，</span></span><br><span class="line">    <span class="comment"># 在__init__构造函数中申明各个层的定义，在forward中实现层之间的连接关系，实际上就是前向传播的过程。</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, input_dim, output_dim</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(LinearRegressionModel, self).__init__()</span><br><span class="line">        self.linear = nn.Linear(input_dim, output_dim)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 实例化一个对象中传入对应的参数就可以自动调用forward函数,是在进行前向传播时调用的，而不是在__init__后就直接调用的</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        out = self.linear(x)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># input_dim和output_dim是输入数据的维度和输出数据的维度</span></span><br><span class="line">input_dim = <span class="number">1</span></span><br><span class="line">output_dim = <span class="number">1</span></span><br><span class="line">model = LinearRegressionModel(input_dim, output_dim)</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">1000</span></span><br><span class="line">learning_rate = <span class="number">0.01</span></span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate) <span class="comment"># optimizer 优化器</span></span><br><span class="line"><span class="comment"># 损失函数一般看任务来说吧  分类任务一般都是交叉熵，回归任务一般条件下是MSE</span></span><br><span class="line">criterion = nn.MSELoss()    <span class="comment"># criterion 标准</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">    epoch += <span class="number">1</span></span><br><span class="line">    <span class="comment"># 注意转换成tensor</span></span><br><span class="line">    inputs = torch.from_numpy(x_train)</span><br><span class="line">    labels = torch.from_numpy(y_train)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 梯度要清零每一次迭代</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 前向传播</span></span><br><span class="line">    outputs = model(inputs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算损失</span></span><br><span class="line">    loss = criterion(outputs, labels)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 反向传播</span></span><br><span class="line">    loss.backward()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新权重参数</span></span><br><span class="line">    optimizer.step()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">&quot;epoch &#123;&#125;,loss &#123;&#125;&quot;</span>.<span class="built_in">format</span>(epoch, loss.item()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用模型去预测结果</span></span><br><span class="line">predicted = model(torch.from_numpy(x_train).requires_grad_()).data.numpy()</span><br><span class="line">print(predicted)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/31083/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="RomanticQq">
+      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RomanticQq">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/31083/" class="post-title-link" itemprop="url">小王子-玫瑰片段</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-24 21:13:50" itemprop="dateCreated datePublished" datetime="2021-12-24T21:13:50+08:00">2021-12-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" itemprop="url" rel="index"><span itemprop="name">碎碎念</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/posts/31083/" class="post-meta-item leancloud_visitors" data-flag-title="小王子-玫瑰片段" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/31083/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/31083/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>305</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>小王子遇见了一只狐狸。狐狸告诉小王子，“如果你驯服我，我们便属于彼此。”</p>
+<p>小王子每天在同一个时间来，渐渐地他驯服了狐狸。</p>
+<p>可是小王子却要离开了。</p>
+<p>在小王子要离开的时候，狐狸让他再去看一眼那五千多朵玫瑰。</p>
+<p>小王子回到了玫瑰园。</p>
+<p>他对玫瑰们说，“你们很美丽，但也很空虚，不会有人为你们去死。当然，寻常的路人会认为我的玫瑰花和你们差不多。但她比你们全部加起来还重要，因为我给她浇过水。因为我给她盖过玻璃罩。因为我为她挡过风。因为我为她消灭过毛毛虫。因为我倾听过她的抱怨和吹嘘，甚至有时候也倾听她的沉默。因为她是我的玫瑰。“</p>
+<p>小王子最后与狐狸告了别。</p>
+<p><strong>狐狸告诉了小王子一个秘密：”你的玫瑰之所以如此宝贵，是因为你曾为她付出的时间。“</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1674,506 +1917,10 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/13828/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/13828/" class="post-title-link" itemprop="url">全连接神经网络</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-09-18 16:02:26" itemprop="dateCreated datePublished" datetime="2021-09-18T16:02:26+08:00">2021-09-18</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/13828/" class="post-meta-item leancloud_visitors" data-flag-title="全连接神经网络" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/13828/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/13828/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161320.png" alt></p>
-<h3 id="0-像素表示"><a href="#0-像素表示" class="headerlink" title="0.像素表示"></a>0.像素表示</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161649.png" alt></p>
-<p>如（r1,g1,b1,r2,g2,b2…rn,gn,bn)这样</p>
-<h3 id="1-多层感知机"><a href="#1-多层感知机" class="headerlink" title="1.多层感知机"></a>1.多层感知机</h3><h4 id="全连接神经网络"><a href="#全连接神经网络" class="headerlink" title="全连接神经网络"></a>全连接神经网络</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918161939.png" alt></p>
-<p>max()叫激活函数。</p>
-<p>激活函数不能去掉，去掉就退化成线性分类器。</p>
-<h4 id="全连接神经网络的权值"><a href="#全连接神经网络的权值" class="headerlink" title="全连接神经网络的权值"></a>全连接神经网络的权值</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162041.png" alt></p>
-<p>w1可以看做模板，它可以有比类别数更多的分类，就是一个类别可以有多个模板。</p>
-<p>比如10中类别的动物，w1可以有50中模板甚至更多，即同一类动物可以有多个模板，把与x得到的结果与w2融合，找到最大的，得出结果。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162213.png" alt></p>
-<p>线性分类器的w行数和类别数相同，而全连接神经网络中只需最外层w的行数和类别数相同。</p>
-<h4 id="全连接神经网络与线性不可分"><a href="#全连接神经网络与线性不可分" class="headerlink" title="全连接神经网络与线性不可分"></a>全连接神经网络与线性不可分</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162318.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162404.png" alt></p>
-<p>线性分类器可用于分离线性可分的，但是线性分类器不能把线性不可分的分开，此时就需要有全连接神经网络这样的模型。</p>
-<h4 id="全连接神经网络绘制与命名"><a href="#全连接神经网络绘制与命名" class="headerlink" title="全连接神经网络绘制与命名"></a>全连接神经网络绘制与命名</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918162526.png" alt></p>
-<p>每个x相互独立为单独的输入。</p>
-<h3 id="2-激活函数"><a href="#2-激活函数" class="headerlink" title="2.激活函数"></a>2.激活函数</h3><h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164220.png" alt></p>
-<h4 id="常用的激活函数"><a href="#常用的激活函数" class="headerlink" title="常用的激活函数"></a>常用的激活函数</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164319.png" alt></p>
-<p>sigmoid函数的范围为(0,1);</p>
-<p>tanh函数的范围是(-1,1);而且是中心对称的；</p>
-<h4 id="网络结构设计"><a href="#网络结构设计" class="headerlink" title="网络结构设计"></a>网络结构设计</h4><ol>
-<li><p><strong>用不用隐层，用一个还是用几个隐层？（深度设计）</strong> </p>
-</li>
-<li><p><strong>每隐层设置多少个神经元比较合适？（宽度设计)</strong></p>
-<p>没有确定的答案。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165009.png" alt></p>
-<p>依据分类任务的难易程度来调整神经网络模型的复杂程度。分 类任务越难，我们设计的神经网络结构就应该越深、越宽。但是， 需要注意的是对训练集分类精度最高的全连接神经网络模型，在 真实场景下识别性能未必是最好的（过拟合） 。</p>
-</li>
-</ol>
-<h4 id="全连接神经网络小结"><a href="#全连接神经网络小结" class="headerlink" title="全连接神经网络小结"></a>全连接神经网络小结</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918164808.png" alt></p>
-<h3 id="3-softmax与交叉熵"><a href="#3-softmax与交叉熵" class="headerlink" title="3.softmax与交叉熵"></a>3.softmax与交叉熵</h3><h4 id="softmax函数"><a href="#softmax函数" class="headerlink" title="softmax函数"></a>softmax函数</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165313.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165521.png" alt></p>
-<p>softmax函数是把分类的结果得分转换成各种结果的概率。</p>
-<h4 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h4><p>在此处交叉熵的意义在于衡量两个分布的不相似度。</p>
-<p>计算交叉熵之前要用softmax方法做归一化处理。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165825.png" alt></p>
-<p>相对熵中的p和q是不能交换的，p和q之间不能交距离，只能叫散度，因为二者不满足可交换性。</p>
-<p>熵表示的信息量的大小。</p>
-<p>比如：中国和巴西踢足球，巴西赢的概率为1，平的概率为0，输的概率为0，这种事情没有信息量，确定性极强，熵为0；</p>
-<p>当每种概率都是1/n时，此时熵是最大的，因为结果是不确定的。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918165738.png" alt></p>
-<p>通过熵，交叉熵，相对熵的公式可以看出：<strong>交叉熵=熵+相对熵</strong></p>
-<p>又因为真实分布的熵为0，此时交叉熵等于相对熵。</p>
-<p>因为相对熵又称为KL散度，表示的是两个随机分布之间的差异，且交叉熵等于相对熵，所以可用交叉熵来表示两个随机分布之间的差异。</p>
-<h3 id="4-对比多类支撑向量机损失"><a href="#4-对比多类支撑向量机损失" class="headerlink" title="4.对比多类支撑向量机损失"></a>4.对比多类支撑向量机损失</h3><h4 id="交叉熵损失-vs-多类支撑向量机损失"><a href="#交叉熵损失-vs-多类支撑向量机损失" class="headerlink" title="交叉熵损失 vs 多类支撑向量机损失"></a>交叉熵损失 vs 多类支撑向量机损失</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171843.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171927.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210918171947.png" alt></p>
-<p>很明显，计算出来的交叉熵损失和多类支撑向量机损失的值是不同的。</p>
-<p>采用交叉熵损失训练的结果是，某一项分数高时，还要尽可能去压低其余项的分数；</p>
-<p>采用多类支撑向量机损失训练的结果是，某一项分数高时，只比其余项高出1即可。</p>
-<p>在使用多类支撑向量机损失时，可能会出现loss值几乎没有变但是分类精度却提高了，比如：</p>
-<p>【0.35,0.33,0.32】和【0.33,0.35,0.32】，两则计算出的loss值差距很小，但是分类的结果却完全不同。</p>
-<h3 id="5-计算图与反向传播"><a href="#5-计算图与反向传播" class="headerlink" title="5.计算图与反向传播"></a>5.计算图与反向传播</h3><h4 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h4><p>计算图是一种有向图，它用来表达输入、输出以及中 间变量之间的计算关系，图中的每个节点对应着一种数学运算。</p>
-<p>当多层神经网络时，写出求导后的表达式是不容易的，引入计算图可以实现复杂函数的求导问题。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920150534.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920151419.png" alt></p>
-<p>通过计算图计算某处的值，要知道三点：</p>
-<ol>
-<li>上图中1处的值，即z=x+y处的z值是多少；</li>
-<li>上图中2处求导的表达式，即z^2求导的表达式</li>
-<li>上图中3处的导数的值；</li>
-</ol>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920152101.png" alt></p>
-<h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920152632.png" alt></p>
-<p>总结：</p>
-<ol>
-<li>通过正向计算出各处的值；</li>
-<li>能反向计算是因为有了链式法则；</li>
-<li>反向传播最后一个导数为1，因为f对f求导还是1；</li>
-<li>所求处的梯度=上游梯度*局部梯度；</li>
-<li>上游梯度是指所求处右侧的梯度；局部梯度为所求处右侧圆圈式子里的梯度；</li>
-<li>局部梯度的式子若为+1，即为x+1,若为*-1，即为-x,以此类推；</li>
-</ol>
-<p>存在的问题：因为是相乘操作，当梯度都特别小时，乘着乘着就可能出现梯度消失的情况；</p>
-<h4 id="计算图的颗粒度"><a href="#计算图的颗粒度" class="headerlink" title="计算图的颗粒度"></a>计算图的颗粒度</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920153549.png" alt></p>
-<p>计算图的颗粒度：每一个门可以是一个很复杂的函数，也可以是简单的加减乘除；函数越复杂代表颗粒度越大；</p>
-<p>简单函数的好处是都可以按照基源去操作，坏处是要严格按照链路一步一步去计算；</p>
-<p>复杂的函数颗粒度较大，但计算效率较高；</p>
-<h4 id="计算图中常见的门单元"><a href="#计算图中常见的门单元" class="headerlink" title="计算图中常见的门单元"></a>计算图中常见的门单元</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920154715.png" alt></p>
-<ul>
-<li>加法门：左边每个分支的值都等于右边的值；</li>
-<li>乘法门：两数互换，再相乘；</li>
-<li>拷贝门：左边等于右边的和；</li>
-<li>max门：把右边的值赋给左边最大的，其余为0；</li>
-</ul>
-<h3 id="6-再看激活函数"><a href="#6-再看激活函数" class="headerlink" title="6.再看激活函数"></a>6.再看激活函数</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211644.png" alt></p>
-<h4 id="梯度消失"><a href="#梯度消失" class="headerlink" title="梯度消失"></a>梯度消失</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211751.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920211830.png" alt></p>
-<p>通过观察sigmoid函数和tanh函数的图像可知，当x超出一定值后梯度为0，由于链式法则是相乘的就会出现梯度消失的情况。</p>
-<p>为了解决这一问题就出现了Leakly ReLU函数</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920212056.png" alt></p>
-<p>Leakly ReLU函数在x&gt;0的情况下梯度恒为1，在x&lt;0的情况下恒为0.01；效果较好；</p>
-<h4 id="梯度爆炸"><a href="#梯度爆炸" class="headerlink" title="梯度爆炸"></a>梯度爆炸</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920212429.png" alt></p>
-<p>梯度爆炸会导致错过良好的w值；</p>
-<p>通过限制步长的方法来解决梯度爆炸；</p>
-<h4 id="激活函数选择总结"><a href="#激活函数选择总结" class="headerlink" title="激活函数选择总结"></a>激活函数选择总结</h4><p>尽量选择ReLU函数或者Leakly ReLU函数，相对于Sigmoid/tanh， ReLU函数或者Leakly ReLU函数会让梯度流更加顺畅，训练过程收敛 得更快。</p>
-<p>由于Sigmoid/tanh函数的特性，一般情况下不会在隐层中使用，但可能会用在输出层，把结果控制在某一个范围中。</p>
-<h3 id="7-动量法与自适应梯度-梯度算法的改进"><a href="#7-动量法与自适应梯度-梯度算法的改进" class="headerlink" title="7.动量法与自适应梯度(梯度算法的改进)"></a>7.动量法与自适应梯度(梯度算法的改进)</h3><h4 id="梯度下降算法存在的问题"><a href="#梯度下降算法存在的问题" class="headerlink" title="梯度下降算法存在的问题"></a>梯度下降算法存在的问题</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920213241.png" alt></p>
-<p>当存在多个w时，传统梯度下降算法会在陡峭处w会来回震荡，而平坦处的w优化缓慢；</p>
-<p>仅仅增大步长并不能加快算法收敛的速度，因为w=w-步长*某点处梯度，增加步长会使陡峭的地方震荡幅度增大(因为陡峭处的梯度值的绝对值较大)，平坦的地方进展仍然缓慢(因为平坦处的梯度值的绝对值较小)；</p>
-<h4 id="动量法"><a href="#动量法" class="headerlink" title="动量法"></a>动量法</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920214530.png" alt></p>
-<p>动量是有方向的，梯度也是有方向的；</p>
-<p>在陡峭的地方，梯度方向是不断变化的，当把一定的梯度累加在一起可能是在某一个方向上一个很小的数；在平坦的地方，梯度的方向是一定的，虽然它是一个很小的数，但是累加起来就是一个较大的数，从而实现梯度较快更新的目的；</p>
-<p>动量法累加梯度信息是图中3处，并不是2处，2处是小批量随机梯度下降算法的累加；</p>
-<p>动量系数u控制历史信息是不是要被衰减；</p>
-<p>若u=0时就退化成梯度下降算法；若u=1时就会不断的加大历史的影响，即v=v+g,即使梯度下降算法走到平坦的区域(g=0)时，v仍然不等于0，那么权值会仍然更新下去，但若v=0.9时，v=0.9v，一定次数后v的值将会非常小。</p>
-<p>u的值一般使用0.9；</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920215559.png" alt></p>
-<p>因为鞍点和局部最小值点的导数都为0，又因为w=w-步长*导数，则w更新不动了，此时通常就认为收敛了，但这是不对的；</p>
-<p>加入动量以后，即使局部梯度为0，即g=0,但是v=uv+g不为0，并不会马上停止更新，此时就有可能冲出局部最小点或鞍点 ，找到更优的解。</p>
-<h4 id="自适应梯度与RMSProp"><a href="#自适应梯度与RMSProp" class="headerlink" title="自适应梯度与RMSProp"></a>自适应梯度与RMSProp</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920220019.png" alt></p>
-<p>自适应梯度算法就是在陡峭的地方用小步长，在平坦的地方用大步长。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920221036.png" alt></p>
-<p> 通过计算梯度平方和找出震荡方向和平坦方向，在4中表达式可以看出较大的r学习率较小，较小的r学习率较大，从而达到减少震荡更快达到谷底的目的。</p>
-<p>存在问题：因为r一直在累加，当加到很大时，学习率就会趋近于0，失去调节作用；</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210920220101.png" alt></p>
-<p>RMSProp解决了AdaGrad存在的问题，因为r前面存在ρ,当r加到一定的次数，前面的r就会衰减变得非常小，进而保证r的值永远不会很大。</p>
-<p>ρ=0时，仅仅考虑当前梯度的强度；</p>
-<p>ρ=1时，r=r，又r初始为0，显示不可能；</p>
-<p>ρ一般取0.999；</p>
-<p>保留的次数越多，p的值就应该越大，例如：保留一百个数p的值应为0.99(1-1/100=0.99),可以此类推(只是大概而已)；</p>
-<h4 id="ADAM"><a href="#ADAM" class="headerlink" title="ADAM"></a>ADAM</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921163331.png" alt></p>
-<p>ADAM是动量法和自适应梯度下降算法的结合；</p>
-<p>图中3处体现了动量法，图中4处体现了自适应梯度下降算法，图中5处解决了程序初期的冷启动问题；</p>
-<p>图中5处解决程序刚开始运行时的冷启动问题：当第一次执行程序，u=0.9，v=0,t=1时:图中3处v=0.1g，若此时去更新梯度则实际步长是非常小的，更新较慢，在图中5处进行修正偏差，u=0.9,t=1此时修正后的v=g,从而解决了程序刚开始执行时梯度更新较慢的问题，随着t的增大，u的t次方趋近于0，从而修正偏差逐渐失去作用，不会对开始一段时间后的更新产生影响；r的更新同理。</p>
-<p>t代表程序第t次执行；</p>
-<p>一般情况下，u=0.9,ρ=0.999，这两个是经验值，可以直接用。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>动量法：采用累加梯度的思想，降低陡峭处w的变化幅度，增强平坦处w的变化幅度；</p>
-<p>自适用梯度和RMSProp：自适应梯度算法的思想是减小陡峭处的步长，增大平坦处的步长，从而提高优化效率，但是存在问题(因为r一直在累加增大，当r太大时，就会对步长失去调节作用)，为解决这个问题就出现了RMSProp算法，它通过给r设置衰减系数的方法，从而防止r的值不会变的很大。</p>
-<p>ADAM：ADAM算法是动量法和自适用梯度算法的结合，又加入了修正偏差，解决了冷启动问题(程序刚开始执行时，梯度更新较慢)。</p>
-<p>在一般情况下使用ADAM算法，但是它没有动量法+小批量梯度下降算法手动调优的效果好。ADAM算法在大部分任务下可以速度很快。</p>
-<p>在实际使用过程中，有可能先用ADAM算法初始学习一下，学不动了用动量法+SGD手动调；也有可能先用动量法+SGD先学习一下，然后用ADAM做后面的加速。</p>
-<h3 id="8-权值初始化"><a href="#8-权值初始化" class="headerlink" title="8.权值初始化"></a>8.权值初始化</h3><h4 id="全零初始化"><a href="#全零初始化" class="headerlink" title="全零初始化"></a>全零初始化</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202104.png" alt></p>
-<p>全零初始化会使不同的神经元有相同的输出，不能进行正向传播和反向传播；</p>
-<h4 id="随机权值初始化"><a href="#随机权值初始化" class="headerlink" title="随机权值初始化"></a>随机权值初始化</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202149.png" alt></p>
-<p>如采用较小的随机正态分布采样，通过双曲正切激活函数的图像可知，激活后几乎所有值趋近于0，在经过激活函数所有值就为0，在后面的隐层不能进行正向传播；</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202213.png" alt></p>
-<p>如采用较大的随机正态分布采样，通过双曲正切激活函数的图像可知，激活后几乎所有值趋近于1和-1，此时局部神经元梯度为0，不能进行反向传播；</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202249.png" alt></p>
-<h4 id="Xavier初试化"><a href="#Xavier初试化" class="headerlink" title="Xavier初试化"></a>Xavier初试化</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202313.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202338.png" alt></p>
-<p>(此处公式推导的原理还不明白)</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202412.png" alt></p>
-<p>N为输入的神经元个数；</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202431.png" alt></p>
-<h4 id="HE初始化"><a href="#HE初始化" class="headerlink" title="HE初始化"></a>HE初始化</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202452.png" alt></p>
-<h4 id="权值初始化小结"><a href="#权值初始化小结" class="headerlink" title="权值初始化小结"></a>权值初始化小结</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210921202518.png" alt></p>
-<h3 id="9-批归一化"><a href="#9-批归一化" class="headerlink" title="9.批归一化"></a>9.批归一化</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925140653.png" alt></p>
-<p>批归一化就是把输入先调整成0均值1方差的样子，然后再调整成与输入具有相同的分布。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925141101.png" alt></p>
-<p>批归一化在非线性激活之前。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925141157.png" alt></p>
-<p>γ和β是参数，是通过训练得到的；</p>
-<p>经过减均值，除方差后，数据会集中在均值两侧，此时梯度较好，几乎不会出现为0的情况；</p>
-<p>批归一化的作用是使数据集中在激活函数的中间位置，使梯度不会出现为0的情况；</p>
-<h3 id="10-欠拟合、过拟合与Dropout"><a href="#10-欠拟合、过拟合与Dropout" class="headerlink" title="10.欠拟合、过拟合与Dropout"></a>10.欠拟合、过拟合与Dropout</h3><h4 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h4><p>过拟合——是指学习时选择的模型所包含的参数过多，以至于出现这一模 型对已知数据预测的很好，但对未知数据预测得很差的现象。这种情况下 模型可能只是记住了训练集数据，而不是学习到了数据特征。 </p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925142720.png" alt></p>
-<p>一般当出现在验证集上误差增大时即为训练最优状态。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925142825.png" alt></p>
-<h5 id="调节模型大小"><a href="#调节模型大小" class="headerlink" title="调节模型大小"></a>调节模型大小</h5><p>调节模型的宽度和深度；</p>
-<h5 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h5><p>L2正则损失对于大数值的权值向量进行严厉惩罚，鼓励更加分散的权重向量， 使模型倾向于使用所有输入特征做决策，此时的模型泛化性能好；</p>
-<p>使分界面变得平滑，不那么复杂；</p>
-<h5 id="随机失活"><a href="#随机失活" class="headerlink" title="随机失活"></a>随机失活</h5><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925143511.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925143602.png" alt></p>
-<p>随机失活鼓励权值分散，因为当某些较大的权值被失活时就可能造成神经网络的瘫痪。</p>
-<p>解释三：Dropout可以看作模型的集成，因为随机失活，每个随机失活剩余的模型就不同(则可以看作多个模型的集成)，可能会出现不同的分类结果，可以找到分类结果出现最多的那次(相当于投票)。</p>
-<h4 id="欠拟合"><a href="#欠拟合" class="headerlink" title="欠拟合"></a>欠拟合</h4><p>欠拟合——模型描述能力太弱，以至于不能很好地学习到数据中的规律。 产生欠拟合的原因通常是模型过于简单。</p>
-<h3 id="11-模型正则与超参数优化"><a href="#11-模型正则与超参数优化" class="headerlink" title="11.模型正则与超参数优化"></a>11.模型正则与超参数优化</h3><h4 id="神经网络中的超参数"><a href="#神经网络中的超参数" class="headerlink" title="神经网络中的超参数"></a>神经网络中的超参数</h4><ul>
-<li><p>网络结构——隐层神经元个数，网络层数，非线性单元选择等；</p>
-</li>
-<li><p>优化相关——学习率、dropout比率、正则项强度等；</p>
-</li>
-</ul>
-<h4 id="学习率设置"><a href="#学习率设置" class="headerlink" title="学习率设置"></a>学习率设置</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145211.png" alt></p>
-<h4 id="参数优化方法"><a href="#参数优化方法" class="headerlink" title="参数优化方法"></a>参数优化方法</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145300.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145343.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145404.png" alt></p>
-<h4 id="超参数的标尺空间"><a href="#超参数的标尺空间" class="headerlink" title="超参数的标尺空间"></a>超参数的标尺空间</h4><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210925145439.png" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://romanticqq.top/posts/51215/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="RomanticQq">
-      <meta itemprop="description" content="种一棵树最好的时间是十年前,其次是现在!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RomanticQq">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/51215/" class="post-title-link" itemprop="url">线性分类器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-09-16 16:38:59" itemprop="dateCreated datePublished" datetime="2021-09-16T16:38:59+08:00">2021-09-16</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-08-27 19:47:39" itemprop="dateModified" datetime="2022-08-27T19:47:39+08:00">2022-08-27</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/posts/51215/" class="post-meta-item leancloud_visitors" data-flag-title="线性分类器" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/51215/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/51215/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84.PNG" alt></p>
-<h3 id="图像表示"><a href="#图像表示" class="headerlink" title="图像表示"></a>图像表示</h3><p>将图像转换成向量的方法有很多，最直接的方法是将图像矩阵转换成向量<br>图像类型</p>
-<ul>
-<li>二进制图像(非黑即白)</li>
-<li>灰度图像(一个像素由一个bit表示，取值范围0~255；图像的像素取值范围都是0~255，最黑是0，最白是255)</li>
-<li>彩色图像(每个像素点有3个值，即有3个bit，分别记录R、G、B)</li>
-</ul>
-<h3 id="线性分类器"><a href="#线性分类器" class="headerlink" title="线性分类器"></a>线性分类器</h3><ul>
-<li>线性分类器是一种线性映射，将输入的图像特征映射为类别分数</li>
-<li>有n类图像就有n个w,b,即每类图像都有自己的w,b</li>
-<li>把图片放入得到n个分数，分数最大的即为结果<br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/%E5%88%86%E7%B1%BB%E5%99%A8%E7%A4%BA%E4%BE%8B.PNG" alt="11111"><br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E7%9A%84%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA.PNG" alt></li>
-</ul>
-<h3 id="为什么从线性分类器开始"><a href="#为什么从线性分类器开始" class="headerlink" title="为什么从线性分类器开始"></a>为什么从线性分类器开始</h3><ul>
-<li>形状简单，易于理解</li>
-<li>通过层级结构（神经网络）或则高维映射（支持向量机）可以形成功能强大的非线性模型</li>
-</ul>
-<h3 id="线性分类器的权值"><a href="#线性分类器的权值" class="headerlink" title="线性分类器的权值"></a>线性分类器的权值</h3><p>把w放入一个32 <em> 32 </em> 3的矩阵中，把其中的值规划到0~255之间，生成的图片和目标图片很相似；w记录了该类别信息的平均值，当物体和w越像的时候，他们之间的点乘值就是一个很大的值。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210915092707.PNG" alt></p>
-<h3 id="线性分类器的分界面"><a href="#线性分类器的分界面" class="headerlink" title="线性分类器的分界面"></a>线性分类器的分界面</h3><ul>
-<li>分数等于0的面试决策面</li>
-<li>在分界面的正方向，离分界面越远正确率越高(或把x代入wx+b中，得分越高正确率越高)</li>
-</ul>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210915095046.PNG" alt></p>
-<p><em>当判断分类器的分类效果时，需要损失函数来帮忙</em></p>
-<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>损失函数搭建了模型性能与模型参数之间的桥梁，指导模型参数优化。</p>
-<ul>
-<li>损失函数是一个函数，用于度量给定分类器的预测值与真实值的不一致程度，其输出通常是一个非负实数</li>
-<li>其输出的非负实数值可以作为反馈信号来对分类器参数进行调整，以降低当前示例对应的损失值，提升分类器的分类效果</li>
-<li>损失为平均损失<br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210915100351.PNG" alt></li>
-</ul>
-<h3 id="多类支持向量机损失"><a href="#多类支持向量机损失" class="headerlink" title="多类支持向量机损失"></a>多类支持向量机损失</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210915100637.PNG" alt><br>用n个w,b对同一样本进行预测得到n个数，把wi,bi预测出的syi除外，拿syi与其他预测值比较，若syi比其他测试值大1，则损失函数为0，否则通过上图公式进行计算；<br>1为限定的边界值，一般取1；<br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210915100815.PNG" alt><br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210915100825.PNG" alt></p>
-<h3 id="问题抢答"><a href="#问题抢答" class="headerlink" title="问题抢答"></a>问题抢答</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210915160643.PNG" alt></p>
-<ol>
-<li>最小是0；最大可能是正无穷；</li>
-<li>损失L可能是n-1，即分类数-1；因为当w,b非常接近于0时，Li的值为n-1,有n个n-1，则L近似为n-1;</li>
-<li>Li的值会+1，对训练结果没有影响；</li>
-<li>可以代替，因为求和是平均n的倍数，损失大的还是大，损失小的还是小；</li>
-<li>使用平方会可能会对训练结果产生影响；</li>
-</ol>
-<h3 id="正则项和超参数"><a href="#正则项和超参数" class="headerlink" title="正则项和超参数"></a>正则项和超参数</h3><p>问题：假设存在一个w使损失函数为0，这个w是唯一的吗？<br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916144101.png" alt><br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916144157.png" alt><br>这个时候就引入了正则项。<br>正则项<br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916163744.png" alt><br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916144626.png" alt><br>正则项的三个作用</p>
-<ul>
-<li>让解唯一</li>
-<li>让模型有了偏好</li>
-<li>抵抗过拟合(防止只在训练集在学习的太好)<br>常用的正则项损失函数<br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916144725.png" alt><br>Elastic net(L1+L2)是弹性网络正则，即L1和L2组合起来的。<br>超参数<br>是在训练之前自己设置的，而不是在训练过程中学习优化得到的。<br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916163712.png" alt></li>
-</ul>
-<h3 id="什么是参数优"><a href="#什么是参数优" class="headerlink" title="什么是参数优"></a>什么是参数优</h3><p>参数优化<br>参数优化是利用损失函数的输出值作为反馈信号来调整分类器参数，以提升分类器对训练样本的预测能力。<br>优化目标<br>损失函数L是一个与参数w有关的函数，优化的目标就是找到损失函数L达到最优的那组w。</p>
-<h3 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h3><p>梯度下降算法<br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916150158.png" alt><br><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916150433.png" alt><br>梯度下降算法的下降过程如L,w坐标图所示，我们可以理解任意一个w都对应一个L,我们从模型上的任意一点开始，若它在单调递减区间，那么它在这一点的梯度方向是向左上的，且导数为负数，因为我们要向负梯度方向移动，即向右下方向，此时随着w的增加L值减小；同理当L在单调增区间时，梯度的值为正，则L随着w的不断减少而减少。</p>
-<p>更新权值的计算公式：新权值 = 老权值 - 学习率(步长) * 权值的梯度；</p>
-<p>梯度计算方法的比较</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916163626.png" alt></p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916150635.png" alt></p>
-<p>数值梯度:近似，慢，易写</p>
-<p>解析梯度：精确，快，易错</p>
-<p>数值梯度的作用：求梯度时一般是用的是解析梯度，而数值梯度主要用于解析梯度正确性的校验(梯度检查)；若两者的计算结果非常接近，则说明在这部分代码从应该没有问题。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916163548.png" alt></p>
-<p>采用梯度下降法，是把所有的样本计算一次才更新一次w,计算量较大，且效率较低。</p>
-<p>随机梯度下降法</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916153139.png" alt></p>
-<p>方法1：有一百万个样本，算完了一百万个样本更新一次w，更新一百万次w;</p>
-<p>方法2：有一百万个样本，每个样本更新一次，更新一百万次w;</p>
-<p>那么方法2肯定比方法1好，起码速度上比较快，精确上也接近；</p>
-<p>因此，在样本N很大时，权值的梯度计算量很大，下降很慢，改进方法就是采用随机梯度下降法，因为每次只采用有一个样本，梯度更新会更快。</p>
-<p>但是就会出现问题：如果有些样本是噪声，那梯度方向会不会沿着反方向走？</p>
-<p>随机梯度下降法是每次随机挑选一个样本去更新w,虽然单个样本可能使L向增大的方向走，但大部分样本会让我们整体是一个往下走的方式。</p>
-<p>小批量梯度下降算法</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916154442.png" alt></p>
-<p>epoch：1个epoch表示用过了一个训练集中的所有样本(并不是所有样本都用过了，而是所用的样本总数达到了N)；</p>
-<p>100次迭代每次用100个样本和1000次迭代每次用10个样本，这两则对样本的利用率是一样的；</p>
-<p>梯度下降算法总结</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916155907.png" alt></p>
-<h3 id="数据集划分"><a href="#数据集划分" class="headerlink" title="数据集划分"></a>数据集划分</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916160021.png" alt></p>
-<p>训练集用于对参数的训练，当模型中有超参数时，通过验证集把超参数给选择出来，并通过测试集去测试模型的泛化能力；当对参数和超参数确定的过程中，测试集对模型是不可见的。</p>
-<p><em>当数据太少，那么验证集所包含的样本就很少，从而无法统计上代表的数据</em></p>
-<h3 id="K折验证和重复的K折验证"><a href="#K折验证和重复的K折验证" class="headerlink" title="K折验证和重复的K折验证"></a>K折验证和重复的K折验证</h3><p>举例：在区分男女的模型中，拿10%的数据作为验证集，且这部分数据都是女生；模型1对男女的区别的正确率都是90%，模型2对男生的正确区分率是0%，对女生的正确区分率是100%；那么结果就会表现出模型2是优秀的，但实际上并不是。</p>
-<p>K折验证</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916163357.png" alt></p>
-<p>重复的K折验证</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916161342.png" alt></p>
-<p>K就是分的块数，常用5折和10折；当大量数据时，一般取5%作为验证集，则不再做交叉验证。</p>
-<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916164132.png" alt></p>
-<p>去均值后的数据：去均值就是把数据归到中心来，训练数据时看的是相对差值而不是绝对差值，保证数据不会受到数据范围的影响。</p>
-<p>归一化后的数据：保证数据不会受到量纲的影响。</p>
-<p><img src="https://myforpicgo.oss-cn-beijing.aliyuncs.com/image/20210916164208.png" alt></p>
-<p>去相关：让数据独立出来；能尽量减少某些在维度上没有变化的数据，这些数据就不考虑了；</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2226,7 +1973,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">104k</span>
+    <span title="站点总字数">105k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
